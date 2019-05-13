@@ -1,20 +1,26 @@
-package principal;
+package model;
 
 public class Ponto{
-	private int numero;
+	private int id = 0;
 	private String endereco;
-
-    public Ponto(int numero, String endereco){
-        this.numero = numero;
+	
+    public Ponto(int id, String endereco){
+        this.id = id;
         this.endereco = endereco;
     }
+    public Ponto(String endereco){
+        this.endereco = endereco;
+    }
+    public Ponto() {
+    	
+    }
 
-	public int getNumero() {
-		return numero;
+	public int getId() {
+		return id;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getEndereco() {

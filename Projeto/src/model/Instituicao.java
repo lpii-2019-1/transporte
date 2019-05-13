@@ -4,19 +4,19 @@ public class Instituicao{
     private int id = 0;
     private String nome;
     private String telefone;
-    private String email;
+    private String endereco;
 
-    public Instituicao(int id, String nome, String telefone, String email){;
+    public Instituicao(int id, String nome, String telefone, String endereco){;
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
-        this.email = email;
+        this.endereco = endereco;
     }
 
-    public Instituicao(String nome, String telefone, String email){;
+    public Instituicao(String nome, String telefone, String endereco){;
         this.nome = nome;
         this.telefone = telefone;
-        this.email = email;
+        this.endereco = endereco;
     }
     public Instituicao(){
     	
@@ -43,10 +43,10 @@ public class Instituicao{
   		  this.telefone = telefone;
   	}
 
-  	public String getEmail() {
-  		  return email;
+  	public String getEndereco() {
+  		  return endereco;
   	}
-  	public void setEmail(String email) {
-  		  this.email = email;
+  	public void setEndereco(String endereco) {
+  		  this.endereco = endereco;
   	}   
 }

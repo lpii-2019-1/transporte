@@ -1,39 +1,32 @@
-package principal;
+package model;
 
-import java.sql.Time;
 
 public class Turno{
-    private String turno;
-    private String hrPrimeiroPonto;
-    private String hrRetorno;
-
-    public Turno(String turno, String horaPP, String horaR){
-        this.turno = turno;
-        this.hrPrimeiroPonto = horaPP;
-        this.hrRetorno = horaR;
+	private int id = 0;
+    private String turno;   
+    
+    public Turno(int id, String turno){
+    	this.id = id;
+        this.turno = turno;  
+    }
+    public Turno(String turno){
+        this.turno = turno;  
+    }
+    public Turno(){
+    	
     }
 
-	public String getTurno() {
-		return turno;
+	public int getId() {
+		return this.id;
 	}
-
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getTurno() {
+		return this.turno;
+	}
 	public void setTurno(String turno) {
 		this.turno = turno;
-	}
-
-	public String getHrPrimeiroPonto() {
-		return hrPrimeiroPonto;
-	}
-
-	public void setHrPrimeiroPonto(String hrPrimeiroPonto) {
-		this.hrPrimeiroPonto = hrPrimeiroPonto;
-	}
-
-	public String getHrRetorno() {
-		return hrRetorno;
-	}
-
-	public void setHrRetorno(String hrRetorno) {
-		this.hrRetorno = hrRetorno;
 	}
 }

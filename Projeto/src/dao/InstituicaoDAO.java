@@ -19,11 +19,11 @@ public class InstituicaoDAO {
 
     public boolean inserirInstituicao(Instituicao instituicao){
         try {
-            String sql = "INSERT INTO instituicao (nome, telefone, email) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO instituicao (nome, telefone, endereco) VALUES (?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, instituicao.getNome());
             this.stmt.setString(2, instituicao.getTelefone());
-            this.stmt.setString(3, instituicao.getEmail());
+            this.stmt.setString(3, instituicao.getEndereco());
             this.stmt.execute();
             this. stmt.close();
             return true;
@@ -54,8 +54,8 @@ public class InstituicaoDAO {
 		return this.editarInstituicao("telefone", instituicao.getTelefone(), instituicao.getId());
 	}
 
-	public boolean editarEmail(Instituicao instituicao){
-		return this.editarInstituicao("email", instituicao.getEmail(), instituicao.getId());
+	public boolean editarEndereco(Instituicao instituicao){
+		return this.editarInstituicao("endereco", instituicao.getEndereco(), instituicao.getId());
 	}
 
 	public boolean editarIdCidade(Instituicao instituicao, Cidade cidade){
@@ -104,20 +104,20 @@ public class InstituicaoDAO {
 		return this.consutarInstituicoes("telefone", instituicao.getTelefone()).get(0);
 	}
 
-	public Instituicao consultarEmail(Instituicao instituicao){
-		return this.consutarInstituicoes("email", instituicao.getEmail()).get(0);
+	public Instituicao consultarEndereco(Instituicao instituicao){
+		return this.consutarInstituicoes("endereco", instituicao.getEndereco()).get(0);
 	}
-	public Instituicao consultarTudo(Instituicao instituicaoSet){
+	public Instituicao consultarTudo(Instituicao instituicaoSel){
 		try {
-			String sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND email = ?";
+			String sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?";
 			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setString(1, instituicaoSet.getNome());
-			this.stmt.setString(2, instituicaoSet.getTelefone());
-			this.stmt.setString(3, instituicaoSet.getEmail());
+			this.stmt.setString(1, instituicaoSel.getNome());
+			this.stmt.setString(2, instituicaoSel.getTelefone());
+			this.stmt.setString(3, instituicaoSel.getEndereco());
             ResultSet rs = stmt.executeQuery();
             Instituicao instituicao = new Instituicao();
             if(rs.next()) {
-            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("email"));
+            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
             }
             this.stmt.close();
             return instituicao;
@@ -155,10 +155,16 @@ public class InstituicaoDAO {
 			String sql = "SELECT * FROM instituicao";
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = this.stmt.executeQuery();
+            boolean aux = true; 
             ArrayList<Instituicao> instituicoes = new ArrayList<Instituicao>();
+            Instituicao instituicao = new Instituicao();
             while(rs.next()) {
-                Instituicao instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("email"));
+                aux = false;
+            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
                 instituicoes.add(instituicao);
+            }
+            if(aux) {
+            	instituicoes.add(instituicao);
             }
             this.stmt.close();
             return instituicoes;
@@ -166,6 +172,24 @@ public class InstituicaoDAO {
             throw new RuntimeException(e);
         }
 	}
+	
+	public Instituicao consultarId(int id){
+		try {
+			String sql = "SELECT * FROM ponto WHERE id = ?";
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Instituicao instituicao = new Instituicao();
+            if(rs.next()) {
+            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
+            }
+            this.stmt.close();
+            return instituicao;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
 	public boolean excluirInstituicao(Instituicao instituicao){
         try {
             String sql = "DELETE instituicao WHERE id = ?";
