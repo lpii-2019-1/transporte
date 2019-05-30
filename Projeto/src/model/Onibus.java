@@ -9,6 +9,7 @@ public class Onibus {
 	public String motorista;
 	public double mensalidade;
 	public ArrayList<Rota> rotas;
+	private int validacao = 0;
 		
 	public Onibus(int id, String placa, String cor, String motorista, double mensalidade) {
 		this.id = id;
@@ -71,5 +72,11 @@ public class Onibus {
 	
 	public void inserirRota(Rota rota) {
 		this.rotas.add(rota);
+	}
+	public int getValidacao() {
+		return validacao;
+	}
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
 	}
 }

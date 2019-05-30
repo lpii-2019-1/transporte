@@ -158,31 +158,6 @@ public class OnibusDAO {
         }
 	}
 	
-	public ArrayList<Rota> listarRotas(Onibus onibus) {
-		try {
-			String sql = "SELECT * FROM onibus_has_rota WHERE id_onibus = ?";
-			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setInt(1, onibus.getId());
-            ResultSet rs = stmt.executeQuery();
-            boolean aux = true;
-            ArrayList<Rota> rotas = new ArrayList<Rota>();
-            Rota rota = new Rota();
-            RotaDAO rDAO = new RotaDAO();
-            while(rs.next()) {
-            	aux = false;
-            	rota = rDAO.consultarId(rs.getInt("id_rota"));
-            	rotas.add(rota);
-            }
-            if(aux) {
-            	rotas.add(rota);
-            }
-            this.stmt.close();
-            return rotas;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-	}
-	
 	public boolean excluirHorario(Horario horario){
         try {
             String sql = "DELETE horario WHERE id = ?";

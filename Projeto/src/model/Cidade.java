@@ -10,6 +10,7 @@ public class Cidade{
     private String cep;
     private String uf;
     private ArrayList<Instituicao> instituicoes = new ArrayList<>();
+    private int validacao = 0;
 
     public Cidade(String nome, String cep, String uf){
         this.setNome(nome);
@@ -72,6 +73,12 @@ public class Cidade{
 		//index =	this.instituicoes.indexOf(this.instituicoes.get(a).getNome());
 	
 		return this.instituicoes.get(a);
+	}
+	public int getValidacao() {
+		return validacao;
+	}
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
 	}
 	
 }

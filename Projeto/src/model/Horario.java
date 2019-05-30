@@ -8,7 +8,8 @@ public class Horario {
 	private int id = 0;
 	private Date hrSaidaPrimeiroPonto = new Date();
 	private Date hrRegresso = new Date();
-    public SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+    public SimpleDateFormat formatoDate = new SimpleDateFormat("HH:mm");
+    private int validacao = 0;
     
     public Horario(int id, String hrSaidaPrimeiroPonto, String hrRegresso){
     	this.id = id;
@@ -59,6 +60,12 @@ public class Horario {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+	public int getValidacao() {
+		return validacao;
+	}
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
 	}
 
 }

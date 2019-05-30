@@ -4,6 +4,7 @@ public class Percurso {
 	public int id = 0;
 	public int ordem = 0;
 	public String descricao;
+	private int validacao = 0;
 	
 	public Percurso(int id, int ordem, String descricao) {
 		this.id = id;
@@ -37,5 +38,11 @@ public class Percurso {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	public int getValidacao() {
+		return validacao;
+	}
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
 	}
 }

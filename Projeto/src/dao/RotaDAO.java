@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import conexao.Conexao;
-import model.Horario;
 import model.Instituicao;
-import model.Percurso;
+import model.Onibus;
 import model.Ponto;
 import model.Rota;
 
@@ -54,6 +53,22 @@ public class RotaDAO {
 	public boolean editarFim(Rota rota){
 		return this.editarRota("fim", rota.getFim(), rota.getId());
 	}
+	public boolean editarPercurso(Rota rota){
+		return this.editarRota("fim", rota.getPercurso(), rota.getId());
+	}
+	public boolean editarIdOnibus(Onibus onibus, Rota rota){
+        try {
+            String sql = "UPDATE rota SET id_onibus = ? WHERE id = ?";
+        	this.stmt = this.conexao.prepareStatement(sql);
+        	this.stmt.setInt(1, onibus.getId());
+        	this.stmt.setInt(2, rota.getId());
+        	this.stmt.execute();
+        	this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	private ArrayList<Rota> consultarRota(String campo, String valor){
 		try {
@@ -99,6 +114,31 @@ public class RotaDAO {
             }
             this.stmt.close();
             return rota;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
+	public ArrayList<Rota> consultarIdOnibus(Onibus onibus) {
+		try {
+			String sql = "SELECT * FROM rota WHERE id_onibus = ?";
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setInt(1, onibus.getId());
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            ArrayList<Rota> rotas = new ArrayList<Rota>();
+            Rota rota = new Rota();
+            RotaDAO rDAO = new RotaDAO();
+            while(rs.next()) {
+            	aux = false;
+            	rota = rDAO.consultarId(rs.getInt("id_rota"));
+            	rotas.add(rota);
+            }
+            if(aux) {
+            	rotas.add(rota);
+            }
+            this.stmt.close();
+            return rotas;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -152,31 +192,6 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Percurso> listarPercursos(Rota rota){
-		try {
-			String sql = "SELECT * FROM rota_has_percurso WHERE id_rota = ?";
-			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setInt(1, rota.getId());
-            ResultSet rs = stmt.executeQuery();
-            boolean aux = true;
-            ArrayList<Percurso> percursos = new ArrayList<Percurso>();
-            Percurso percurso = new Percurso();
-            PercursoDAO pDAO = new PercursoDAO();
-            while(rs.next()) {
-            	aux = false;
-            	percurso = pDAO.consultarId(rs.getInt("id_percurso"));
-            	percursos.add(percurso);
-            }
-            if(aux) {
-            	percursos.add(percurso);
-            }
-            this.stmt.close();
-            return percursos;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-	}
-	
 	public ArrayList<Instituicao> listarInstituicoes(Rota rota){
 		try {
 			String sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
@@ -202,31 +217,6 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Horario> listarHorarios(Rota rota){
-		try {
-			String sql = "SELECT * FROM rota_has_horario WHERE id_rota = ?";
-			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setInt(1, rota.getId());
-            ResultSet rs = stmt.executeQuery();
-            boolean aux = true;
-            ArrayList<Horario> horarios = new ArrayList<Horario>();
-            Horario horario = new Horario();
-            HorarioDAO hDAO = new HorarioDAO();
-            while(rs.next()) {
-            	aux = false;
-            	horario = hDAO.consultarId(rs.getInt("id_instituicao"));
-            	horarios.add(horario);
-            }
-            if(aux) {
-            	horarios.add(horario);
-            }
-            this.stmt.close();
-            return horarios;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-	}
-	
 	public boolean excluirRota(Rota rota){
 		try {
 			String sql = "DELETE rota WHERE id = ?";
@@ -238,5 +228,29 @@ public class RotaDAO {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public ArrayList<Rota> buscarPercursos(String busca){
+		try {
+			String sql = "SELECT * FROM rota WHERE LIKE(?)";
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setString(1, busca);
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            ArrayList<Rota> rotas = new ArrayList<Rota>();
+            Rota rota = new Rota();
+            while(rs.next()) {
+            	aux = false;
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"));
+            	rotas.add(rota);
+            }
+            if(aux) {
+            	rotas.add(rota);
+            }
+            this.stmt.close();
+            return rotas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 	}
 }

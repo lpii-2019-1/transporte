@@ -7,9 +7,10 @@ public class Rota{
     private String inicio;
     private String fim;
     private ArrayList<Ponto> pontos = new ArrayList<Ponto>();
-    private ArrayList<Percurso> percursos = new ArrayList<Percurso>();
+    private String percurso;
     private ArrayList<Instituicao> instituicoes = new ArrayList<Instituicao>();
     private ArrayList<Horario> horarios = new ArrayList<Horario>();
+    private int validacao = 0;
     
 	public Rota(int id, String inicio, String fim) {
 		this.id = id;
@@ -52,13 +53,6 @@ public class Rota{
 		this.pontos = pontos;
 	}
 	
-	public ArrayList<Percurso> getPercursos() {
-		return percursos;
-	}
-	public void setPercursos(ArrayList<Percurso> percursos) {
-		this.percursos = percursos;
-	}
-	
 	public ArrayList<Instituicao> getInstituicoes() {
 		return instituicoes;
 	}
@@ -73,10 +67,6 @@ public class Rota{
 		this.horarios = horarios;
 	}
 	
-	public void inserirPercurso(Percurso percurso) {
-		this.percursos.add(percurso);
-	}
-	
 	public void inserirPonto(Ponto ponto) {
 		this.pontos.add(ponto);
 	}
@@ -87,5 +77,18 @@ public class Rota{
 	
 	public void inserirHorario(Horario horario) {
 		this.horarios.add(horario);
+	}
+	public int getValidacao() {
+		return validacao;
+	}
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
+	}
+	
+	public String getPercurso() {
+		return percurso;
+	}
+	public void setPercurso(String percurso) {
+		this.percurso = percurso;
 	}
 }

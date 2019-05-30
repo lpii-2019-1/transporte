@@ -5,6 +5,7 @@ public class Instituicao{
     private String nome;
     private String telefone;
     private String endereco;
+    private int validacao = 0;
 
     public Instituicao(int id, String nome, String telefone, String endereco){;
         this.id = id;
@@ -48,5 +49,13 @@ public class Instituicao{
   	}
   	public void setEndereco(String endereco) {
   		  this.endereco = endereco;
-  	}   
+  	}
+
+	public int getValidacao() {
+		return validacao;
+	}
+
+	public void setValidacao(int validacao) {
+		this.validacao = validacao;
+	}   
 }

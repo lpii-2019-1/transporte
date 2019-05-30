@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import model.Horario;
+import model.Rota;
 
 
 public class HorarioDAO {
@@ -82,6 +83,31 @@ public class HorarioDAO {
 
 	public ArrayList<Horario> consultarHrRegresso(Horario horario){
 		return this.consutarHorario("horario_regresso", horario.getHrRegresso());
+	}
+	
+	public ArrayList<Horario> consultarIdRota(Rota rota){
+		try {
+			String sql = "SELECT * horario WHERE id_rota = ?";
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setInt(1, rota.getId());
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            ArrayList<Horario> horarios = new ArrayList<Horario>();
+            Horario horario = new Horario();
+            HorarioDAO hDAO = new HorarioDAO();
+            while(rs.next()) {
+            	aux = false;
+            	horario = hDAO.consultarId(rs.getInt("id_instituicao"));
+            	horarios.add(horario);
+            }
+            if(aux) {
+            	horarios.add(horario);
+            }
+            this.stmt.close();
+            return horarios;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 	}
 	
 	public ArrayList<Horario> listarHorarios(){
