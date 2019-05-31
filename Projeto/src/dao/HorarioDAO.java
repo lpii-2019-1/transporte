@@ -53,9 +53,34 @@ public class HorarioDAO {
 		return this.editarHorario("horario_Regresso", horario.getHrRegresso(), horario.getId());
 	}
 	
-	private ArrayList<Horario> consutarHorario(String campo, String valor){
+    public boolean editarValidacao(Horario horario){
+        try {
+            String sql = "UPDATE horario SET validacao = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, horario.getValidacao());
+            this.stmt.setInt(2, horario.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+	private ArrayList<Horario> consutarHorario(String campo, String valor, int comparador){
 		try {
-			String sql = "SELECT * FROM horario WHERE " + campo + " = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM horario WHERE " + campo + " = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM horario WHERE " + campo + " = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM horario WHERE " + campo + " = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
@@ -77,17 +102,28 @@ public class HorarioDAO {
         }
 	}
 	
-	public ArrayList<Horario> consultarHrSaidaPrimeiroPonto(Horario horario){
-		return this.consutarHorario("horario_saida", horario.getHrSaidaPrimeiroPonto());
+	public ArrayList<Horario> consultarHrSaidaPrimeiroPonto(Horario horario, int comparador){
+		return this.consutarHorario("horario_saida", horario.getHrSaidaPrimeiroPonto(), comparador);
 	}
 
-	public ArrayList<Horario> consultarHrRegresso(Horario horario){
-		return this.consutarHorario("horario_regresso", horario.getHrRegresso());
+	public ArrayList<Horario> consultarHrRegresso(Horario horario, int comparador){
+		return this.consutarHorario("horario_regresso", horario.getHrRegresso(), comparador);
 	}
 	
-	public ArrayList<Horario> consultarIdRota(Rota rota){
+	public ArrayList<Horario> consultarIdRota(Rota rota, int comparador){
 		try {
-			String sql = "SELECT * horario WHERE id_rota = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM horario WHERE id_rota = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM horario WHERE id_rota = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM horario WHERE id_rota = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, rota.getId());
             ResultSet rs = stmt.executeQuery();
@@ -97,7 +133,7 @@ public class HorarioDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
-            	horario = hDAO.consultarId(rs.getInt("id_instituicao"));
+            	horario = hDAO.consultarId(rs.getInt("id_instituicao"), comparador);
             	horarios.add(horario);
             }
             if(aux) {
@@ -110,9 +146,20 @@ public class HorarioDAO {
         }
 	}
 	
-	public ArrayList<Horario> listarHorarios(){
+	public ArrayList<Horario> listarHorarios(int comparador){
 		try {
-			String sql = "SELECT * FROM horario";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM horario WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM horario WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM horario WHERE";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
@@ -133,9 +180,20 @@ public class HorarioDAO {
         }
 	}
 	
-	public Horario consultarId(int id){
+	public Horario consultarId(int id, int comparador){
 		try {
-			String sql = "SELECT * FROM ponto WHERE id = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM ponto WHERE id = ??";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();

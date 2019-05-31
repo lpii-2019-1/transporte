@@ -20,7 +20,7 @@ public class CidadeDAO {
 
 	public boolean inserirCidade(Cidade cidade){
         try {
-            String sql = "INSERT INTO cidade (nome, cep, uf) VALUES (?, ?, ?)";
+        	String sql = "INSERT INTO cidade (nome, cep, uf) VALUES (?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, cidade.getNome());
             this.stmt.setString(2, cidade.getCep());
@@ -35,8 +35,8 @@ public class CidadeDAO {
 
     private boolean editarCidade(String campo, String valor, int id){
         try {
-            String sql = "UPDATE cidade SET " + campo + " = ? WHERE id = ?";
-            this.stmt = this.conexao.prepareStatement(sql);
+        	String sql = "UPDATE cidade SET " + campo + " = ? WHERE id = ?";
+        	this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, valor);
             this.stmt.setInt(2, id);
             this.stmt.execute();
@@ -58,10 +58,35 @@ public class CidadeDAO {
 	public boolean editarCep(Cidade cidade){
 		return this.editarCidade("cep", cidade.getCep(), cidade.getId());
 	}
-
-	private ArrayList<Cidade> consultarCidade(String campo, String valor){
+	
+	public boolean editarValidacao(Cidade cidade){
+        try {
+            String sql = "UPDATE cidade SET validacao = ? WHERE id = ?";
+        	this.stmt = this.conexao.prepareStatement(sql);
+        	this.stmt.setInt(1, cidade.getValidacao());
+        	this.stmt.setInt(2, cidade.getId());
+        	this.stmt.execute();
+        	this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
+	private ArrayList<Cidade> consultarCidade(String campo, String valor, int comparador){
 		try {
-			String sql = "SELECT * FROM cidade WHERE " + campo + " = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM cidade WHERE " + campo + " = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM cidade WHERE " + campo + " = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM cidade WHERE " + campo + " = ?";
+				break;
+        	}
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
@@ -71,7 +96,7 @@ public class CidadeDAO {
             while(rs.next()) {
             	aux = false;
                 cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
-                cidade.setInstituicoes(this.listarInstituicoes(cidade));
+                cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }
             if(aux) {
@@ -84,27 +109,38 @@ public class CidadeDAO {
         }
 	}
 
-	public ArrayList<Cidade> consutarNome(Cidade cidade){
-		return this.consultarCidade("nome", cidade.getNome());
+	public ArrayList<Cidade> consutarNome(Cidade cidade, int comparador){
+		return this.consultarCidade("nome", cidade.getNome(), comparador);
 	}
 
-	public ArrayList<Cidade> consultarUf(Cidade cidade){
-		return this.consultarCidade("uf", cidade.getUf());
+	public ArrayList<Cidade> consultarUf(Cidade cidade, int comparador){
+		return this.consultarCidade("uf", cidade.getUf(), comparador);
 	}
 
-	public Cidade consultarCep(Cidade cidade){
-		return this.consultarCidade("cep", cidade.getCep()).get(0);
+	public Cidade consultarCep(Cidade cidade, int comparador){
+		return this.consultarCidade("cep", cidade.getCep(), comparador).get(0);
 	}
 
-	public ArrayList<Cidade> listarCidades(){
+	public ArrayList<Cidade> listarCidades(int comparador){
 		try {
-			String sql = "SELECT * FROM cidade";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM cidade WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM cidade WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM cidade WHERE";
+				break;
+        	}
             this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             ArrayList<Cidade> cidades = new ArrayList<Cidade>();
             while(rs.next()) {
                 Cidade cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
-                cidade.setInstituicoes(this.listarInstituicoes(cidade));
+                cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }
             this.stmt.close();
@@ -114,9 +150,9 @@ public class CidadeDAO {
         }
 	}
 
-	public ArrayList<Instituicao> listarInstituicoes(Cidade cidade){
+	public ArrayList<Instituicao> listarInstituicoes(Cidade cidade, int comparador){
 		InstituicaoDAO iDAO = new InstituicaoDAO();
-		return iDAO.consutarIdCidade(cidade);
+		return iDAO.consutarIdCidade(cidade, comparador);
 	}
 
 	public boolean excluirCidade(Cidade cidade){

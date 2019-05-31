@@ -70,9 +70,34 @@ public class RotaDAO {
         }
     }
 	
-	private ArrayList<Rota> consultarRota(String campo, String valor){
+    public boolean editarValidacao(Rota rota){
+        try {
+            String sql = "UPDATE rota SET validacao = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getValidacao());
+            this.stmt.setInt(2, rota.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+	private ArrayList<Rota> consultarRota(String campo, String valor, int comparador){
 		try {
-			String sql = "SELECT * FROM rota WHERE " + campo + " = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE " + campo + " = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE " + campo + " = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota WHERE " + campo + " = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
@@ -94,17 +119,28 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Rota> consultarInicio(Rota rota){
-		return this.consultarRota("inicio", rota.getInicio());
+	public ArrayList<Rota> consultarInicio(Rota rota, int comparador){
+		return this.consultarRota("inicio", rota.getInicio(), comparador);
 	}
 
-	public ArrayList<Rota> consultarFim(Rota rota){
-		return this.consultarRota("fim", rota.getFim());
+	public ArrayList<Rota> consultarFim(Rota rota, int comparador){
+		return this.consultarRota("fim", rota.getFim(), comparador);
 	}
 	
-	public Rota consultarId(int id){
+	public Rota consultarId(int id, int comparador){
 		try {
-			String sql = "SELECT * FROM rota WHERE id = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE id = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE id = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota WHERE id = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -119,9 +155,20 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Rota> consultarIdOnibus(Onibus onibus) {
+	public ArrayList<Rota> consultarIdOnibus(Onibus onibus, int comparador) {
 		try {
-			String sql = "SELECT * FROM rota WHERE id_onibus = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE id_onibus = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE id_onibus = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota WHERE id_onibus = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, onibus.getId());
             ResultSet rs = stmt.executeQuery();
@@ -131,7 +178,7 @@ public class RotaDAO {
             RotaDAO rDAO = new RotaDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = rDAO.consultarId(rs.getInt("id_rota"));
+            	rota = rDAO.consultarId(rs.getInt("id_rota"), comparador);
             	rotas.add(rota);
             }
             if(aux) {
@@ -144,9 +191,20 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Rota> listarRotas(){
+	public ArrayList<Rota> listarRotas(int comparador){
 		try {
-			String sql = "SELECT * FROM rota";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
@@ -167,9 +225,20 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Ponto> listarPontos(Rota rota){
+	public ArrayList<Ponto> listarPontos(Rota rota, int comparador){
 		try {
-			String sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, rota.getId());
             ResultSet rs = stmt.executeQuery();
@@ -179,7 +248,7 @@ public class RotaDAO {
             PontoDAO pDAO = new PontoDAO();
             while(rs.next()) {
             	aux = false;
-            	ponto = pDAO.consultarId(rs.getInt("id_ponto"));
+            	ponto = pDAO.consultarId(rs.getInt("id_ponto"), comparador);
             	pontos.add(ponto);
             }
             if(aux) {
@@ -192,9 +261,20 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Instituicao> listarInstituicoes(Rota rota){
+	public ArrayList<Instituicao> listarInstituicoes(Rota rota, int comparador){
 		try {
-			String sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, rota.getId());
             ResultSet rs = stmt.executeQuery();
@@ -204,7 +284,7 @@ public class RotaDAO {
             InstituicaoDAO iDAO = new InstituicaoDAO();
             while(rs.next()) {
             	aux = false;
-            	instituicao = iDAO.consultarId(rs.getInt("id_instituicao"));
+            	instituicao = iDAO.consultarId(rs.getInt("id_instituicao"), comparador);
             	instituicoes.add(instituicao);
             }
             if(aux) {
@@ -230,9 +310,20 @@ public class RotaDAO {
 		}
 	}
 	
-	public ArrayList<Rota> buscarPercursos(String busca){
+	public ArrayList<Rota> buscarPercursos(String busca, int comparador){
 		try {
-			String sql = "SELECT * FROM rota WHERE LIKE(?)";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE LIKE(?) AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE LIKE(?) AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM rota WHERE LIKE(?)";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, busca);
             ResultSet rs = stmt.executeQuery();

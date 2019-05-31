@@ -42,10 +42,35 @@ public class PontoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean editarValidacao(Ponto ponto){
+        try {
+            String sql = "UPDATE ponto SET validacao = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, ponto.getValidacao());
+            this.stmt.setInt(2, ponto.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
-	public Ponto consultarEndereco(Ponto pontoSel){
+	public Ponto consultarEndereco(Ponto pontoSel, int comparador){
 		try {
-			String sql = "SELECT * FROM ponto WHERE endereco = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM ponto WHERE endereco = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM ponto WHERE endereco = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM ponto WHERE endereco = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, pontoSel.getEndereco());
             ResultSet rs = stmt.executeQuery();
@@ -60,9 +85,20 @@ public class PontoDAO {
         }
 	}
 	
-	public Ponto consultarId(int id){
+	public Ponto consultarId(int id, int comparador){
 		try {
-			String sql = "SELECT * FROM ponto WHERE id = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM ponto WHERE id = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -77,9 +113,20 @@ public class PontoDAO {
         }
 	}
 	
-	public ArrayList<Ponto> listarPontos(){
+	public ArrayList<Ponto> listarPontos(int comparador){
 		try {
-			String sql = "SELECT * FROM ponto";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM ponto WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM ponto WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM ponto";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;

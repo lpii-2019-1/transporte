@@ -72,9 +72,34 @@ public class InstituicaoDAO {
         }
 	}
 
-	private ArrayList<Instituicao> consutarInstituicoes(String campo, String valor){
+    public boolean editarValidacao(Instituicao instituicao){
+        try {
+            String sql = "UPDATE instituicao SET validacao = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, instituicao.getValidacao());
+            this.stmt.setInt(2, instituicao.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+	private ArrayList<Instituicao> consutarInstituicoes(String campo, String valor, int comparador){
 		try {
-			String sql = "SELECT * FROM instituicao WHERE " + campo + " = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM instituicao WHERE " + campo + " = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM instituicao WHERE " + campo + " = ?  AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM instituicao WHERE " + campo + " = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
@@ -96,20 +121,31 @@ public class InstituicaoDAO {
         }
 	}
 
-	public ArrayList<Instituicao> consultarNome(Instituicao instituicao){
-		return this.consutarInstituicoes("nome", instituicao.getNome());
+	public ArrayList<Instituicao> consultarNome(Instituicao instituicao, int comparador){
+		return this.consutarInstituicoes("nome", instituicao.getNome(), comparador);
 	}
 
-	public Instituicao consultarTelefone(Instituicao instituicao){
-		return this.consutarInstituicoes("telefone", instituicao.getTelefone()).get(0);
+	public Instituicao consultarTelefone(Instituicao instituicao, int comparador){
+		return this.consutarInstituicoes("telefone", instituicao.getTelefone(), comparador).get(0);
 	}
 
-	public Instituicao consultarEndereco(Instituicao instituicao){
-		return this.consutarInstituicoes("endereco", instituicao.getEndereco()).get(0);
+	public Instituicao consultarEndereco(Instituicao instituicao, int comparador){
+		return this.consutarInstituicoes("endereco", instituicao.getEndereco(), comparador).get(0);
 	}
-	public Instituicao consultarTudo(Instituicao instituicaoSel){
+	public Instituicao consultarTudo(Instituicao instituicaoSel, int comparador){
 		try {
-			String sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?  AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, instituicaoSel.getNome());
 			this.stmt.setString(2, instituicaoSel.getTelefone());
@@ -126,9 +162,20 @@ public class InstituicaoDAO {
         }
 	}
 	
-	public ArrayList<Instituicao> consutarIdCidade(Cidade cidade){
+	public ArrayList<Instituicao> consutarIdCidade(Cidade cidade, int comparador){
 		try {
-			String sql = "SELECT * FROM instituicao WHERE id_cidade = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM instituicao WHERE id_cidade = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM instituicao WHERE id_cidade = ?  AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM instituicao WHERE id_cidade = ?";
+				break;
+        	}
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, cidade.getId());
             ResultSet rs = this.stmt.executeQuery();
@@ -150,9 +197,20 @@ public class InstituicaoDAO {
         }
 	}
 
-	public ArrayList<Instituicao> listarInstituicoes(){
+	public ArrayList<Instituicao> listarInstituicoes(int comparador){
 		try {
-			String sql = "SELECT * FROM instituicao";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM instituicao WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM instituicao WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM instituicao";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = this.stmt.executeQuery();
             boolean aux = true; 
@@ -173,9 +231,20 @@ public class InstituicaoDAO {
         }
 	}
 	
-	public Instituicao consultarId(int id){
+	public Instituicao consultarId(int id, int comparador){
 		try {
-			String sql = "SELECT * FROM ponto WHERE id = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM ponto WHERE id = ?  AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM ponto WHERE id = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();

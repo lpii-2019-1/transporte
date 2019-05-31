@@ -75,9 +75,34 @@ public class OnibusDAO {
         }
     }
 	
-	private ArrayList<Onibus> consutarOnibus(String campo, String valor){
+    public boolean editarValidacao(Onibus onibus){
+        try {
+            String sql = "UPDATE onibus SET validacao = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, onibus.getValidacao());
+            this.stmt.setInt(2, onibus.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+	private ArrayList<Onibus> consutarOnibus(String campo, String valor, int comparador){
 		try {
-			String sql = "SELECT * FROM onibus WHERE " + campo + " = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM onibus WHERE " + campo + " = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM onibus WHERE " + campo + " = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM onibus WHERE " + campo + " = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
@@ -111,9 +136,20 @@ public class OnibusDAO {
 		return this.consutarOnibus("motorista", onibus.getMotorista());
 	}
 	
-	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel){
+	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){
 		try {
-			String sql = "SELECT * FROM onibus WHERE mensalidade = ?";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM onibus WHERE mensalidade = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM onibus WHERE mensalidade = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM onibus WHERE mensalidade = ?";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setDouble(1, onibusSel.getMensalidade());
 	        ResultSet rs = stmt.executeQuery();
@@ -135,9 +171,20 @@ public class OnibusDAO {
 	    }
 	}
 	
-	public ArrayList<Onibus> listarOnibus(){
+	public ArrayList<Onibus> listarOnibus(int comparador){
 		try {
-			String sql = "SELECT * FROM onibus";
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM onibus WHERE validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM onibus WHERE validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM onibus";
+				break;
+        	}
 			this.stmt = this.conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
