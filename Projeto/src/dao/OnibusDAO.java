@@ -124,16 +124,16 @@ public class OnibusDAO {
         }
 	}
 	
-	public ArrayList<Onibus> consutarPlaca(Onibus onibus){
-		return this.consutarOnibus("placa", onibus.getPlaca());
+	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int validacao){
+		return this.consutarOnibus("placa", onibus.getPlaca(),  validacao);
 	}
 
-	public ArrayList<Onibus> consutarCor(Onibus onibus){
-		return this.consutarOnibus("cor", onibus.getCor());
+	public ArrayList<Onibus> consutarCor(Onibus onibus, int validacao){
+		return this.consutarOnibus("cor", onibus.getCor(),  validacao);
 	}
 	
-	public ArrayList<Onibus> consutarMotorista(Onibus onibus){
-		return this.consutarOnibus("motorista", onibus.getMotorista());
+	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int validacao){
+		return this.consutarOnibus("motorista", onibus.getMotorista(),  validacao);
 	}
 	
 	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){
