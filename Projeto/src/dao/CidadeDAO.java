@@ -108,8 +108,44 @@ public class CidadeDAO {
             throw new RuntimeException(e);
         }
 	}
+	
+	public Cidade consultarNomeUf(Cidade cidade, int comparador){
+		try {
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM cidade WHERE nome = ? AND uf = ? AND  validacao = 0";
+    			break;
+			case 1:
+    			sql = "SELECT * FROM cidade WHERE nome = ? AND uf = ? AND  validacao = 1";
+    			break;
+			case 2:
+    			sql = "SELECT * FROM cidade WHERE nome = ? AND uf = ?";
+				break;
+        	}
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setString(1, cidade.getNome());
+            this.stmt.setString(1, cidade.getUf());
+            ResultSet rs = stmt.executeQuery();  
+            boolean aux = true;    
+            while(rs.next()) {
+            	aux = false;
+                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
+            }
+            if(aux) {
+            	cidade = new Cidade();// Recebendo nova cidade para setar o id para zero
+            }
+            this.stmt.close();
+            return cidade;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
 
-	public ArrayList<Cidade> consutarNome(Cidade cidade, int comparador){
+	
+
+	public ArrayList<Cidade> consultarNome(Cidade cidade, int comparador){
 		return this.consultarCidade("nome", cidade.getNome(), comparador);
 	}
 

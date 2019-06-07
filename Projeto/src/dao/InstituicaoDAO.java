@@ -120,6 +120,7 @@ public class InstituicaoDAO {
             throw new RuntimeException(e);
         }
 	}
+		
 
 	public ArrayList<Instituicao> consultarNome(Instituicao instituicao, int comparador){
 		return this.consutarInstituicoes("nome", instituicao.getNome(), comparador);

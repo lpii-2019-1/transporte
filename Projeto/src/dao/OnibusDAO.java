@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Horario;
 import model.Onibus;
-import model.Rota;
 
 
 public class OnibusDAO {
@@ -124,16 +123,16 @@ public class OnibusDAO {
         }
 	}
 	
-	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int comparador){
-		return this.consutarOnibus("placa", onibus.getPlaca(),  comparador);
+	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int validacao){
+		return this.consutarOnibus("placa", onibus.getPlaca(),  validacao);
 	}
 
-	public ArrayList<Onibus> consutarCor(Onibus onibus, int comparador){
-		return this.consutarOnibus("cor", onibus.getCor(),  comparador);
+	public ArrayList<Onibus> consutarCor(Onibus onibus, int validacao){
+		return this.consutarOnibus("cor", onibus.getCor(),  validacao);
 	}
 	
-	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int comparador){
-		return this.consutarOnibus("motorista", onibus.getMotorista(),  comparador);
+	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int validacao){
+		return this.consutarOnibus("motorista", onibus.getMotorista(),  validacao);
 	}
 	
 	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){

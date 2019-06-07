@@ -1,6 +1,6 @@
 package testes;
 
-import model.Instituicao;
+/*import model.Instituicao;
 import model.Cidade;
 import dao.CidadeDAO;
 import dao.InstituicaoDAO;
@@ -26,4 +26,4 @@ public class TesteCidade{
 			iDAO.editarIdCidade(i1, c1);
 		}
 	}
-}
+}*/
