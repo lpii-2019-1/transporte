@@ -1,5 +1,6 @@
 package usuario;
 
+import java.util.ArrayList;
 import view.Tela;
 import model.Cidade;
 import mode.Instituicao;
