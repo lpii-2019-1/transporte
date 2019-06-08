@@ -9,13 +9,13 @@ public class TelaConsultaInstituicao extends Tela{
 	public String telaErro = "\nCidade não encontrada. \n\nDigite o nome de uma cidade (Ex.: Ceres GO): ";
 	public String telaInstituicoes;
 
-	public setTelaInstituicao(Cidade cidade){
+	public void setTelaInstituicao(Cidade cidade){
 		this.telaInstituicoes += "\n " + cidade.getNome() + ": ";
 		int i = 0;
 		for (Instituicao i : cidades.getInstituicao()) {
 			i++;
-			this.telaCidade += "\n"+ i +" - " + i.getNome();
+			this.telaInstituicoes += "\n    " + i + " - " + i.getNome();
 		}
-		this.telaCidade += "\n0 - Sair \n\nDigite o numero correspondente: ";
+		this.telaInstituicoes += "\n    0 - Sair \n\nDigite o numero correspondente: ";
 	}
 }

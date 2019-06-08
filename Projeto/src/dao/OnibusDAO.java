@@ -88,7 +88,7 @@ public class OnibusDAO {
         }
     }
     
-	private ArrayList<Onibus> consutarOnibus(String campo, String valor, int comparador){
+	private ArrayList<Onibus> consultarOnibus(String campo, String valor, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {

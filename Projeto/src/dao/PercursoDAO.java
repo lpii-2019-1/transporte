@@ -76,6 +76,23 @@ public class PercursoDAO {
         }
 	}
 	
+	public Percurso pesquisarPercurso(Percurso percursoSel){
+		try {
+			String sql = "SELECT * FROM Percurso WHERE decricao LIKE(?)";
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setString(1, percursoSel.getDescricao());
+            ResultSet rs = stmt.executeQuery();
+            Percurso percurso = new Percurso();
+            if(rs.next()) {
+            	percurso = new Percurso(rs.getInt("id"),  rs.getInt("ordem"), rs.getString("descricao"));
+            }
+            this.stmt.close();
+            return percurso;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
 	public ArrayList<Percurso> listarPercursos(){
 		try {
 			String sql = "SELECT * FROM Percurso WHERE decricao = ?";
