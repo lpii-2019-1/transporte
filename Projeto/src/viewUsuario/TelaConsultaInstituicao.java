@@ -5,21 +5,25 @@ import model.Cidade;
 import model.Instituicao;
 
 public class TelaConsultaInstituicao extends TelaFim{
-	public TelaConsultaInstituicao(int identificador) {
-		super(identificador);
-	}
+	public String telaErro = "\nNenhuma insttuicao encontrada!\n" + new TelaFimOperacao().telaIni;
+	public String telaConsulta;
 
-	public String telaIni = "\nDigite o nome de uma cidade (Ex.: Ceres GO): ";
-	public String telaErro = "\nCidade não encontrada. \n\nDigite o nome de uma cidade (Ex.: Ceres GO): ";
-	public String telaInstituicoes;
+	public void setTelaConsulta(Cidade cidade){
+		if(cidade.getInstituicoes.get(0).getId() != 0){
+			this.telaConsulta += "\n" + cidade.getNome() + "-" + cidade.getUf() + ": ";
+			this.telaConsulta += "\n    Instituicoes: ";
+			int j = 0;
 
-	public void setTelaInstituicao(Cidade cidade){
-		this.telaInstituicoes += "\n " + cidade.getNome() + ": ";
-		int j = 0;
-		for (Instituicao i : cidade.getInstituicoes()) {
-			j++;
-			this.telaInstituicoes += "\n    " + j + " - " + i.getNome();
+			for (Instituicao i : cidade.getInstituicoes()) {
+				j++;
+				this.telaConsulta += "\n        " + j + " - " + i.getNome() + ":";
+				this.telaConsulta += "\n            Endereco:" + i.getEndereco();
+				this.telaConsulta += "\n            Telefone:" + i.getTelefone();
+			}
+			this.telaConsulta += "\n    0 - Sair \n\nDigite o numero correspondente: ";
 		}
-		this.telaInstituicoes += "\n    0 - Sair \n\nDigite o numero correspondente: ";
+		else{
+			this.telaConsulta = telaErro;
+		}
 	}
 }

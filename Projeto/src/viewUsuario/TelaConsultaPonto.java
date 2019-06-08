@@ -10,15 +10,21 @@ public class TelaConsultaPonto extends TelaFim{
 		super(identificador);
 	}
 	public String telaIni = "\nDigite 1 para listar pontos ou 2 para pesquisar pontos: ";
-	public String telaErro = "\nNao foi encontrado nenhum ponto com essas informacoes. \n\nDigite 1 para listar pontos ou 2 para pesquisar pontos: ";
-	public String telaPonto;
-	public void setTelaPonto(ArrayList<Ponto> pontos, Instituicao instituicao){
-		this.telaPonto = "\nInstituicao: " + instituicao.getNome();
-		int i = 0;
-		for(Ponto p : pontos){
-			i++;
-			this.telaPonto += "\n   " + i + " - Ponto: " + p.getEndereco();
+	public String telaErro = "\nNao foi encontrado nenhum ponto com essas informacoes!\n" + new TelaFimOperacao().telaIni;
+	public String telaConsulta;
+	public void setTelaConsulta(ArrayList<Ponto> pontos, Instituicao instituicao){
+		if(pontos.get(0).getId() != 0){
+			this.telaConsulta = "\nInstituicao: " + instituicao.getNome();
+			this.telaConsulta = "\n    Pontos: ";
+			int i = 0;
+			for(Ponto p : pontos){
+				i++;
+				this.telaConsulta += "\n       " + i + " - Ponto: " + p.getEndereco();
+			}
+			this.telaConsulta += "\n        0 - Sair \n\nDigite o numero correspondente: ";
 		}
-		this.telaPonto += "\n    0 - Sair \n\nDigite o numero correspondente: ";
+		else{
+			this.telaConsulta = telaErro;
+		}
 	}
 }
