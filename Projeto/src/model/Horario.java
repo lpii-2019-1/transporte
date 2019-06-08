@@ -8,26 +8,28 @@ public class Horario {
 	private int id = 0;
 	private Date hrSaidaPrimeiroPonto = new Date();
 	private Date hrRegresso = new Date();
+	private Turno turno = new Turno(); 
     public SimpleDateFormat formatoDate = new SimpleDateFormat("HH:mm");
     private int validacao = 0;
     
-    public Horario(int id, String hrSaidaPrimeiroPonto, String hrRegresso){
+    public Horario(int id, String hrSaidaPrimeiroPonto, String hrRegresso, Turno turno){
     	this.id = id;
     	try {
 			this.hrSaidaPrimeiroPonto = this.formatoDate.parse(hrSaidaPrimeiroPonto);
 			this.hrRegresso = this.formatoDate.parse(hrRegresso);
+			this.turno = turno;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		};
     }
-    public Horario(String hrSaidaPrimeiroPonto, String hrRegresso){
+    public Horario(String hrSaidaPrimeiroPonto, String hrRegresso, Turno turno){
     	try {
 			this.hrSaidaPrimeiroPonto = this.formatoDate.parse(hrSaidaPrimeiroPonto);
 			this.hrRegresso = this.formatoDate.parse(hrRegresso);
+			this.turno = turno;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		};
-    }
 	public Horario(){
 		
 	}
@@ -61,6 +63,14 @@ public class Horario {
 			e.printStackTrace();
 		}
 	}
+
+	public Turno getTurno(){
+		return this.turno;
+	}
+	public void setTurno(Turno turno){
+		this.turno = turno;
+	}
+
 	public int getValidacao() {
 		return validacao;
 	}

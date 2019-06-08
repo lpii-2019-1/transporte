@@ -52,6 +52,20 @@ public class HorarioDAO {
 	public boolean editarHrRegresso(Horario horario){
 		return this.editarHorario("horario_Regresso", horario.getHrRegresso(), horario.getId());
 	}
+
+    public boolean editarTurno(Horario horario, Turno turno){
+        try {
+            String sql = "UPDATE horario SET id_turno = ? WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, turno.getId());
+            this.stmt.setInt(2, horario.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
     public boolean editarValidacao(Horario horario){
         try {
@@ -87,9 +101,11 @@ public class HorarioDAO {
             boolean aux = true;
             ArrayList<Horario> horarios = new ArrayList<Horario>();
             Horario horario = new Horario();
+            TurnoDAO tDAO = new TurnoDAO();
             while(rs.next()) {
             	aux = false;
-            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"));
+
+            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
             	horarios.add(horario);
             }
             if(aux) {
@@ -130,11 +146,11 @@ public class HorarioDAO {
             boolean aux = true;
             ArrayList<Horario> horarios = new ArrayList<Horario>();
             Horario horario = new Horario();
-            HorarioDAO hDAO = new HorarioDAO();
+            TurnoDAO tDAO = new TurnoDAO();
             while(rs.next()) {
-            	aux = false;
-            	horario = hDAO.consultarId(rs.getInt("id_instituicao"), comparador);
-            	horarios.add(horario);
+                aux = false;
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+                horarios.add(horario);
             }
             if(aux) {
             	horarios.add(horario);
@@ -165,10 +181,11 @@ public class HorarioDAO {
             boolean aux = true;
             ArrayList<Horario> horarios = new ArrayList<Horario>();
             Horario horario = new Horario();
+            TurnoDAO tDAO = new TurnoDAO();
             while(rs.next()) {
-            	aux = false;
-            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"));
-            	horarios.add(horario);
+                aux = false;
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+                horarios.add(horario);
             }
             if(aux) {
             	horarios.add(horario);
@@ -198,8 +215,9 @@ public class HorarioDAO {
 			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             Horario horario = new Horario();
+            TurnoDAO tDAO = new TurnoDAO();
             if(rs.next()) {
-            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"));
+            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
             }
             this.stmt.close();
             return horario;

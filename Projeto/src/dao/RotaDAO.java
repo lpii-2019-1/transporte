@@ -255,7 +255,7 @@ public class RotaDAO {
 	
 	public ArrayList<Ponto> listarPontos(Rota rota, int comparador){
 		try {
-            PontoDAO pDAO = PontoDAO();
+            PontoDAO pDAO = new PontoDAO();
             ArrayList<Ponto> pontos = pDAO.consultarIdRota(rota, comparador);
             return pontos;
         } catch (Exception e) {

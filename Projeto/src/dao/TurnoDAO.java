@@ -60,6 +60,23 @@ public class TurnoDAO {
             throw new RuntimeException(e);
         }
 	}
+
+    public Turno consutarId(int id){
+        try {
+            String sql = "SELECT * FROM turno WHERE id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Turno turno = new Turno();
+            if(rs.next()) {
+                turno = new Turno(rs.getInt("id"), rs.getString("turno"));
+            }
+            this.stmt.close();
+            return turno;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	public ArrayList<Turno> listarTurnos(){
 		try {
