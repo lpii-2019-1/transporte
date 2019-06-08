@@ -104,9 +104,13 @@ public class RotaDAO {
             boolean aux = true;
             ArrayList<Rota> rotas = new ArrayList<Rota>();
             Rota rota = new Rota();
+            InstituicaoDAO iDAO = new InstituicaoDAO();
+            PontoDAO pDAO = new PontoDAO();
             while(rs.next()) {
             	aux = false;
             	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"));
+                rota.setInstituicao(iDAO.consultarIdRota, comparador);
+                rota.setPontos(pDAO.consultarIdRota, comparador);
             	rotas.add(rota);
             }
             if(aux) {

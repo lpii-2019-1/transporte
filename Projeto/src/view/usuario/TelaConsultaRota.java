@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import view.Tela;
 import model.Rota;
 import model.Instituicao;
+import model.Ponto;
 
 public class TelaConsultaRota extends Tela{
 	public String telaRota;
@@ -31,6 +32,7 @@ public class TelaConsultaRota extends Tela{
 					this.telaRota += i.getNome();
 				}
 			}
+			for()
 		}
 		this.telaRota += "\n    0 - Sair \n\nDigite o numero correspondente: ";
 	}

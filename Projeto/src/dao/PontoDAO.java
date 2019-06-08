@@ -18,7 +18,7 @@ public class PontoDAO {
 	
 	public boolean inserirPonto(Ponto ponto){
         try {
-            String sql = "INSERT INTO ponto (endereco) VALUES (?)";
+            String sql = "INSERT INTO ponto (endereco) VALUES ( ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, ponto.getEndereco());
             this.stmt.execute();
@@ -68,7 +68,7 @@ public class PontoDAO {
 				sql = "SELECT * FROM ponto WHERE endereco = ? AND validacao = 1";
     			break;
 			case 2:
-				sql = "SELECT * FROM ponto WHERE endereco = ?";
+				sql = "SELECT * FROM ponto WHERE endereco = ? ORDER BY ordem";
 				break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
@@ -113,6 +113,42 @@ public class PontoDAO {
         }
 	}
 	
+    public ArrayList<Ponto> consultarIdRota(Rota rota){
+        try {
+            String sql = "";
+            switch(comparador) {
+            case 0:
+                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 0";
+                break;
+            case 1:
+                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 1";
+                break;
+            case 2:
+                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ?";
+                break;
+            }
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            Ponto ponto = new Ponto();
+            ArrayList<Ponto> pontos;
+            while(rs.next()) {
+                aux = false;
+                ponto = this.consultarId(rs.getInt("id_ponto"));
+                ponto.setOrdem(rs.getInt("ordem"));
+                pontos.add();
+            }
+            if(aux){
+                pontos.add(ponto)
+            }
+            this.stmt.close();
+            return pontos;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	public ArrayList<Ponto> listarPontos(int comparador){
 		try {
 			String sql = "";

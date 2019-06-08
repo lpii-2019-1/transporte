@@ -133,35 +133,6 @@ public class InstituicaoDAO {
 	public Instituicao consultarEndereco(Instituicao instituicao, int comparador){
 		return this.consutarInstituicoes("endereco", instituicao.getEndereco(), comparador).get(0);
 	}
-	public Instituicao consultarTudo(Instituicao instituicaoSel, int comparador){
-		try {
-			String sql = "";
-			switch(comparador) {
-    		case 0:
-    			sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ? AND validacao = 0";
-    			break;
-			case 1:
-				sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?  AND validacao = 1";
-    			break;
-			case 2:
-				sql = "SELECT * FROM instituicao WHERE nome = ? AND telefone = ? AND endereco = ?";
-				break;
-        	}
-			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setString(1, instituicaoSel.getNome());
-			this.stmt.setString(2, instituicaoSel.getTelefone());
-			this.stmt.setString(3, instituicaoSel.getEndereco());
-            ResultSet rs = stmt.executeQuery();
-            Instituicao instituicao = new Instituicao();
-            if(rs.next()) {
-            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
-            }
-            this.stmt.close();
-            return instituicao;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-	}
 	
 	public ArrayList<Instituicao> consutarIdCidade(Cidade cidade, int comparador){
 		try {
@@ -197,6 +168,41 @@ public class InstituicaoDAO {
             throw new RuntimeException(e);
         }
 	}
+
+    public ArrayList<Instituicao> consutarIdRota(Rota rota, int comparador){
+        try {
+            String sql = "";
+            switch(comparador) {
+            case 0:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ? AND validacao = 0";
+                break;
+            case 1:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?  AND validacao = 1";
+                break;
+            case 2:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
+                break;
+            }
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            ResultSet rs = this.stmt.executeQuery();
+            ArrayList<Instituicao> instituicoes = new ArrayList<Instituicao>();
+            Instituicao instituicao = new Instituicao();
+            boolean aux1 = true;
+            while(rs.next()) {
+                aux1 = false;
+                instituicao = this.consultarId(rs.getInt("id_instituicao"), comparador);
+                instituicoes.add(instituicao);
+            }
+            if(aux1) {
+                instituicoes.add(instituicao);
+            }
+            this.stmt.close();
+            return instituicoes;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	public ArrayList<Instituicao> listarInstituicoes(int comparador){
 		try {

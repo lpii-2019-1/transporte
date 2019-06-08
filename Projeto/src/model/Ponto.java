@@ -2,6 +2,7 @@ package model;
 
 public class Ponto{
 	private int id = 0;
+	private int ordem;
 	private String endereco;
 	private int validacao = 0;
 	
@@ -26,6 +27,14 @@ public class Ponto{
 
 	public String getEndereco() {
 		return endereco;
+	}
+
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
+	}
+
+	public String getOrdem() {
+		return ordem;
 	}
 
 	public void setEndereco(String endereco) {
