@@ -1,7 +1,8 @@
 package usuario;
 
+import java.util.ArrayList;
 import view.Tela;
-import model.Cidade;
+import model.Ponto;
 import mode.Instituicao;
 
 public class TelaConsultaPonto extends Tela{
