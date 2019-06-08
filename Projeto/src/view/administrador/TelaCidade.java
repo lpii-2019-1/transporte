@@ -5,7 +5,8 @@ import view.Tela;
 public class TelaCidade extends Tela{
 	public String opcoes = "\n1 - Nome \n2 - UF \n3 - Instituicoes \n4 - Validacao  \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String cadastro = "\nDigite o valores da Cidade (Ex.: Ceres, GO, Disponivel): ";
-	public String Excluir = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
+	public String excluir = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
+	public String entrada = "\nDigite o novo valor do campo: ";
 	public String telaCidade;
 
 	public setTelaCidade(Cidade cidade){
