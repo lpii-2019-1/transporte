@@ -1,8 +1,8 @@
 package viewUsuario;
 
-import view.Tela;
+import view.TelaFim;
 
-public class TelaConsultaTurno extends Tela{
+public class TelaConsultaTurno extends TelaFim{
 	public TelaConsultaTurno(int identificador) {
 		super(identificador);
 	}

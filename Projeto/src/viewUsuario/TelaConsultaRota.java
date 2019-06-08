@@ -1,13 +1,13 @@
 package viewUsuario;
 
 import java.util.ArrayList;
-import view.Tela;
+import view.TelaFim;
 import model.Rota;
 import model.Horario;
 import model.Instituicao;
 import model.Ponto;
 
-public class TelaConsultaRota extends Tela{
+public class TelaConsultaRota extends TelaFim{
 	public TelaConsultaRota(int identificador) {
 		super(identificador);
 	}

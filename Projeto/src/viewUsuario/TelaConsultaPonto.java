@@ -1,11 +1,11 @@
 package viewUsuario;
 
 import java.util.ArrayList;
-import view.Tela;
+import view.TelaFim;
 import model.Ponto;
 import model.Instituicao;
 
-public class TelaConsultaPonto extends Tela{
+public class TelaConsultaPonto extends TelaFim{
 	public TelaConsultaPonto(int identificador) {
 		super(identificador);
 	}

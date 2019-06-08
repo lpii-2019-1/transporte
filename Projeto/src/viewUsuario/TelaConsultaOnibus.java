@@ -1,12 +1,12 @@
 package viewUsuario;
 
-import view.Tela;
+import view.TelaFim;
 import model.Cidade;
 import model.Instituicao;
 import model.Onibus;
 import model.Rota;
 
-public class TelaConsultaOnibus extends Tela{
+public class TelaConsultaOnibus extends TelaFim{
 	public TelaConsultaOnibus(int identificador) {
 		super(identificador);
 	}

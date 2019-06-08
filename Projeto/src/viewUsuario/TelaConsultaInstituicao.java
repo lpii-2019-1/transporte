@@ -1,10 +1,10 @@
 package viewUsuario;
 
-import view.Tela;
+import view.TelaFim;
 import model.Cidade;
 import model.Instituicao;
 
-public class TelaConsultaInstituicao extends Tela{
+public class TelaConsultaInstituicao extends TelaFim{
 	public TelaConsultaInstituicao(int identificador) {
 		super(identificador);
 	}

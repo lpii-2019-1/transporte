@@ -1,8 +1,8 @@
 package viewUsuario;
 
-import view.Tela;
+import view.TelaFim;
 
-public class TelaConsultaCidade extends Tela{
+public class TelaConsultaCidade extends TelaFim{
 	public TelaConsultaCidade(int identificador) {
 		super(identificador);
 	}
