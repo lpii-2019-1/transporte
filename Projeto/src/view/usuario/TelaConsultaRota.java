@@ -32,7 +32,16 @@ public class TelaConsultaRota extends Tela{
 					this.telaRota += i.getNome();
 				}
 			}
-			for()
+			this.telaRota += "\nPontos:";
+			for(Ponto p : r.getPontos()){
+				this.telaRota += "\n    " + p.getOrdem() + "º " + p.getEndereco();
+			}
+			this.telaRota += "\nHorarios:";
+			for(Haririo h : r.getHorarios()){
+				this.telaRota += "\n    Turno: " + h.getTurno().getTurno();
+				this.telaRota += "\n    Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+				this.telaRota += "\n    Haririo de regresso: " + h.getHrRegresso();
+			}
 		}
 		this.telaRota += "\n    0 - Sair \n\nDigite o numero correspondente: ";
 	}
