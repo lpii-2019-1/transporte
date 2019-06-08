@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Cidade;
 import model.Instituicao;
+import model.Rota;
 
 public class InstituicaoDAO {
 	private Connection conexao;
@@ -86,7 +87,7 @@ public class InstituicaoDAO {
         }
     }
     
-	private ArrayList<Instituicao> consutarInstituicoes(String campo, String valor, int comparador){
+	private ArrayList<Instituicao> consultarInstituicoes(String campo, String valor, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -123,18 +124,18 @@ public class InstituicaoDAO {
 		
 
 	public ArrayList<Instituicao> consultarNome(Instituicao instituicao, int comparador){
-		return this.consutarInstituicoes("nome", instituicao.getNome(), comparador);
+		return this.consultarInstituicoes("nome", instituicao.getNome(), comparador);
 	}
 
 	public Instituicao consultarTelefone(Instituicao instituicao, int comparador){
-		return this.consutarInstituicoes("telefone", instituicao.getTelefone(), comparador).get(0);
+		return this.consultarInstituicoes("telefone", instituicao.getTelefone(), comparador).get(0);
 	}
 
 	public Instituicao consultarEndereco(Instituicao instituicao, int comparador){
-		return this.consutarInstituicoes("endereco", instituicao.getEndereco(), comparador).get(0);
+		return this.consultarInstituicoes("endereco", instituicao.getEndereco(), comparador).get(0);
 	}
 	
-	public ArrayList<Instituicao> consutarIdCidade(Cidade cidade, int comparador){
+	public ArrayList<Instituicao> consultarIdCidade(Cidade cidade, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -169,7 +170,7 @@ public class InstituicaoDAO {
         }
 	}
 
-    public ArrayList<Instituicao> consutarIdRota(Rota rota, int comparador){
+    public ArrayList<Instituicao> consultarIdRota(Rota rota, int comparador){
         try {
             String sql = "";
             switch(comparador) {

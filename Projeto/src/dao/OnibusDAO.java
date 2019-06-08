@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Horario;
 import model.Onibus;
+import model.Rota;
 
 
 public class OnibusDAO {
@@ -113,12 +114,12 @@ public class OnibusDAO {
             boolean aux = true;
             ArrayList<Onibus> onibuss = new ArrayList<Onibus>();
             Onibus onibus = new Onibus();
-            RotaDAO rDAO = RotaDAO();
+            RotaDAO rDAO = new RotaDAO();
             ArrayList<Rota> rotas;
             while(rs.next()) {
             	aux = false;
             	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
-            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"));
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
             	onibus.setRotas(rotas);
             	onibuss.add(onibus);
             }
@@ -133,19 +134,19 @@ public class OnibusDAO {
 	}
 	
 	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int comparador){
-		return this.consutarOnibus("placa", onibus.getPlaca(),  comparador);
+		return this.consultarOnibus("placa", onibus.getPlaca(),  comparador);
 	}
 
 	public ArrayList<Onibus> consutarCor(Onibus onibus, int comparador){
-		return this.consutarOnibus("cor", onibus.getCor(),  comparador);
+		return this.consultarOnibus("cor", onibus.getCor(),  comparador);
 	}
 	
 	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int comparador){
-		return this.consutarOnibus("motorista", onibus.getMotorista(),  comparador);
+		return this.consultarOnibus("motorista", onibus.getMotorista(),  comparador);
 	}
 
     public ArrayList<Onibus> consutarTelefone(Onibus onibus, int comparador){
-        return this.consutarOnibus("telefone", onibus.getTelefone(),  comparador);
+        return this.consultarOnibus("telefone", onibus.getTelefone(),  comparador);
     }
 	
 	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){
@@ -170,7 +171,7 @@ public class OnibusDAO {
 	        Onibus onibus = new Onibus();
 	        while(rs.next()) {
 	        	aux = false;
-	        	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"));
+	        	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
 	        	onibuss.add(onibus);
 	        }
 	        if(aux) {
@@ -204,7 +205,7 @@ public class OnibusDAO {
             Onibus onibus = new Onibus();
             while(rs.next()) {
             	aux = false;
-            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"));
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
             	onibuss.add(onibus);
             }
             if(aux) {

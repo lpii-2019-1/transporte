@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import model.Ponto;
+import model.Rota;
 
 public class PontoDAO {
 	private Connection conexao;
@@ -132,15 +133,15 @@ public class PontoDAO {
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
             Ponto ponto = new Ponto();
-            ArrayList<Ponto> pontos;
+            ArrayList<Ponto> pontos = new ArrayList<Ponto>();
             while(rs.next()) {
                 aux = false;
-                ponto = this.consultarId(rs.getInt("id_ponto"));
+                ponto = this.consultarId(rs.getInt("id_ponto"), comparador);
                 ponto.setOrdem(rs.getInt("ordem"));
-                pontos.add();
+                pontos.add(ponto);
             }
             if(aux){
-                pontos.add(ponto)
+                pontos.add(ponto);
             }
             this.stmt.close();
             return pontos;

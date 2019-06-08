@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Horario;
 import model.Rota;
+import model.Turno;
 
 
 public class HorarioDAO {
@@ -105,7 +106,7 @@ public class HorarioDAO {
             while(rs.next()) {
             	aux = false;
 
-            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
             	horarios.add(horario);
             }
             if(aux) {
@@ -149,7 +150,7 @@ public class HorarioDAO {
             TurnoDAO tDAO = new TurnoDAO();
             while(rs.next()) {
                 aux = false;
-                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
                 horarios.add(horario);
             }
             if(aux) {
@@ -184,7 +185,7 @@ public class HorarioDAO {
             TurnoDAO tDAO = new TurnoDAO();
             while(rs.next()) {
                 aux = false;
-                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
                 horarios.add(horario);
             }
             if(aux) {
@@ -217,7 +218,7 @@ public class HorarioDAO {
             Horario horario = new Horario();
             TurnoDAO tDAO = new TurnoDAO();
             if(rs.next()) {
-            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getString("id_turno")));
+            	horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
             }
             this.stmt.close();
             return horario;

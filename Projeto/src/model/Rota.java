@@ -12,14 +12,16 @@ public class Rota{
     private ArrayList<Horario> horarios = new ArrayList<Horario>();
     private int validacao = 0;
     
-	public Rota(int id, String inicio, String fim) {
+	public Rota(int id, String inicio, String fim, String percurso) {
 		this.id = id;
 		this.inicio = inicio;
 		this.fim = fim;
+		this.percurso = percurso;
 	}
-	public Rota(String inicio, String fim) {
+	public Rota(String inicio, String fim, String percurso) {
 		this.inicio = inicio;
 		this.fim = fim;
+		this.percurso = percurso;
 	}
 	public Rota() {
 		

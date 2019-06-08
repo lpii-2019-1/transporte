@@ -44,7 +44,7 @@ public class TurnoDAO {
         }
     }
 	
-	public Turno consutarTurno(Turno turnoSel){
+	public Turno consultarTurno(Turno turnoSel){
 		try {
 			String sql = "SELECT * FROM turno WHERE turno = ?";
 			this.stmt = this.conexao.prepareStatement(sql);
@@ -61,7 +61,7 @@ public class TurnoDAO {
         }
 	}
 
-    public Turno consutarId(int id){
+    public Turno consultarId(int id){
         try {
             String sql = "SELECT * FROM turno WHERE id = ?";
             this.stmt = this.conexao.prepareStatement(sql);

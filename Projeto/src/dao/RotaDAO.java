@@ -124,9 +124,9 @@ public class RotaDAO {
             PontoDAO pDAO = new PontoDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
-                rota.setInstituicao(iDAO.consultarIdRota, comparador);
-                rota.setPontos(pDAO.consultarIdRota, comparador);
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
+                rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
+                rota.setPontos(pDAO.consultarIdRota(rota, comparador));
             	rotas.add(rota);
             }
             if(aux) {
@@ -169,8 +169,8 @@ public class RotaDAO {
             PontoDAO pDAO = new PontoDAO();
             if(rs.next()) {
                 rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
-                rota.setInstituicao(iDAO.consultarIdRota, comparador);
-                rota.setPontos(pDAO.consultarIdRota, comparador);
+                rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
+                rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
             }
             this.stmt.close();
             return rota;
@@ -179,7 +179,7 @@ public class RotaDAO {
         }
 	}
 	
-	public ArrayList<Rota> consultarIdOnibus(Onibus onibus, int comparador) {
+	public ArrayList<Rota> consultarIdOnibus(int id, int comparador) {
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -194,7 +194,7 @@ public class RotaDAO {
 				break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setInt(1, onibus.getId());
+			this.stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
             ArrayList<Rota> rotas = new ArrayList<Rota>();
@@ -239,8 +239,8 @@ public class RotaDAO {
             while(rs.next()) {
                 aux = false;
                 rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
-                rota.setInstituicao(iDAO.consultarIdRota, comparador);
-                rota.setPontos(pDAO.consultarIdRota, comparador);
+                rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
+                rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
                 rotas.add(rota);
             }
             if(aux){
@@ -322,7 +322,7 @@ public class RotaDAO {
             Rota rota = new Rota();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"));
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
             	rotas.add(rota);
             }
             if(aux) {

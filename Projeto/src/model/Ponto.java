@@ -33,8 +33,8 @@ public class Ponto{
 		this.ordem = ordem;
 	}
 
-	public String getOrdem() {
-		return ordem;
+	public int getOrdem() {
+		return this.ordem;
 	}
 
 	public void setEndereco(String endereco) {

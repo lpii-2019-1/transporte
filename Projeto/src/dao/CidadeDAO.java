@@ -188,7 +188,7 @@ public class CidadeDAO {
 
 	public ArrayList<Instituicao> listarInstituicoes(Cidade cidade, int comparador){
 		InstituicaoDAO iDAO = new InstituicaoDAO();
-		return iDAO.consutarIdCidade(cidade, comparador);
+		return iDAO.consultarIdCidade(cidade, comparador);
 	}
 
 	public boolean excluirCidade(Cidade cidade){

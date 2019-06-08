@@ -20,7 +20,7 @@ public class Horario {
 			this.turno = turno;
 		} catch (ParseException e) {
 			e.printStackTrace();
-		};
+		}
     }
     public Horario(String hrSaidaPrimeiroPonto, String hrRegresso, Turno turno){
     	try {
@@ -29,7 +29,8 @@ public class Horario {
 			this.turno = turno;
 		} catch (ParseException e) {
 			e.printStackTrace();
-		};
+		}
+    }
 	public Horario(){
 		
 	}
