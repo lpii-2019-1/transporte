@@ -113,7 +113,7 @@ public class PontoDAO {
         }
 	}
 	
-    public ArrayList<Ponto> consultarIdRota(Rota rota){
+    public ArrayList<Ponto> consultarIdRota(Rota rota, int comparador){
         try {
             String sql = "";
             switch(comparador) {
