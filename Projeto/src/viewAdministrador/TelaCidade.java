@@ -2,7 +2,7 @@ package viewAdministrador;
 
 import java.util.ArrayList;
 
-import view.TelaFim;
+import view.TelaFimOperacao;
 import model.Cidade;
 import model.Instituicao;
 
@@ -10,8 +10,6 @@ public class TelaCidade{
 	public String opcEdicao = "\n1 - Nome \n2 - UF \n3 - Instituicoes \n4 - Validacao  \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String opcConsulta = "\n1 - Nome \n2 - UF \n3 - Instituicao \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String cadastro = "\nDigite o valores da Cidade (Ex.: Ceres, GO, Disponivel): ";
-	public String sucesso = "\nDados inseridos com sulcesso! " +  new TelaFimOperacao().TelaIni;
-	public String erro = "\nNão foi posivel inserir esse dados! " +  new TelaFimOperacao().TelaIni;
 	public String entrada = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
 	public String telaConsulta;
 
@@ -30,6 +28,6 @@ public class TelaCidade{
 			this.telaConsulta += "\n    Disponibilidade: " + (c.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaConsulta += "\n";
 		}
-		this.telaConsulta += new TelaFimOperacao().TelaIni;
+		this.telaConsulta += new TelaFimOperacao().telaIni;
 	}
 }

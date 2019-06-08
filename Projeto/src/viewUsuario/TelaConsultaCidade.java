@@ -1,6 +1,6 @@
 package viewUsuario;
 
-import view.TelaFim;
+import view.TelaFimOperacao;
 
 public class TelaConsultaCidade{
 	public String telaIni = "\nDigite o nome de uma cidade (Ex.: Ceres GO): ";

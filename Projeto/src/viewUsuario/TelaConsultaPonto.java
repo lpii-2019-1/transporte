@@ -1,14 +1,11 @@
 package viewUsuario;
 
 import java.util.ArrayList;
-import view.TelaFim;
+import view.TelaFimOperacao;
 import model.Ponto;
 import model.Instituicao;
 
-public class TelaConsultaPonto extends TelaFim{
-	public TelaConsultaPonto(int identificador) {
-		super(identificador);
-	}
+public class TelaConsultaPonto{
 	public String telaIni = "\nDigite 1 para listar pontos ou 2 para pesquisar pontos: ";
 	public String telaErro = "\nNao foi encontrado nenhum ponto com essas informacoes!\n" + new TelaFimOperacao().telaIni;
 	public String telaConsulta;

@@ -1,7 +1,7 @@
 package viewUsuario;
 
 import java.util.ArrayList;
-import view.TelaFim;
+import view.TelaFimOperacao;
 import model.Instituicao;
 import model.Rota;
 
