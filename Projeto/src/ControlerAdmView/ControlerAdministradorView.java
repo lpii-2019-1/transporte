@@ -6,7 +6,7 @@ import model.*;
 import viewAdministrador.*;
 import view.*;
 
-public class ControlerAdministrador{
+public class ControlerAdministradorView{
 	public boolean exit = false;
 	public int acesso1;
 	public int acesso2;
@@ -175,8 +175,8 @@ public class ControlerAdministrador{
 						break;
 					//Vai para tela entrada de dados a serem inseridos
 					case 2:
-						String regex = "((?<=,)|(?=, ))|\\s";
-						ArrayList<String> entradas = entrada.spit(regex);
+						String regex = "(( , )|( ,)|(, )|(,))";
+						ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 						if(inseri()){//Metodo insere dados na tabela Cidade --M.W. deve setar, entrada corespone a string usada de parametro
 
 						}
