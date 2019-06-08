@@ -3,7 +3,7 @@ package usuario;
 import java.util.ArrayList;
 import view.Tela;
 import model.Ponto;
-import mode.Instituicao;
+import model.Instituicao;
 
 public class TelaConsultaPonto extends Tela{
 	public String telaIni = "\nDigite 1 para listar pontos ou 2 para pesquisar pontos: ";

@@ -3,7 +3,7 @@ package usuario;
 import java.util.ArrayList;
 import view.Tela;
 import model.Cidade;
-import mode.Instituicao;
+import model.Instituicao;
 
 public class TelaConsultaPercurso extends Tela{
 	public String telaIni = "\nDigite 1 para listar percursos ou 2 para pesquisar percuros: ";
