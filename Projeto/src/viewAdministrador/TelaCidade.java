@@ -1,5 +1,7 @@
 package viewAdministrador;
 
+import java.util.ArrayList;
+
 import model.Cidade;
 import model.Instituicao;
 import view.Tela;
@@ -25,10 +27,11 @@ public class TelaCidade extends Tela{
 				this.telaCidade += "\n        Nome: " + i.getNome();
 				this.telaCidade += "\n        Endereco: " + i.getEndereco();
 				this.telaCidade += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
-				this.telaCidade += "\n"
+				this.telaCidade += "\n";
 			}
 			this.telaCidade += "\n    Disponibilidade: " + (c.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaCidade += "\n";
 		}
+		this.telaCidade += "\nDigite 0 para voltar";
 	}
 }

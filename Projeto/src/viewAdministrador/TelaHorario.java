@@ -1,6 +1,10 @@
 package viewAdministrador;
 
 import view.Tela;
+
+import java.util.ArrayList;
+
+import model.Horario;
 public class TelaHorario extends Tela{
 	public TelaHorario(int identificador) {
 		super(identificador);
@@ -13,12 +17,13 @@ public class TelaHorario extends Tela{
 
 	public void setTelaHorario(ArrayList<Horario> horarios){
 		this.telaHorario = "\nHorarios:";
-		for(Horario h : r.getHorarios()){
+		for(Horario h : horarios){
 			this.telaHorario += "\n        Turno: " + h.getTurno().getTurno();
 			this.telaHorario += "\n        Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
 			this.telaHorario += "\n        Haririo de regresso: " + h.getHrRegresso();
 			this.telaHorario += "\n        Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaHorario += "\n";
 		}
+		this.telaHorario += "\nDigite 0 para voltar: ";
 	}
 }

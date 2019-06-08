@@ -47,5 +47,6 @@ public class TelaRota extends Tela{
 			this.telaRota += "\n    Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaRota += "\n";
 		}
+		this.telaRota += "\nDigite 0 para voltar: ";
 	}
 }

@@ -2,6 +2,10 @@ package viewAdministrador;
 
 import view.Tela;
 
+import java.util.ArrayList;
+
+import model.Ponto;
+
 public class TelaPonto extends Tela{
 	public TelaPonto(int identificador) {
 		super(identificador);
@@ -11,7 +15,7 @@ public class TelaPonto extends Tela{
 	public String Excluir = "\nDigite o endereco da ponto (Ex.: Esquina): ";
 	public String telaPonto;
 
-	public void setTelaPonto(Array<Ponto> pontos){
+	public void setTelaPonto(ArrayList<Ponto> pontos){
 		this.telaPonto = "\nPontos: ";
 		for (Ponto p : pontos) {
 			this.telaPonto += "\n    Ordem: " + p.getOrdem();
@@ -19,5 +23,6 @@ public class TelaPonto extends Tela{
 			this.telaPonto += "\n    Disponibilidade: " + (p.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaPonto += "\n";
 		}
+		this.telaPonto += "\nDigite 0 para voltar: ";
 	}
 }

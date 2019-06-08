@@ -1,5 +1,10 @@
 package viewAdministrador;
 
+import java.util.ArrayList;
+
+import model.Horario;
+import model.Onibus;
+import model.Rota;
 import view.Tela;
 
 public class TelaOnibus extends Tela{
@@ -14,13 +19,13 @@ public class TelaOnibus extends Tela{
 	public void setTelaOnibus(ArrayList<Onibus> onibuss){
 		this.telaOnibus = "\nOnibus: ";
 		for (Onibus o : onibuss) {
-			this.telaOnibus += "\n    Placa: " + onibus.getPlaca();
-			this.telaOnibus += "\n    Cor: " + onibus.getCor();
-			this.telaOnibus += "\n    Motorista: " + onibus.getMotorista();
-			this.telaOnibus += "\n    Telefone: " + onibus.getTelefone();
-			this.telaOnibus += "\n    Mensalidade: " + onibus.getMensalidade();
+			this.telaOnibus += "\n    Placa: " + o.getPlaca();
+			this.telaOnibus += "\n    Cor: " + o.getCor();
+			this.telaOnibus += "\n    Motorista: " + o.getMotorista();
+			this.telaOnibus += "\n    Telefone: " + o.getTelefone();
+			this.telaOnibus += "\n    Mensalidade: " + o.getMensalidade();
 			this.telaOnibus += "\n    Rotas: ";
-			for (Rota r : onibus.getRotas()) {
+			for (Rota r : o.getRotas()) {
 				this.telaOnibus += "\n        Inicio: " + r.getInicio();
 				this.telaOnibus += "\n        Fim: " + r.getFim();
 				this.telaOnibus += "\n        Turnos: ";
@@ -34,8 +39,9 @@ public class TelaOnibus extends Tela{
 				this.telaOnibus += "\n        Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
 				this.telaOnibus += "\n";
 			}
-			this.telaOnibus += "\n    Disponibilidade: " + (onibus.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaOnibus += "\n    Disponibilidade: " + (o.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaOnibus += "\n";
 		}
+		this.telaOnibus += "\nDigite 0 para voltar: ";
 	}
 }

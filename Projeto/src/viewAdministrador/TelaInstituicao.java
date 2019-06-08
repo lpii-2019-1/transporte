@@ -1,5 +1,7 @@
 package viewAdministrador;
 
+import java.util.ArrayList;
+
 import model.Instituicao;
 import view.Tela;
 
@@ -16,11 +18,12 @@ public class TelaInstituicao extends Tela{
 	public void setTelaCidade(ArrayList<Instituicao> instituicoes){
 		this.telaInstituicao = "\nInstituicoes: ";
 		for (Instituicao i : instituicoes) {
-			this.telaInstituicao += "\n    Nome: " + instituicao.getNome();
-			this.telaInstituicao += "\n    Endereco: " + instituicao.getEndereco();
-			this.telaInstituicao += "\n    Telefone: " + instituicao.getTelefone();
+			this.telaInstituicao += "\n    Nome: " + i.getNome();
+			this.telaInstituicao += "\n    Endereco: " + i.getEndereco();
+			this.telaInstituicao += "\n    Telefone: " + i.getTelefone();
 			this.telaInstituicao += "\n    Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
 			this.telaInstituicao += "\n";
 		}
+		this.telaInstituicao += "\nDigite 0 para voltar: ";
 	}
 }
