@@ -20,12 +20,13 @@ public class OnibusDAO {
 	
 	public boolean inserirOnibus(Onibus onibus){
         try {
-            String sql = "INSERT INTO onibus (placa, cor, motorista, mensalidade) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO onibus (placa, cor, motorista, mensalidade, telefone) VALUES (?, ?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, onibus.getPlaca());
             this.stmt.setString(2, onibus.getCor());
             this.stmt.setString(3, onibus.getMotorista());
             this.stmt.setDouble(4, onibus.getMensalidade());
+            this.stmt.setString(5, onibus.getTelefone());
             this.stmt.execute();
             this. stmt.close();
             return true;
@@ -59,6 +60,10 @@ public class OnibusDAO {
 	public boolean editarMotorista(Onibus onibus){
 		return this.editarOnibus("motorista", onibus.getMotorista(), onibus.getId());
 	}
+
+    public boolean editarTelefone(Onibus onibus){
+        return this.editarOnibus("telefone", onibus.getTelefone(), onibus.getId());
+    }
 	
 	public boolean editarMensalidade(Onibus onibus){
         try {
@@ -127,17 +132,21 @@ public class OnibusDAO {
         }
 	}
 	
-	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int validacao){
-		return this.consutarOnibus("placa", onibus.getPlaca(),  validacao);
+	public ArrayList<Onibus> consutarPlaca(Onibus onibus, int comparador){
+		return this.consutarOnibus("placa", onibus.getPlaca(),  comparador);
 	}
 
-	public ArrayList<Onibus> consutarCor(Onibus onibus, int validacao){
-		return this.consutarOnibus("cor", onibus.getCor(),  validacao);
+	public ArrayList<Onibus> consutarCor(Onibus onibus, int comparador){
+		return this.consutarOnibus("cor", onibus.getCor(),  comparador);
 	}
 	
-	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int validacao){
-		return this.consutarOnibus("motorista", onibus.getMotorista(),  validacao);
+	public ArrayList<Onibus> consutarMotorista(Onibus onibus, int comparador){
+		return this.consutarOnibus("motorista", onibus.getMotorista(),  comparador);
 	}
+
+    public ArrayList<Onibus> consutarTelefone(Onibus onibus, int comparador){
+        return this.consutarOnibus("telefone", onibus.getTelefone(),  comparador);
+    }
 	
 	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){
 		try {

@@ -3,20 +3,22 @@ package model;
 import java.util.ArrayList;
 
 public class Onibus {
-	public int id = 0;
-	public String placa;
-	public String cor;
-	public String motorista;
-	public double mensalidade;
-	public ArrayList<Rota> rotas;
+	private int id = 0;
+	private String placa;
+	private String cor;
+	private String motorista;
+	private double mensalidade;
+	private String telefone;
+	private ArrayList<Rota> rotas;
 	private int validacao = 0;
 		
-	public Onibus(int id, String placa, String cor, String motorista, double mensalidade) {
+	public Onibus(int id, String placa, String cor, String motorista, double mensalidade, String telefone) {
 		this.id = id;
 		this.placa = placa;
 		this.cor = cor;
 		this.motorista = motorista;
 		this.mensalidade = mensalidade;
+		this.telefone = telefone;
 	}
 	public Onibus(String placa, String cor, String motorista, double mensalidade) {
 		this.placa = placa;
@@ -68,6 +70,13 @@ public class Onibus {
 	}
 	public void setMensalidade(double mensalidade) {
 		this.mensalidade = mensalidade;
+	}
+
+	public String getTelefone(){
+		return this.telefone;
+	}
+	public void setTelefone(String telefone){
+		this.telefone = telefone;
 	}
 	
 	public void inserirRota(Rota rota) {
