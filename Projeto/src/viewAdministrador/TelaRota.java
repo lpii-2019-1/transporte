@@ -1,5 +1,7 @@
 package viewAdministrador;
 
+import java.util.ArrayList;
+
 import model.Horario;
 import model.Instituicao;
 import model.Ponto;
@@ -14,25 +16,36 @@ public class TelaRota extends Tela{
 	public String cadastro = "\nDigite o valores do onibus (Ex.: Rua 1, UEG, BR - 153, Curumim, 00:00, 00:00, Disponivel): ";
 	public String Excluir = "\nDigite o placa da onibus (Ex.: abc-1234): ";
 	public String telaRota;
-	public void setTelaRota(Rota rota){
-		int k = 0;
-		this.telaRota += "\nInicio:" + rota.getInicio();
-		this.telaRota += "\nFim:" + rota.getFim();
-		this.telaRota += "\nInstituicoes:";
-		k = 0;
-		for(Instituicao i : rota.getInstituicoes()){
-			k++;
-			this.telaRota += "Instituicao " + k + ":" + i.getNome();
-		}
-		this.telaRota += "\nPontos:";
-		for(Ponto p : rota.getPontos()){
-			this.telaRota += "\n    " + p.getOrdem() + "º " + p.getEndereco();
-		}
-		this.telaRota += "\nHorarios:";
-		for(Horario h : rota.getHorarios()){
-			this.telaRota += "\n    Turno: " + h.getTurno().getTurno();
-			this.telaRota += "\n    Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-			this.telaRota += "\n    Haririo de regresso: " + h.getHrRegresso();
+	public void setTelaRota(ArrayList<Rota> rotas){
+		this.telaRota = "\nRotas:";
+		for (Rota r: rotas) {
+			this.telaRota += "\n    Inicio:" + r.getInicio();
+			this.telaRota += "\n    Fim:" + r.getFim();
+			this.telaRota += "\n    Instituicoes:";
+			for(Instituicao i : r.getInstituicoes()){
+				this.telaRota += "\n        Nome:" + i.getNome();
+				this.telaRota += "\n        Endereco: " + i.getEndereco();
+				this.telaRota += "\n        Telefone: " + i.getTelefone();
+				this.telaRota += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+				this.telaRota += "\n";
+			}
+			this.telaRota += "\n    Pontos:";
+			for(Ponto p : r.getPontos()){
+				this.telaRota += "\n        Ordem:" + p.getOrdem(); 
+				this.telaRota += "\n        Endereco:" + p.getEndereco();
+				this.telaRota += "\n        Disponibilidade: " + (p.getValidacao() == 1? "Disponivel": "Indisponivel");
+				this.telaRota += "\n";
+			}
+			this.telaRota += "\n    Horarios:";
+			for(Horario h : r.getHorarios()){
+				this.telaRota += "\n        Turno: " + h.getTurno().getTurno();
+				this.telaRota += "\n        Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+				this.telaRota += "\n        Haririo de regresso: " + h.getHrRegresso();
+				this.telaRota += "\n        Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+				this.telaRota += "\n";
+			}
+			this.telaRota += "\n    Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaRota += "\n";
 		}
 	}
 }

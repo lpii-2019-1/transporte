@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 package viewUsuario;
 
 import view.Tela;
 
 public class TelaConsultaTurno extends Tela{
 	public String telaIni = "\nTurnos: \n    1 - Matutino \n    2 - Vespertino \n    3 - Noturno \n    0 - Sair\n\nDigite o numero correspondente: ";
-=======
-package viewUsuario;
-
-import view.Tela;
-
-public class TelaConsultaTurno extends Tela{
-	public String telaIni = "\nTurnos: \n    1 - Matutino \n    2 - Vespertino \n    3 - Noturno \n    0 - Sair\n\nDigite o numero correspondente: ";
->>>>>>> cdfc8d46bdb81d99645173fd10d2d9a6efa433a4
 }

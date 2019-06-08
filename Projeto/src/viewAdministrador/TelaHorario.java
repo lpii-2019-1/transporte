@@ -10,4 +10,15 @@ public class TelaHorario extends Tela{
 	public String cadastro = "\nDigite o valores do Horario (Ex.: 14:00, 17:00, Matutino, Disponivel): ";
 	public String Excluir = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
 	public String telaHorario;
+
+	public void setTelaHorario(ArrayList<Horario> horarios){
+		this.telaHorario = "\nHorarios:";
+		for(Horario h : r.getHorarios()){
+			this.telaHorario += "\n        Turno: " + h.getTurno().getTurno();
+			this.telaHorario += "\n        Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+			this.telaHorario += "\n        Haririo de regresso: " + h.getHrRegresso();
+			this.telaHorario += "\n        Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaHorario += "\n";
+		}
+	}
 }

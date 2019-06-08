@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package viewUsuario;
 
 import java.util.ArrayList;
@@ -46,53 +45,4 @@ public class TelaConsultaRota extends Tela{
 		}
 		this.telaRota += "\n    0 - Sair \n\nDigite o numero correspondente: ";
 	}
-=======
-package viewUsuario;
-
-import java.util.ArrayList;
-import view.Tela;
-import model.Rota;
-import model.Instituicao;
-import model.Ponto;
-
-public class TelaConsultaRota extends Tela{
-	public String telaRota;
-	public void setTelaRota(ArrayList<Rota> rotas, Instituicao instituicao){
-		this.telaRota = "\nInstituicao: " + instituicao.getNome();
-		int j = 0;
-		int k;
-		for(Ponto r : rotas){
-			j++;
-			this.telaRota += "\n   " + i + " - Rota: De " + r.getInicio() + " até " + r.getFim()+ ":";
-			this.telaRota += "\n    Passando por ";
-			k = 0
-			for(Instituicao i : r.getInstituicoes()){
-				k++;
-				if(i.getInstituicoes().size() == 1){
-					this.telaRota += i.getNome() + ".";
-				}
-				else if(i.getInstituicoes().size() == k){
-					this.telaRota += " e " + i.getNome();
-				}
-				else if(i.getInstituicoes().size() < k){
-					this.telaRota += ", " + i.getNome();
-				}
-				else{
-					this.telaRota += i.getNome();
-				}
-			}
-			this.telaRota += "\nPontos:";
-			for(Ponto p : r.getPontos()){
-				this.telaRota += "\n    " + p.getOrdem() + "º " + p.getEndereco();
-			}
-			this.telaRota += "\nHorarios:";
-			for(Haririo h : r.getHorarios()){
-				this.telaRota += "\n    Turno: " + h.getTurno().getTurno();
-				this.telaRota += "\n    Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-				this.telaRota += "\n    Haririo de regresso: " + h.getHrRegresso();
-			}
-		}
-		this.telaRota += "\n    0 - Sair \n\nDigite o numero correspondente: ";
-	}
->>>>>>> cdfc8d46bdb81d99645173fd10d2d9a6efa433a4
 }

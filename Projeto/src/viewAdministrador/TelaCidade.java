@@ -15,25 +15,20 @@ public class TelaCidade extends Tela{
 	public String Excluir = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
 	public String telaCidade;
 
-	public void setTelaCidade(Cidade cidade){
-		this.telaCidade = "\nNome: " + cidade.getNome();
-		this.telaCidade += "\nUF: " + cidade.getUf();
-		this.telaCidade += "\nInstituicoes: ";
-		if(cidade.getInstituicoes().get(0) != null){
-			int j = 0;
-			for (Instituicao i : cidade.getInstituicoes()) {
-				j++;
-				this.telaCidade += "\n    Instituicao " + j + ": " + i.getNome();
+	public void setTelaCidade(ArrayList<Cidade> cidades){
+		this.telaCidade = "Cidades: ";
+		for (Cidade c : cidades) {			
+			this.telaCidade += "\n    Nome: " + c.getNome();
+			this.telaCidade += "\n    UF: " + c.getUf();
+			this.telaCidade += "\n    Instituicoes: ";
+			for (Instituicao i : c.getInstituicoes()) {
+				this.telaCidade += "\n        Nome: " + i.getNome();
+				this.telaCidade += "\n        Endereco: " + i.getEndereco();
+				this.telaCidade += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+				this.telaCidade += "\n"
 			}
-		}
-		else{
-			this.telaCidade += "Nao ha Instituicoes";
-		}
-		if(cidade.getValidacao() == 1){
-			this.telaCidade += "\nDisponibilidade: Disponivel";	
-		}
-		else{
-			this.telaCidade += "\nDisponibilidade: Indisponivel";	
+			this.telaCidade += "\n    Disponibilidade: " + (c.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaCidade += "\n";
 		}
 	}
 }

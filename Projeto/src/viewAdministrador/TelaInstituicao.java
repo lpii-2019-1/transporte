@@ -13,15 +13,14 @@ public class TelaInstituicao extends Tela{
 	public String Excluir = "\nDigite o endereco da instituicao (Ex.: Meio do mato): ";
 	public String telaInstituicao;
 
-	public void setTelaCidade(Instituicao instituicao){
-		this.telaInstituicao = "\nNome: " + instituicao.getNome();
-		this.telaInstituicao += "\nEndereco: " + instituicao.getEndereco();
-		this.telaInstituicao += "\nTelefone: " + instituicao.getTelefone();
-		if(instituicao.getValidacao() == 1){
-			this.telaInstituicao += "\nDisponibilidade: Disponivel";	
-		}
-		else{
-			this.telaInstituicao += "\nDisponibilidade: Indisponivel";	
+	public void setTelaCidade(ArrayList<Instituicao> instituicoes){
+		this.telaInstituicao = "\nInstituicoes: ";
+		for (Instituicao i : instituicoes) {
+			this.telaInstituicao += "\n    Nome: " + instituicao.getNome();
+			this.telaInstituicao += "\n    Endereco: " + instituicao.getEndereco();
+			this.telaInstituicao += "\n    Telefone: " + instituicao.getTelefone();
+			this.telaInstituicao += "\n    Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaInstituicao += "\n";
 		}
 	}
 }
