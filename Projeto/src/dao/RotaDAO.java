@@ -214,7 +214,7 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
-	public ArrayList<Rota> consultarIdRota(Instituicao instituicao, int comparador){
+	public ArrayList<Rota> consultarIdInsituicao(Instituicao instituicao, int comparador){
         try {
             String sql = "";
             switch(comparador) {
