@@ -14,16 +14,23 @@ public class ControlUsuario {
 	private ArrayList<Rota> rotas;
 	private Onibus onibusSelecionado;
 	private ArrayList<ArrayList<Horario>> turnosTodasRotas;
+	private ArrayList<Instituicao> InstituicoesCidadeSelecionada;
 	/*------------ Métodos para pesquisar cidade e retornar instituições ------------*/
 	
-	public ArrayList<Instituicao> pesquisarCidade(String nome, String uf){
+	public boolean pesquisarCidade(String nome, String uf){
 		CidadeDAO cDAO = new CidadeDAO();
 		Cidade c = new Cidade();
 		c.setNome(nome);
 		c.setUf(uf);
 		c = cDAO.consultarNomeUf(c, 1);
-		this.cidadeSelecionada = c;
-		return this.cidadeSelecionada.getInstituicoes();
+		if(this.verificaId(c)) {
+			this.cidadeSelecionada = c;
+			this.InstituicoesCidadeSelecionada = this.cidadeSelecionada.getInstituicoes();
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 	public boolean verificaId(Cidade c) {
