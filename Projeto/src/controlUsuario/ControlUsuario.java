@@ -205,6 +205,14 @@ public class ControlUsuario {
 		this.rotas = rotas;
 	}
 
+	public ArrayList<ArrayList<Horario>> getTurnosTodasRotas() {
+		return turnosTodasRotas;
+	}
+
+	public void setTurnosTodasRotas(ArrayList<ArrayList<Horario>> turnosTodasRotas) {
+		this.turnosTodasRotas = turnosTodasRotas;
+	}
+
 	public Onibus getOnibusSelecionado() {
 		return onibusSelecionado;
 	}
