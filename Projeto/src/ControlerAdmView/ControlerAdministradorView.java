@@ -1,6 +1,7 @@
-package ControlerAdm;
+package ControlerAdmView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import model.*;
 import viewAdministrador.*;
@@ -16,9 +17,21 @@ public class ControlerAdministradorView{
 
 	public String tela = new TelaInicial().telaIni;
 
+	private ControlAdministrador controler;
+	
+	public ControlerAdministradorView(ControlAdministrador controler){
+		this.controler = controler;
+	}
+
 	public void entrada(String entrada){
-		int arg = 0;
-		arg = Integer.parseInt(entrada);
+		int arg = -1;
+        if(entrada.length() == 1){
+            String s[] = entrada.split("[0-9]");
+			if(s.length == 0){
+				arg = Integer.parseInt(entrada);
+                System.out.println(arg);
+			}
+		}
 		switch(this.acesso1){
 			//Retorno de fim de operacao ou argumento invalido
 			case -1:
@@ -133,7 +146,7 @@ public class ControlerAdministradorView{
 								break;
 							//Vai para tela de Listagem
 							case 5:
-								ArrayList<Cidade> consulta = lista();//Metodo que lista cidade --M.W. deve setar
+								ArrayList<Cidade> consulta = listarCidades();//Metodo que lista cidade --M.W. deve setar
 								TelaCidade tela = new TelaCidade();
 								tela.setTelaConsulta(consulta);
 								this.tela = tela.telaConsulta;
@@ -158,7 +171,7 @@ public class ControlerAdministradorView{
 										break;
 									case 1:
 										this.acesso3 = 0;
-										this.acesso2 = 0
+										this.acesso2 = 0;
 										this.tela = new TelaManter().telaIni;
 										break;
 									default:
@@ -224,9 +237,9 @@ public class ControlerAdministradorView{
 								switch(arg){
 									//Cadastrar cidade
 									case 1:
-										String regex = "((?<=,)|(?=, ))|\\s";
-										ArrayList<String> entradas = entrada.spit(regex);
-										if(inseri(entradas.get(0), entradas.get(1), entradas.get(3))){//Metodo insere dados na tabela Cidade --M.W. deve setar, entrada corespone a string usada de parametro
+										String regex = "(( , )|( ,)|(, )|(,))";
+										ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
+										if(inseriCidadeSelecionada(entradas.get(0), entradas.get(1), entradas.get(3))){//Metodo insere dados na tabela Cidade --M.W. deve setar, entrada corespone a string usada de parametro
 											this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().telaIni;
 										}
 										else{
@@ -238,6 +251,7 @@ public class ControlerAdministradorView{
 										break;
 								}
 								break;
+						}
 					//Vai para tela opcoes de edicao
 					case 3:
 						switch(this.acesso3){
@@ -308,19 +322,19 @@ public class ControlerAdministradorView{
 										}
 										break;
 									case 0:
-										String regex = "((?<=,)|(?=, ))|\\s";
-										ArrayList<String> entradas = entrada.spit(regex);
+										String regex = "(( , )|( ,)|(, )|(,))";
+										ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 										selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaManter().telaEdicao;
-										this.acesso4 = 1
+										this.acesso4 = 1;
 										break;
 									case 1:
-										editrarNomeCidade(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+										editrarNomeCidadeSelecionada(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaFimOperacao().telaIni;
 										acesso4 = 2;
 										break;
 									case 2:
-										if(arg = 0){
+										if(arg == 0){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
 											this.acesso2 = 0;
@@ -328,10 +342,10 @@ public class ControlerAdministradorView{
 											this.exit = true;
 											this.tela = new TelaInicial().telaIni;
 										}
-										else if(){
+										else if(arg == 1){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
-											this.tela = 
+											this.tela = new TelaManter().telaEdicao;
 										}
 										break;
 									default:
@@ -364,19 +378,19 @@ public class ControlerAdministradorView{
 										}
 										break;
 									case 0:
-										String regex = "((?<=,)|(?=, ))|\\s";
-										ArrayList<String> entradas = entrada.spit(regex);
+										SString regex = "(( , )|( ,)|(, )|(,))";
+										ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 										selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaManter().telaEdicao;
-										this.acesso4 = 1
+										this.acesso4 = 1;
 										break;
 									case 1:
-										editrarUfCidade(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+										editrarUfCidadeSelecionad(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaFimOperacao().telaIni;
 										this.acesso4 = 2;
 										break;
 									case 2:
-										if(arg = 0){
+										if(arg == 0){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
 											this.acesso2 = 0;
@@ -384,10 +398,10 @@ public class ControlerAdministradorView{
 											this.exit = true;
 											this.tela = new TelaInicial().telaIni;
 										}
-										else if(){
+										else if(arg == 1){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
-											this.tela = 
+											this.tela = new TelaManter().telaEdicao;
 										}
 										break;
 									default:
@@ -419,11 +433,11 @@ public class ControlerAdministradorView{
 										}
 										break;
 									case 0:
-										String regex = "((?<=,)|(?=, ))|\\s";
-										ArrayList<String> entradas = entrada.spit(regex);
+										String regex = "(( , )|( ,)|(, )|(,))";
+										ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 										selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaManter().telaEdicao;
-										this.acesso4 = 1
+										this.acesso4 = 1;
 										break;
 									case 1:
 										this.tela = new TelaInstituicao().opcCidade;
@@ -481,10 +495,11 @@ public class ControlerAdministradorView{
 										TelaInstituicao tela = new TelaInstituicao();
 										tela.setTelaConsulta(controler.getCidadeSelecionada().getInstituicoes()); //Metodo edita instituicao da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = tela.telaConsulta;
-										this.acesso4 = 2;
+										this.acesso4 = 4;
 										break;
-									case 3:
-										if(arg = 0){
+									case 4:
+										if(arg == 0){
+											this.acesso5 = 0;
 											this.acesso4 = 0;
 											this.acesso3 = 0;
 											this.acesso2 = 0;
@@ -492,10 +507,9 @@ public class ControlerAdministradorView{
 											this.exit = true;
 											this.tela = new TelaInicial().telaIni;
 										}
-										else if(){
-											this.acesso4 = 0;
-											this.acesso3 = 0;
-											this.tela = 
+										else if(arg == 1){
+											this.acesso5 = 0;
+											this.tela = new TelaInstituicao().opcCidade;
 										}
 										break;
 									default:
@@ -527,8 +541,8 @@ public class ControlerAdministradorView{
 										}
 										break;
 									case 0:
-										String regex = "((?<=,)|(?=, ))|\\s";
-										ArrayList<String> entradas = entrada.spit(regex);
+										String regex = "(( , )|( ,)|(, )|(,))";
+										ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 										selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 										this.tela = new TelaManter().telaEdicao;
 										this.acesso4 = 1
@@ -539,7 +553,7 @@ public class ControlerAdministradorView{
 										acesso4 = 2;
 										break;
 									case 2:
-										if(arg = 0){
+										if(arg == 0){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
 											this.acesso2 = 0;
@@ -547,7 +561,7 @@ public class ControlerAdministradorView{
 											this.exit = true;
 											this.tela = new TelaInicial().telaIni;
 										}
-										else if(){
+										else if(arg == 1){
 											this.acesso4 = 0;
 											this.acesso3 = 0;
 											this.tela =  new TelaManter().telaEdicao;
@@ -562,6 +576,7 @@ public class ControlerAdministradorView{
 							default:
 
 								break;
+						}
 				}
 				break;
 			//Entra nas opcoes de Manter Horario
@@ -587,7 +602,7 @@ public class ControlerAdministradorView{
 						break;
 					case 1:
 						//Vai para tela Cidade
-						this.tela = new TelaInstituicao().opcoes;
+						this.tela = new TelaInstituicao().opcConsulta;
 						this.acesso1 = 1;
 						break;
 				}
@@ -629,13 +644,13 @@ public class ControlerAdministradorView{
 						break;
 					case 1:
 						//Vai para tela Cidade
-						this.tela = new TelaCidade().opcoes;
+						this.tela = new TelaCidade().opcConsulta;
 						this.acesso1 = 1;
 						break;
 				}
 				break;
 			default:
-				this.tela = new ArgumentoInvalido().telaIni;
+				this.tela = new TelaArgInvalido().telaIni;
 				this.acesso1 = -1;
 				break;
 		}

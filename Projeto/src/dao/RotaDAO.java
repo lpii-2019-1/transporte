@@ -214,6 +214,40 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
+	public ArrayList<Rota> consultarIdRota(Instituicao instituicao, int comparador){
+        try {
+            String sql = "";
+            switch(comparador) {
+            case 0:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ? AND validacao = 0";
+                break;
+            case 1:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?  AND validacao = 1";
+                break;
+            case 2:
+                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?";
+                break;
+            }
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, instituicao.getId());
+            ResultSet rs = this.stmt.executeQuery();
+            ArrayList<Rota> rotas = new ArrayList<Rota>();
+            Rota rota = new Rota();
+            boolean aux1 = true;
+            while(rs.next()) {
+                aux1 = false;
+                rota = this.consultarId(rs.getInt("id_rota"), comparador);
+                rotas.add(rota);
+            }
+            if(aux1) {
+                rotas.add(rota);
+            }
+            this.stmt.close();
+            return rotas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	public ArrayList<Rota> listarRotas(int comparador){
 		try {

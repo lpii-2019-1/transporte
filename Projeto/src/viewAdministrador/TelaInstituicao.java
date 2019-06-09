@@ -10,17 +10,17 @@ public class TelaInstituicao{
 	public String opcConsulta = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n0 - Sair \n\nDigite o endereco instituicao: ";
 	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Disponivel): ";
 	public String entrada = "\nDigite o endereco da instituicao (Ex.: Meio do mato): ";
-	public String telaInstituicao;
+	public String telaConsulta;
 
 	public void setTelaCidade(ArrayList<Instituicao> instituicoes){
-		this.telaInstituicao = "\nInstituicoes: ";
+		this.telaConsulta = "\nInstituicoes: ";
 		for (Instituicao i : instituicoes) {
-			this.telaInstituicao += "\n    Nome: " + i.getNome();
-			this.telaInstituicao += "\n    Endereco: " + i.getEndereco();
-			this.telaInstituicao += "\n    Telefone: " + i.getTelefone();
-			this.telaInstituicao += "\n    Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
-			this.telaInstituicao += "\n";
+			this.telaConsulta += "\n    Nome: " + i.getNome();
+			this.telaConsulta += "\n    Endereco: " + i.getEndereco();
+			this.telaConsulta += "\n    Telefone: " + i.getTelefone();
+			this.telaConsulta += "\n    Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaConsulta += "\n";
 		}
-		this.telaInstituicao += "\nDigite 0 para voltar: ";
+		this.telaConsulta += "\nDigite 0 para voltar: ";
 	}
 }
