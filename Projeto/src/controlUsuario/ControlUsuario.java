@@ -17,30 +17,19 @@ public class ControlUsuario {
 	private ArrayList<Instituicao> InstituicoesCidadeSelecionada;
 	/*------------ Métodos para pesquisar cidade e retornar instituições ------------*/
 	
-	public boolean pesquisarCidade(String nome, String uf){
+	public Cidade pesquisarCidade(String nome, String uf){
 		CidadeDAO cDAO = new CidadeDAO();
 		Cidade c = new Cidade();
 		c.setNome(nome);
 		c.setUf(uf);
 		c = cDAO.consultarNomeUf(c, 1);
-		if(this.verificaId(c)) {
-			this.cidadeSelecionada = c;
-			this.InstituicoesCidadeSelecionada = this.cidadeSelecionada.getInstituicoes();
-			return true;
-		}else {
-			return false;
-		}
+		this.cidadeSelecionada = c;
+	
+		return this.cidadeSelecionada;
 		
 	}
 	
-	public boolean verificaId(Cidade c) {
-		if(c.getId() == 0) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-	
+
 	public void selecionarInstituicao(int i) {
 		i--;
 		this.instituicaoSelecionada = this.cidadeSelecionada.getInstituicoes().get(i);
@@ -50,7 +39,7 @@ public class ControlUsuario {
 	
 	public ArrayList<Rota> buscarRotas() {
 		RotaDAO rDAO = new RotaDAO();
-		this.rotas  = rDAO.consultarIdInstituicao(this.instituicaoSelecionada); //FALTA CRIAR ESSE MÉTODO NO InstituicaoDAO
+		this.rotas  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); //FALTA CRIAR ESSE MÉTODO NO InstituicaoDAO
 		return this.rotas;
 	}
 	
@@ -132,15 +121,38 @@ public class ControlUsuario {
 		this.rotas = auxRotas;
 	}
 	
-	public void filtrarRotasInicioFim(String inicio, String fim) {
+	
+	public ArrayList<ArrayList<String>> listarInicioFimDiferentes() {
+		ArrayList<ArrayList<String>> inicioFim = new  ArrayList<ArrayList<String>>();
+		for(int i = 0; i < this.rotas.size(); i++) {
+			for(int j = 0; j < 2; j++) {
+				inicioFim.get(i).add(this.rotas.get(i).getInicio());
+				inicioFim.get(i).add(this.rotas.get(i).getFim());
+			}
+		}
+		return inicioFim;
+	}
+	
+	
+	
+	public boolean filtrarRotasInicioFim(String inicio, String fim) {
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
+		boolean test = false;
 		for(int i = 0; i < this.rotas.size(); i++) {
 			if(this.rotas.get(i).getInicio() == inicio && this.rotas.get(i).getFim() == fim) {
+				test = true;
 				auxRotas.add(this.rotas.get(i));
 			}
 		}
 		this.rotas = new ArrayList<Rota>();
 		this.rotas = auxRotas;
+		if(test) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		
 	}
 	
 	public void filtrarRotasPercurso(String percurso) {
