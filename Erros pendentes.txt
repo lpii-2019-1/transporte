@@ -5,4 +5,4 @@ PARA FUNCIONAMENTO DO CONTROLE DO USUÁRIO É PRECISO:
 	Nas classes DAO.
 		consultarRota não ta setando os horários;
 		adicionar método de consultar ônibus por id da rota;
-		adicionar método de consultar rota por instituição;
+		adicionar método de consultar rota por instituição.
