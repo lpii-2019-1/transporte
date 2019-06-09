@@ -13,6 +13,7 @@ public class ControlUsuario {
 	private Instituicao instituicaoSelecionada;
 	private ArrayList<Rota> rotas;
 	private Onibus onibusSelecionado;
+	private ArrayList<ArrayList<Horario>> turnosTodasRotas;
 	/*------------ Métodos para pesquisar cidade e retornar instituições ------------*/
 	
 	public ArrayList<Instituicao> pesquisarCidade(String nome, String uf){
@@ -52,7 +53,6 @@ public class ControlUsuario {
 	}
 /*----------------------------------------------------------------------------------------------*/
 	public ArrayList<ArrayList<Horario>> listarTurnosDasRotas() {
-		ArrayList<ArrayList<Horario>> turnosTodasRotas = new  ArrayList<ArrayList<Horario>>();
 		ArrayList<Horario> turnosCadaRota = new ArrayList<Horario>();
 		
 		for(int i = 0; i < this.rotas.size(); i++) {
@@ -62,12 +62,36 @@ public class ControlUsuario {
 					turnosCadaRota.add(this.rotas.get(j).getHorarios().get(j));
 				}
 			}
-			turnosTodasRotas.add(turnosCadaRota);
+			this.turnosTodasRotas.add(turnosCadaRota);
 		}
-		return turnosTodasRotas;
+		return this.turnosTodasRotas;
 	}
+	
+	public  ArrayList<Horario> verificaHorariosIguais(ArrayList<ArrayList<Horario>> turnosTodasRotas) {
+		Horario auxHr = new Horario();
+		Horario auxHr2 = new Horario();
+
+		ArrayList<Horario> turnos = new ArrayList<Horario>();
+		for(int i = 0; i < this.turnosTodasRotas.size(); i++) {
+			if(i == 0) {
+				auxHr = this.turnosTodasRotas.get(i).get(i);		
+				turnos.add(auxHr);
+			}
+			for(int j = 0; j < 3; j++) {
+				auxHr2.setTurno(this.turnosTodasRotas.get(i).get(j).getTurno());
+				auxHr2.setHrSaidaPrimeiroPonto(this.turnosTodasRotas.get(i).get(j).getHrSaidaPrimeiroPonto());
+				auxHr2.setHrRegresso(this.turnosTodasRotas.get(i).get(j).getHrRegresso());
+				
+				if(auxHr.getTurno().getTurno() != auxHr2.getTurno().getTurno() || auxHr.getHrSaidaPrimeiroPonto() != auxHr2.getHrSaidaPrimeiroPonto() || auxHr.getHrRegresso() != auxHr2.getHrRegresso()) {
+					turnos.add(auxHr);
+				}
+			}
+		}
+		return turnos;
+	}
+	
 /*----------------------------------------------------------------------------------------------*/
-	public ArrayList<Horario> listarTurnos(String turno) {
+	/*public ArrayList<Horario> listarTurnos(String turno) {
 		ArrayList<Horario> turnos = new ArrayList<Horario>();
 		for(int i = 0; i < this.rotas.size(); i++) {
 			for(int j = 0; j < 3; j++) {
@@ -80,7 +104,7 @@ public class ControlUsuario {
 			
 		}
 		return turnos;
-	}
+	}*/
 
 	/*Métodos para Filtrar rotas por inicio e fim, percurso e ponto*/	
 	
