@@ -2,7 +2,6 @@ package viewUsuario;
 
 import java.util.ArrayList;
 import view.TelaFimOperacao;
-import model.Ponto;
 import model.Instituicao;
 
 public class TelaConsultaInicioFim{
