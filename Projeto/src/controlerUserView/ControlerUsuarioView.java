@@ -1,8 +1,9 @@
-package ControlerAdmView;
+package controlerUserView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import controlUsuario.ControlUsuario;
 import model.*;
 import viewUsuario.*;
 import view.*;
@@ -14,7 +15,7 @@ public class ControlerUsuarioView{
 	public int acesso3;
 	public int acesso4;
 	public int acesso5;
-	public String tela = new TelaConsultaCidade().telaIni;;
+	public String tela = new TelaConsultaCidade().telaIni;
 	private ControlUsuario controler;
 	
 	public ControlerUsuarioView(ControlUsuario controler){
@@ -22,7 +23,7 @@ public class ControlerUsuarioView{
 	}
 
 
-	entrada(entrada){
+	void entrada(String entrada){
 		int arg = -1;
         if(entrada.length() == 1){
             String s[] = entrada.split("[0-9]");
@@ -32,7 +33,7 @@ public class ControlerUsuarioView{
 			}
 		}
 		switch(this.acesso1){
-			case: -1:
+			case -1:
 				switch(arg) {
 					case 0:
 						this.acesso1 = 0;
@@ -52,7 +53,7 @@ public class ControlerUsuarioView{
 			case 0:
 				String regex = "(( , )|( ,)|(, )|(,))";
 				ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-				Cidade c = this.controler.consultarNomeUfCidade();
+				Cidade c = this.controler.pesquisarCidade(entradas.get(0), entradas.get(1));
 				if(c.getId() == 0){
 					this.tela = new TelaConsultaCidade().telaErro;
 					this.acesso1 = -1;
@@ -65,7 +66,7 @@ public class ControlerUsuarioView{
 				}
 				break;
 			case 1:
-				switch(thisacesso2){
+				switch(this.acesso2){
 					case -1:
 						switch(arg) {
 							case 0:
@@ -88,7 +89,7 @@ public class ControlerUsuarioView{
 						break;
 					case 0:
 						if(arg == 0){
-							this.acesso1 = 0
+							this.acesso1 = 0;
 							this.tela = new TelaConsultaCidade().telaIni;
 						}
 						else if(arg == -1){
@@ -164,15 +165,15 @@ public class ControlerUsuarioView{
 												this.tela = new TelaConsultaCidade().telaIni;
 												break;
 											case 1:
-												this.tela = TelaConsultaPonto().telaIni
+												this.tela = new TelaConsultaPonto().telaIni;
 												this.acesso4 = 1;												
 												break;
 											case 2:
-												this.tela = TelaConsultaPonto().telaIni
+												this.tela = new TelaConsultaPonto().telaIni;
 												this.acesso4 = 2;
 												break;
 											case 3:
-												this.tela = TelaConsultaPonto().telaIni
+												this.tela = new TelaConsultaPonto().telaIni;
 												this.acesso4 = 3;
 												break;
 											default:
@@ -184,7 +185,7 @@ public class ControlerUsuarioView{
 									case 1:
 										switch(this.acesso5){
 											case -1:
-												switch(){
+												switch(arg){
 													case 0:
 														this.acesso5 = 0;
 														this.acesso4 = 0;
@@ -211,7 +212,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													TelaConsulta tela = new TelaConsultaPonto();
+													TelaConsultaPonto tela = new TelaConsultaPonto();
 													tela.setTelaConsulta(this.controler.listarPontos(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
 													this.acesso5 = 1;
@@ -228,7 +229,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													contoler.filtrarRotas###(arg);
+													this.controler.filtrarRotas###(arg);
 													TelaConsultaRota tela = new TelaConsultaRota();
 													tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
@@ -248,7 +249,7 @@ public class ControlerUsuarioView{
 									case 2:
 										switch(this.acesso5){
 											case -1:
-												switch(){
+												switch(arg){
 													case 0:
 														this.acesso5 = 0;
 														this.acesso4 = 0;
@@ -275,7 +276,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													TelaConsulta tela = new TelaConsultaPercurso();
+													TelaConsultaPercurso tela = new TelaConsultaPercurso();
 													tela.setTelaConsulta(this.controler.listarPercursos(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
 													this.acesso5 = 1;
@@ -292,7 +293,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													contoler.filtrarRotas###(arg);
+													this.controler.filtrarRotas###(arg);
 													TelaConsultaRota tela = new TelaConsultaRota();
 													tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
@@ -304,7 +305,7 @@ public class ControlerUsuarioView{
 													this.acesso4 = 2;
 													TelaConsultaPercurso tela = new TelaConsultaPercurso();
 													tela.setTelaConsulta(this.controler.listarPercursos(), this.controler.getInstituicaoSelecionada());
-													this.tela = tela;
+													this.tela = tela.telaConsulta;
 												}
 												break;
 										}
@@ -339,7 +340,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													TelaConsulta tela = new TelaConsultaInicioFim();
+													TelaConsultaInicioFim tela = new TelaConsultaInicioFim();
 													tela.setTelaConsulta(this.controler.listarInicioFim(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
 													this.acesso5 = 1;
@@ -356,7 +357,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													contoler.filtrarRotas###(arg);
+													this.controler.filtrarRotas###(arg);
 													TelaConsultaRota tela = new TelaConsultaRota();
 													tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;
@@ -368,7 +369,7 @@ public class ControlerUsuarioView{
 													this.acesso4 = 3;
 													TelaConsultaInicioFim tela = new TelaConsultaInicioFim();
 													tela.setTelaConsulta(this.controler.listarInicioFim(), this.controler.getInstituicaoSelecionada());
-													this.tela = tela;
+													this.tela = tela.telaConsulta;
 												}
 												break;
 										}
@@ -403,7 +404,7 @@ public class ControlerUsuarioView{
 													this.acesso5 = -1;
 												}
 												else if(arg != 0){
-													contoler.filtrarRotas###(arg);
+													this.contoler.filtrarRotas###(arg);
 													TelaConsultaOnibus tela = new TelaConsultaOnibus();
 													tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
 													this.tela = tela.telaConsulta;

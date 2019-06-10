@@ -7,6 +7,8 @@ import model.Rota;
 
 public class TelaConsultaOnibus{
 	public String telaOnibus;
+	public String telaConsulta;
+	
 	public void setTelaOnibus(Onibus onibus, Cidade cidade, Instituicao instituicao, Rota rota){
 		this.telaOnibus = "\nCidade: " + cidade.getNome();
 		this.telaOnibus += "\nInstituicao: " + instituicao.getNome();

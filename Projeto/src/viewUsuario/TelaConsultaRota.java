@@ -9,7 +9,8 @@ import model.Ponto;
 
 public class TelaConsultaRota{
 	public String telaConsulta;
-	public String telaErro = "\nNenhuma rota foi encontrada\n" + new TelaFimOperacao().telaIni;;
+	public String telaErro = "\nNenhuma rota foi encontrada\n" + new TelaFimOperacao().telaIni;
+	
 	public void setTelaConsulta(ArrayList<Rota> rotas, Instituicao instituicao){
 		if(rotas.get(0).getId() != 0){
 			this.telaConsulta = "\nInstituicao: " + instituicao.getNome();
