@@ -113,8 +113,10 @@ public class ControlerUsuarioView{
 						switch(this.acesso3){
 							case 0:
 								if(arg == 0){
-									this.acesso2 = 0
-									this.tela = new TelaConsultaCidade().telaIni;
+									this.acesso2 = 0;
+									TelaConsultaInstituicao tela = new TelaConsultaInstituicao();
+									tela.setTelaConsulta(controler.getCidadeSelecionada());//############################  M.W.
+									this.tela = tela.telaConsulta;
 								}
 								else if(arg == -1){
 									this.acesso3 = -1;
@@ -137,38 +139,44 @@ public class ControlerUsuarioView{
 									case -1:
 										switch(arg) {
 											case 0:
+												this.acesso4 = 0;
+												this.acesso3 = 0;
 												this.acesso2 = 0;
 												this.acesso1 = 0;
 												this.exit = true;
 												this.tela = new TelaFim().telaIni;
 												break;
 											case 1:
-												TelaConsultaInstituicao tela = new TelaConsultaInstituicao();
-												tela.setTelaConsulta(controler.getCidadeSelecionada());//############################  M.W.
-												this.tela = tela.telaConsulta;
-												this.acesso2 = 0;
+												TelaConsultaTurno tela = new TelaConsultaTurno();
+												tela.setTelaConsulta(controler.getTurnosInstituicaoSelecionada());//############################  M.W.
+												this.tela = tala.telaConsulta;
+												this.acesso4 = 0;
+												this.acesso3 = 0;
 												break;
 											default:
 												this.tela = new TelaArgInvalido().telaIni;
-												this.acesso2 = -1;
+												this.acesso4 = -1;
 												break;
 										}
 										break;
 									case 0:
 										switch(arg){
 											case 0:
-												this.acesso2 = 0
+												this.acesso4 = 0;
+												this.acesso3 = 0;
 												this.tela = new TelaConsultaCidade().telaIni;
 												break;
 											case 1:
-												
-												
+												this.tela = TelaConsultaPonto().telaIni
+												this.acesso4 = 1;												
 												break;
 											case 2:
-
+												this.tela = TelaConsultaPonto().telaIni
+												this.acesso4 = 2;
 												break;
 											case 3:
-
+												this.tela = TelaConsultaPonto().telaIni
+												this.acesso4 = 3;
 												break;
 											default:
 												this.acesso3 = -1;
@@ -177,13 +185,140 @@ public class ControlerUsuarioView{
 										}
 										break;
 									case 1:
-										switch(){
-
+										switch(this.acesso5){
+											case -1:
+												switch(){
+													case 0:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.acesso3 = 0;
+														this.acesso2 = 0;
+														this.acesso1 = 0;
+														this.exit = true;
+														this.tela = new TelaFim().telaIni;
+														break;
+													case 1:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.tela = new TelaOpcPosTurno().telaIni;
+														break;
+													default:
+														this.tela = new TelaArgInvalido().telaIni;
+														this.acesso5 = -1;
+														break;
+												}
+												break;
+											case 0:
+												if(arg == -1){
+													this.tela = new TelaArgInvalido().telaIni;
+													this.acesso5 = -1;
+												}
+												else if(arg != 0){
+													TelaConsulta tela = new TelaConsulta();
+													tela.setTelaConsulta(controler.getRota);
+													this.tela = tela.telaConsulta;
+													this.acesso5 = 1;
+												}
+												else{
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.tela = new TelaOpcPosTurno().telaIni;
+												}
+												break;
 										}
+										break;
+									case 2:
+										switch(this.acesso5){
+											case -1:
+												switch(){
+													case 0:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.acesso3 = 0;
+														this.acesso2 = 0;
+														this.acesso1 = 0;
+														this.exit = true;
+														this.tela = new TelaFim().telaIni;
+														break;
+													case 1:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.tela = new TelaOpcPosTurno().telaIni;
+														break;
+													default:
+														this.tela = new TelaArgInvalido().telaIni;
+														this.acesso5 = -1;
+														break;
+												}
+												break;
+											case 0:
+												if(arg == -1){
+													this.tela = new TelaArgInvalido().telaIni;
+													this.acesso5 = -1;
+												}
+												else if(arg != 0){
+													TelaConsulta tela = new TelaConsulta();
+													tela.setTelaConsulta(controler.getRota);
+													this.tela = tela.telaConsulta;
+													this.acesso5 = 1;
+												}
+												else{
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.tela = new TelaOpcPosTurno().telaIni;
+												}
+												break;
+										}
+										break;
+									case 3:
+										switch(this.acesso5){
+											case -1:
+												switch(arg){
+													case 0:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.acesso3 = 0;
+														this.acesso2 = 0;
+														this.acesso1 = 0;
+														this.exit = true;
+														this.tela = new TelaFim().telaIni;
+														break;
+													case 1:
+														this.acesso5 = 0;
+														this.acesso4 = 0;
+														this.tela = new TelaOpcPosTurno().telaIni;
+														break;
+													default:
+														this.tela = new TelaArgInvalido().telaIni;
+														this.acesso5 = -1;
+														break;
+												}
+												break;
+											case 0:
+												if(arg == -1){
+													this.tela = new TelaArgInvalido().telaIni;
+													this.acesso5 = -1;
+												}
+												else if(arg != 0){
+													TelaConsulta tela = new TelaConsulta();
+													tela.setTelaConsulta(controler.getRota);
+													this.tela = tela.telaConsulta;
+													this.acesso5 = 1;
+												}
+												else{
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.tela = new TelaOpcPosTurno().telaIni;
+												}
+												break;
+										}
+										break;
 								}
+								break;
 						}
 						break;
 				}
+				break;
 		}
 	}
 }

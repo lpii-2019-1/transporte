@@ -180,7 +180,7 @@ public class OnibusDAO {
         }
 	}
     
-    public ArrayList<Onibus> consultarIdRota(Rota rota, int comparador){
+    public Onibus consultarIdRota(Rota rota, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -197,23 +197,16 @@ public class OnibusDAO {
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, rota.getId());
             ResultSet rs = stmt.executeQuery();
-            boolean aux = true;
-            ArrayList<Onibus> onibuss = new ArrayList<Onibus>();
             Onibus onibus = new Onibus();
             RotaDAO rDAO = new RotaDAO();
             ArrayList<Rota> rotas;
-            while(rs.next()) {
-            	aux = false;
+            if(rs.next()) {
             	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
             	onibus = this.consultarIdOnibus(rs.getInt("id"), comparador);
             	onibus.setRotas(rotas);
-            	onibuss.add(onibus);
-            }
-            if(aux) {
-            	onibuss.add(onibus);
             }
             this.stmt.close();
-            return onibuss;
+            return onibus;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
