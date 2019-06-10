@@ -52,7 +52,7 @@ public class ControlerUsuarioView{
 			case 0:
 				String regex = "(( , )|( ,)|(, )|(,))";
 				ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-				Cidade c = controler.consultarNomeUfCidade()
+				Cidade c = controler.consultarNomeUfCidade();
 				if(c.getId() == 0){
 					this.tela = new TelaConsultaCidade().telaErro;
 					this.acesso1 = -1;
@@ -121,7 +121,6 @@ public class ControlerUsuarioView{
 									this.tela = new TelaArgInvalido().telaIni;
 								}
 								else{
-									// -----------Estou aqui! tela pós selecionar turno
 									controler.selecionarTurno(arg);//############################  M.W.
 									if(controler.getTurnoSelecionado().getId() != 0){//############################  M.W.
 										this.tela = new TelaOpcPosTurno().telaIni;
@@ -134,6 +133,54 @@ public class ControlerUsuarioView{
 								}
 								break;
 							case 1:
+								switch(this.acesso4){
+									case -1:
+										switch(arg) {
+											case 0:
+												this.acesso2 = 0;
+												this.acesso1 = 0;
+												this.exit = true;
+												this.tela = new TelaFim().telaIni;
+												break;
+											case 1:
+												TelaConsultaInstituicao tela = new TelaConsultaInstituicao();
+												tela.setTelaConsulta(controler.getCidadeSelecionada());//############################  M.W.
+												this.tela = tela.telaConsulta;
+												this.acesso2 = 0;
+												break;
+											default:
+												this.tela = new TelaArgInvalido().telaIni;
+												this.acesso2 = -1;
+												break;
+										}
+										break;
+									case 0:
+										switch(arg){
+											case 0:
+												this.acesso2 = 0
+												this.tela = new TelaConsultaCidade().telaIni;
+												break;
+											case 1:
+												
+												
+												break;
+											case 2:
+
+												break;
+											case 3:
+
+												break;
+											default:
+												this.acesso3 = -1;
+												this.tela = new TelaArgInvalido().telaIni;
+												break;
+										}
+										break;
+									case 1:
+										switch(){
+
+										}
+								}
 						}
 						break;
 				}
