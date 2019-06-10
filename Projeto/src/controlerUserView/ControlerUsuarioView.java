@@ -18,12 +18,12 @@ public class ControlerUsuarioView{
 	public String tela = new TelaConsultaCidade().telaIni;
 	private ControlUsuario controler;
 	
-	public ControlerUsuarioView(ControlUsuario controler){
-		this.controler = controler;
+	public ControlerUsuarioView(){
+		this.controler = new ControlUsuario();
 	}
 
 
-	void entrada(String entrada){
+	public void entrada(String entrada){
 		int arg = -1;
         if(entrada.length() == 1){
             String s[] = entrada.split("[0-9]");
