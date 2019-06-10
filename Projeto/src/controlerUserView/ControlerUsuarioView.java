@@ -457,7 +457,7 @@ public class ControlerUsuarioView{
 												else if(arg != 0){
 													this.controler.selecionarRota(arg);
 													TelaConsultaOnibus tela = new TelaConsultaOnibus();
-													tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
+													tela.setTelaConsulta(this.controler.getOnibusSelecionado(), this.controler.getCidadeSelecionada(), this.controler.getInstituicaoSelecionada(), this.controler.getRotaSelecionada());
 													this.tela = tela.telaConsulta;
 													this.acesso5 = 1;
 												}
@@ -476,7 +476,7 @@ public class ControlerUsuarioView{
 														break;
 													case 1:
 														TelaConsultaRota tela = new TelaConsultaRota();
-														tela.setTelaConsulta(this.controler.getRotaFim(), this.controler.getInstituicaoSelecionada());
+														tela.setTelaConsulta(this.controler.getRotasFim(), this.controler.getInstituicaoSelecionada());
 														this.tela = tela.telaConsulta;
 														this.acesso5 = 1;
 														break;
