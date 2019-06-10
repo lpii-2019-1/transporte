@@ -16,6 +16,7 @@ public class ControlUsuario {
 	private Cidade cidadeSelecionada;
 	private Instituicao instituicaoSelecionada;
 	private Onibus onibusSelecionado;
+	private String percursoSelecionado;
 	
 	private ArrayList<ArrayList<String>> todosIniciosFim;
 	private ArrayList<String> todosPercursos;
@@ -37,14 +38,13 @@ public class ControlUsuario {
 	public void selecionarInstituicao(int i) {
 		i--;
 		this.instituicaoSelecionada = this.cidadeSelecionada.getInstituicoes().get(i);
-		
+		buscarRotasBanco();
 	}
 	/*------------------------------------------------------------------------------------*/
 	
-	public ArrayList<Rota> buscarRotasBanco() {
+	public void buscarRotasBanco() {
 		RotaDAO rDAO = new RotaDAO();
-		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); //FALTA CRIAR ESSE MÉTODO NO InstituicaoDAO
-		return this.rotasIntituicao;
+		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); 
 	}
 	
 	public void selecionarRota(int i) {
@@ -191,10 +191,16 @@ public class ControlUsuario {
 		
 	}
 	
-	public void filtrarRotasPercurso(String percurso) {//-----------------------------------------------------------
+	public void selecionarPercurso(int i) {
+		i--;
+		this.percursoSelecionado = this.todosPercursos.get(i);
+		filtrarRotasPercurso();
+	}
+	
+	public void filtrarRotasPercurso() {
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		for(int i = 0; i < this.rotasTurno.size(); i++) {
-			if(this.rotasTurno.get(i).getPercurso() == percurso) {
+			if(this.rotasTurno.get(i).getPercurso() == percursoSelecionado) {
 				auxRotas.add(this.rotasTurno.get(i));
 			}
 		}
@@ -214,7 +220,12 @@ public class ControlUsuario {
 		return pontosTodasRotas;
 	}
 	
-	public 	ArrayList<String> listarPercursos() {//-------------------------------------------------
+	public void listarPontosDiferentes() {
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			
+		}
+	}
+	public 	ArrayList<String> listarPercursos() {
 		ArrayList<String> percursos = new ArrayList<String>();
 		String auxPercurso = "";
 		boolean test = true;
@@ -233,8 +244,8 @@ public class ControlUsuario {
 				percursos.add(auxPercurso);
 			}
 		}
-		
-		return percursos;
+		this.todosPercursos = percursos;
+		return this.todosPercursos;
 	}
 	public void buscarOnibus() {
 		OnibusDAO oDAO = new OnibusDAO();
