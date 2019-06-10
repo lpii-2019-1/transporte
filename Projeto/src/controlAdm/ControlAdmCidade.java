@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import dao.CidadeDAO;
 
-public class controlAdmCidade {
+public class ControlAdmCidade {
 	private Cidade cidadeSelecionada;
 	
 	private ArrayList<Cidade> cidades;
