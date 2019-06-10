@@ -18,33 +18,35 @@ public class TelaConsultaRota{
 			int k;
 			for(Rota r : rotas){
 				j++;
-				this.telaConsulta += "\n   " + j + " - Rota: De " + r.getInicio() + " até " + r.getFim()+ ":";
-				this.telaConsulta += "\n    Passando por ";
+				this.telaConsulta += "\n    " + j + " - Rota: De " + r.getInicio() + " ate " + r.getFim()+ ":";
+				this.telaConsulta += "\n        Passando por ";
 				k = 0;
 				for(Instituicao i : r.getInstituicoes()){
-					k++;
-					if(r.getInstituicoes().size() == 1){
-						this.telaConsulta += i.getNome() + ".";
-					}
-					else if(r.getInstituicoes().size() == k){
-						this.telaConsulta += " e " + i.getNome();
-					}
-					else if(r.getInstituicoes().size() < k){
-						this.telaConsulta += ", " + i.getNome();
-					}
-					else{
-						this.telaConsulta += i.getNome();
+					if(i.getId() != 0) {
+						k++;
+						if(r.getInstituicoes().size() == 1){
+							this.telaConsulta += i.getNome() + ".";
+						}
+						else if(r.getInstituicoes().size() == k){
+							this.telaConsulta += " e " + i.getNome();
+						}
+						else if(r.getInstituicoes().size() < k){
+							this.telaConsulta += ", " + i.getNome();
+						}
+						else{
+							this.telaConsulta += i.getNome();
+						}
 					}
 				}
-				this.telaConsulta += "\nPontos:";
+				this.telaConsulta += "\n        Pontos:";
 				for(Ponto p : r.getPontos()){
-					this.telaConsulta += "\n    " + p.getOrdem() + "º " + p.getEndereco();
+					this.telaConsulta += "\n            " + p.getOrdem() + "º " + p.getEndereco();
 				}
 				this.telaConsulta += "\nHorarios:";
 				for(Horario h : r.getHorarios()){
-					this.telaConsulta += "\n    Turno: " + h.getTurno().getTurno();
-					this.telaConsulta += "\n    Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-					this.telaConsulta += "\n    Haririo de regresso: " + h.getHrRegresso();
+					this.telaConsulta += "\n            Turno: " + h.getTurno().getTurno();
+					this.telaConsulta += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+					this.telaConsulta += "\n            Haririo de regresso: " + h.getHrRegresso();
 				}
 			}
 			this.telaConsulta += "\n    0 - Sair \n\nDigite o numero correspondente: ";

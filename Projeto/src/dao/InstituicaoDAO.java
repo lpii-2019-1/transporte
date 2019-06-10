@@ -109,7 +109,7 @@ public class InstituicaoDAO {
             boolean aux1 = true;
             while(rs.next()) {
             	aux1 = false;
-                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
                 instituicoes.add(instituicao);
             }
             if(aux1) {

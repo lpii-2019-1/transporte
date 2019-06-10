@@ -241,8 +241,8 @@ public class ControlUsuario {
 	}
 	
 	private void buscarOnibus() {
-		OnibusDAO oDAO = new OnibusDAO();
-		this.onibusSelecionado = oDAO.consultarIdRota(this.rotaSelecionada, 1); 
+		RotaDAO rDAO = new RotaDAO();
+		this.onibusSelecionado = rDAO.listarOnibus(this.rotaSelecionada, 1); 
 	}
 
 	/*Getters e Setters*/

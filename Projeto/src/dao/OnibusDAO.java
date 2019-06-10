@@ -148,7 +148,7 @@ public class OnibusDAO {
     public ArrayList<Onibus> consultarTelefone(Onibus onibus, int comparador){
         return this.consultarOnibus("telefone", onibus.getTelefone(),  comparador);
     }
-    private Onibus consultarIdOnibus(int id, int comparador){
+    public Onibus consultarId(int id, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -171,38 +171,6 @@ public class OnibusDAO {
             if(rs.next()) {
             	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
             	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
-            	onibus.setRotas(rotas);
-            }
-            this.stmt.close();
-            return onibus;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-	}
-    
-    public Onibus consultarIdRota(Rota rota, int comparador){
-		try {
-			String sql = "";
-			switch(comparador) {
-    		case 0:
-    			sql = "SELECT * FROM rota_has_onibus WHERE id_rota = ? AND validacao = 0";
-    			break;
-			case 1:
-				sql = "SELECT * FROM rota_has_onibus WHERE id_rota = ? AND validacao = 1";
-    			break;
-			case 2:
-				sql = "SELECT * FROM rota_has_onibus WHERE id_rota = ?";
-				break;
-        	}
-			this.stmt = this.conexao.prepareStatement(sql);
-			this.stmt.setInt(1, rota.getId());
-            ResultSet rs = stmt.executeQuery();
-            Onibus onibus = new Onibus();
-            RotaDAO rDAO = new RotaDAO();
-            ArrayList<Rota> rotas;
-            if(rs.next()) {
-            	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
-            	onibus = this.consultarIdOnibus(rs.getInt("id"), comparador);
             	onibus.setRotas(rotas);
             }
             this.stmt.close();

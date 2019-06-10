@@ -209,7 +209,7 @@ public class RotaDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = rDAO.consultarId(rs.getInt("id_rota"), comparador);
+            	rota = rDAO.consultarId(rs.getInt("id"), comparador);
             	rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -287,6 +287,35 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
+
+    public Onibus listarOnibus(Rota rota, int comparador) {
+        try {
+            String sql = "";
+            switch(comparador) {
+            case 0:
+                sql = "SELECT * FROM rota WHERE id = ? AND validacao = 0";
+                break;
+            case 1:
+                sql = "SELECT * FROM rota WHERE id = ? AND validacao = 1";
+                break;
+            case 2:
+                sql = "SELECT * FROM rota WHERE id = ?";
+                break;
+            }
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            ResultSet rs = stmt.executeQuery();
+            Onibus onibus = new Onibus();
+            OnibusDAO oDAO = new OnibusDAO();
+            if(rs.next()){
+                onibus = oDAO.consultarId(rs.getInt("id_onibus"), comparador);
+            }
+            this.stmt.close();
+            return onibus;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    } 
 	
 	public ArrayList<Ponto> listarPontos(Rota rota, int comparador){
 		try {
