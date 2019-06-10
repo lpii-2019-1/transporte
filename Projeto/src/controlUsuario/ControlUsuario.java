@@ -17,9 +17,12 @@ public class ControlUsuario {
 	private Instituicao instituicaoSelecionada;
 	private Onibus onibusSelecionado;
 	private String percursoSelecionado;
+	private Ponto pontoSelecionado;
 	
 	private ArrayList<ArrayList<String>> todosIniciosFim;
 	private ArrayList<String> todosPercursos;
+	private ArrayList<ArrayList<Ponto>> pontosTodasRotas;
+	private ArrayList<Ponto> pontos;
 	/*------------ Métodos para pesquisar cidade e retornar instituições ------------*/
 	
 	public Cidade pesquisarCidade(String nome, String uf){
@@ -208,7 +211,7 @@ public class ControlUsuario {
 		this.rotasFim = auxRotas;
 	}
 	
-	public ArrayList<ArrayList<Ponto>> listarPontos() { //- -----------------------------------------------------------------
+	public ArrayList<ArrayList<Ponto>> pegarPontosTodasRotas() {
 		ArrayList<ArrayList<Ponto>> pontosTodasRotas = new ArrayList<ArrayList<Ponto>> ();
 		ArrayList<Ponto> pontosCadaRota = new ArrayList<Ponto>();
 		for(int i = 0; i < this.rotasTurno.size(); i++) {
@@ -217,14 +220,42 @@ public class ControlUsuario {
 			}
 			pontosTodasRotas.add(pontosCadaRota);
 		}
-		return pontosTodasRotas;
+		this.pontosTodasRotas = pontosTodasRotas;
+		return this.pontosTodasRotas;
 	}
 	
-	public void listarPontosDiferentes() {
-		for(int i = 0; i < this.rotasTurno.size(); i++) {
-			
+	public ArrayList<Ponto>  listarPontos() {
+		ArrayList<Ponto> pontos = new ArrayList<Ponto>();
+		Ponto auxPonto = new Ponto();
+		boolean test = true;
+		for(int i = 0; i < this.pontosTodasRotas.size(); i++) {
+			for(int j = 0; j < this.pontosTodasRotas.get(i).size(); j++) {
+				auxPonto = this.pontosTodasRotas.get(i).get(j);
+				if(i == 0 && j == 0) {
+					pontos.add(auxPonto);
+				}
+				for(int k = 0; k < pontos.size(); k++) {
+					if(auxPonto.getId() == pontos.get(k).getId()) {
+						test = false;
+						break;
+					}
+				}
+				if(test) {
+					pontos.add(auxPonto);
+				}
+			}
 		}
+		this.pontos = pontos;
+		return this.pontos;
 	}
+	
+	
+
+	public void selecionarPonto(int i) {
+		i--;
+		this.pontoSelecionado = this.pontos.get(i);
+	}
+	
 	public 	ArrayList<String> listarPercursos() {
 		ArrayList<String> percursos = new ArrayList<String>();
 		String auxPercurso = "";
@@ -294,6 +325,94 @@ public class ControlUsuario {
 		this.turnoSelecionado = turnoSelecionado;
 	}
 
-	
+	public ArrayList<Rota> getRotasIntituicao() {
+		return rotasIntituicao;
+	}
+
+
+	public void setRotasIntituicao(ArrayList<Rota> rotasIntituicao) {
+		this.rotasIntituicao = rotasIntituicao;
+	}
+
+
+	public ArrayList<Rota> getRotasTurno() {
+		return rotasTurno;
+	}
+
+
+	public void setRotasTurno(ArrayList<Rota> rotasTurno) {
+		this.rotasTurno = rotasTurno;
+	}
+
+
+	public ArrayList<Rota> getRotasFim() {
+		return rotasFim;
+	}
+
+
+	public void setRotasFim(ArrayList<Rota> rotasFim) {
+		this.rotasFim = rotasFim;
+	}
+
+
+	public String getPercursoSelecionado() {
+		return percursoSelecionado;
+	}
+
+
+	public void setPercursoSelecionado(String percursoSelecionado) {
+		this.percursoSelecionado = percursoSelecionado;
+	}
+
+
+	public Ponto getPontoSelecionado() {
+		return pontoSelecionado;
+	}
+
+
+	public void setPontoSelecionado(Ponto pontoSelecionado) {
+		this.pontoSelecionado = pontoSelecionado;
+	}
+
+
+	public ArrayList<ArrayList<String>> getTodosIniciosFim() {
+		return todosIniciosFim;
+	}
+
+
+	public void setTodosIniciosFim(ArrayList<ArrayList<String>> todosIniciosFim) {
+		this.todosIniciosFim = todosIniciosFim;
+	}
+
+
+	public ArrayList<String> getTodosPercursos() {
+		return todosPercursos;
+	}
+
+
+	public void setTodosPercursos(ArrayList<String> todosPercursos) {
+		this.todosPercursos = todosPercursos;
+	}
+
+
+	public ArrayList<ArrayList<Ponto>> getPontosTodasRotas() {
+		return pontosTodasRotas;
+	}
+
+
+	public void setPontosTodasRotas(ArrayList<ArrayList<Ponto>> pontosTodasRotas) {
+		this.pontosTodasRotas = pontosTodasRotas;
+	}
+
+
+	public ArrayList<Ponto> getPontos() {
+		return pontos;
+	}
+
+
+	public void setPontos(ArrayList<Ponto> pontos) {
+		this.pontos = pontos;
+	}
+
 }
 
