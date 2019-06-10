@@ -1,4 +1,4 @@
-package ControlerAdmView;
+package controlerAdmView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import model.*;
 import viewAdministrador.*;
 import view.*;
 
-public class ControlerAdministradorView{
+public class controlerAdministradorView{
 	public boolean exit = false;
 	public int acesso1;
 	public int acesso2;
@@ -17,9 +17,9 @@ public class ControlerAdministradorView{
 
 	public String tela = new TelaInicial().telaIni;
 
-	private ControlAdministrador controler;
+	private controlAdministrador controler;
 	
-	public ControlerAdministradorView(ControlAdministrador controler){
+	public controlerAdministradorView(controlAdministrador controler){
 		this.controler = controler;
 	}
 
