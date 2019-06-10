@@ -249,8 +249,6 @@ public class ControlUsuario {
 		return this.pontos;
 	}
 	
-	
-
 	public void selecionarPonto(int i) {
 		i--;
 		this.pontoSelecionado = this.pontos.get(i);
@@ -278,6 +276,7 @@ public class ControlUsuario {
 		this.todosPercursos = percursos;
 		return this.todosPercursos;
 	}
+	
 	public void buscarOnibus() {
 		OnibusDAO oDAO = new OnibusDAO();
 		this.onibusSelecionado = oDAO.consultarIdRota(this.rotaSelecionada, 1); // FALTA CRIAR ESSE MÉTODO NO onibusDAO
