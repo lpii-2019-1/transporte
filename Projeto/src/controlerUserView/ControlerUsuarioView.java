@@ -97,9 +97,7 @@ public class ControlerUsuarioView{
 							this.tela = new TelaArgInvalido().telaIni;
 						}
 						else{
-							System.out.println("teste1");
 							this.controler.selecionarInstituicao(arg);
-							System.out.println("teste2");
 							this.tela = new TelaConsultaTurno().telaIni;
 							this.acesso2 = 1;
 						}
@@ -181,15 +179,24 @@ public class ControlerUsuarioView{
 												this.tela = new TelaConsultaTurno().telaIni;
 												break;
 											case 1:
-												this.tela = new TelaConsultaPonto().telaIni;
+												TelaConsultaPonto tela1 = new TelaConsultaPonto();
+												tela1.setTelaConsulta(this.controler.listarPontos(), this.controler.getInstituicaoSelecionada());
+												this.tela = tela1.telaConsulta;
+												this.acesso5 = 1;
 												this.acesso4 = 1;												
 												break;
 											case 2:
-												this.tela = new TelaConsultaPercurso().telaIni;
+												TelaConsultaPercurso tela2 = new TelaConsultaPercurso();
+												tela2.setTelaConsulta(this.controler.listarPercursos(), this.controler.getInstituicaoSelecionada());
+												this.tela = tela2.telaConsulta;
+												this.acesso5 = 1;
 												this.acesso4 = 2;
 												break;
 											case 3:
-												this.tela = new TelaConsultaInicioFim().telaIni;
+												TelaConsultaInicioFim tela3 = new TelaConsultaInicioFim();
+												tela3.setTelaConsulta(this.controler.listarInicioFimDiferentes(), this.controler.getInstituicaoSelecionada());
+												this.tela = tela3.telaConsulta;
+												this.acesso5 = 1;
 												this.acesso4 = 3;
 												break;
 											default:
@@ -223,12 +230,7 @@ public class ControlerUsuarioView{
 												}
 												break;
 											case 0:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s[0].length() == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;
@@ -293,12 +295,7 @@ public class ControlerUsuarioView{
 												}
 												break;
 											case 0:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;
@@ -316,12 +313,7 @@ public class ControlerUsuarioView{
 												}
 												break;
 											case 1:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;
@@ -347,12 +339,7 @@ public class ControlerUsuarioView{
 									case 3:
 										switch(this.acesso5){
 											case -1:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												switch(arg){
 													case 0:
 														this.acesso5 = 0;
@@ -375,12 +362,7 @@ public class ControlerUsuarioView{
 												}
 												break;
 											case 0:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;
@@ -398,12 +380,7 @@ public class ControlerUsuarioView{
 												}
 												break;
 											case 1:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;
@@ -430,12 +407,7 @@ public class ControlerUsuarioView{
 									case 4:
 										switch(this.acesso5){
 											case -1:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												switch(arg){
 													case 0:
 														this.acesso5 = 0;
@@ -457,12 +429,7 @@ public class ControlerUsuarioView{
 														break;
 												}
 											case 0:
-												if(entrada.length() >= 1){
-										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
-														arg = Integer.parseInt(entrada);
-													}
-												}
+												arg = Integer.parseInt(entrada);
 												if(arg == -1){
 													this.tela = new TelaArgInvalido().telaIni;
 													this.acesso5 = -1;

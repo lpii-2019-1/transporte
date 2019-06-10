@@ -234,13 +234,10 @@ public class RotaDAO {
             Rota rota = new Rota();
             boolean aux1 = true;
             while(rs.next()) {
-                System.out.println("01");
                 aux1 = false;
                 rota = this.consultarId(rs.getInt("id_rota"), comparador);
-                System.out.println("02");
                 rotas.add(rota);
             }
-            System.out.println("03");
             if(aux1) {
                 rotas.add(rota);
             }

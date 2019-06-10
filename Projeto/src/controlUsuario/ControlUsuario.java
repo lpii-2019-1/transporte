@@ -24,6 +24,14 @@ public class ControlUsuario {
 	private ArrayList<ArrayList<Ponto>> pontosTodasRotas;
 	private ArrayList<Ponto> pontos;
 	
+	private static boolean compararArray(char[] aArray, char[] bArray) {
+	    for(int i = 0; i < aArray.length; i++) {
+	        if(aArray[i] != bArray[i]) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 	
 	public Cidade pesquisarCidade(String nome, String uf){
 		CidadeDAO cDAO = new CidadeDAO();
@@ -40,14 +48,12 @@ public class ControlUsuario {
 	public void selecionarInstituicao(int i) {
 		i--;
 		this.instituicaoSelecionada = this.cidadeSelecionada.getInstituicoes().get(i);
-		System.out.println("a");
 		buscarRotasBanco();
 	}
 	
 	private void buscarRotasBanco() {
 		RotaDAO rDAO = new RotaDAO();
 		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1);
-		System.out.println("b");
 	}
 	
 	public void selecionarRota(int i) {
@@ -61,16 +67,19 @@ public class ControlUsuario {
 		switch(turno) {
 			case 1:
 				this.turnoSelecionado = "Matutino";
+				break;
 			case 2:
 				this.turnoSelecionado = "Vespertino";
+				break;
 			case 3: 
 				this.turnoSelecionado = "Noturno";
+				break;
 		}
 		boolean test = false;
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		for(int i = 0; i < this.rotasIntituicao.size(); i++) {
 			for(int j = 0; j < this.rotasIntituicao.get(i).getHorarios().size(); j++) {
-					if(this.rotasIntituicao.get(i).getHorarios().get(j).getTurno().getTurno() == "Vespertino") {
+					if(compararArray(this.rotasIntituicao.get(i).getHorarios().get(j).getTurno().getTurno().toCharArray(), this.turnoSelecionado.toCharArray())) {
 						auxRotas.add(this.rotasIntituicao.get(i));
 						test = true;
 						break;
@@ -173,10 +182,12 @@ public class ControlUsuario {
 				if(i == 0 && j == 0) {
 					pontos.add(auxPonto);
 				}
-				for(int k = 0; k < pontos.size(); k++) {
-					if(auxPonto.getId() == pontos.get(k).getId()) {
-						test = false;
-						break;
+				else {
+					for(int k = 0; k < pontos.size(); k++) {
+						if(auxPonto.getId() == pontos.get(k).getId()) {
+							test = false;
+							break;
+						}
 					}
 				}
 				if(test) {
