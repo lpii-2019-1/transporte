@@ -7,20 +7,17 @@ import model.Instituicao;
 public class Cidade{
 	private int id = 0;
     private String nome;
-    private String cep;
     private String uf;
     private ArrayList<Instituicao> instituicoes = new ArrayList<>();
     private int validacao = 0;
 
-    public Cidade(String nome, String cep, String uf){
+    public Cidade(String nome, String uf){
         this.setNome(nome);
-        this.setCep(cep);
         this.setUf(uf);
     }
-    public Cidade(int id, String nome, String cep, String uf){
+    public Cidade(int id, String nome, String uf){
         this.setId(id);
         this.setNome(nome);
-        this.setCep(cep);
         this.setUf(uf);
     }
     public Cidade() {
@@ -34,12 +31,6 @@ public class Cidade{
   		this.id = id;
   	}
 
-	public String getCep() {
-		return this.cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
 	public String getNome() {
 		return this.nome;
 	}

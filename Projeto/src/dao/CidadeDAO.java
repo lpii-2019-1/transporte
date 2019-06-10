@@ -20,11 +20,10 @@ public class CidadeDAO {
 
 	public boolean inserirCidade(Cidade cidade){
         try {
-        	String sql = "INSERT INTO cidade (nome, cep, uf) VALUES (?, ?, ?)";
+        	String sql = "INSERT INTO cidade (nome,  uf) VALUES (?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, cidade.getNome());
-            this.stmt.setString(2, cidade.getCep());
-            this.stmt.setString(3, cidade.getUf());
+            this.stmt.setString(2, cidade.getUf());
             this.stmt.execute();
             this.stmt.close();
             return true;
@@ -53,10 +52,6 @@ public class CidadeDAO {
 
 	public boolean editarUf(Cidade cidade){
 		return this.editarCidade("uf", cidade.getUf(), cidade.getId());
-	}
-
-	public boolean editarCep(Cidade cidade){
-		return this.editarCidade("cep", cidade.getCep(), cidade.getId());
 	}
 	
 	public boolean editarValidacao(Cidade cidade){
@@ -95,7 +90,7 @@ public class CidadeDAO {
             Cidade cidade = new Cidade();
             while(rs.next()) {
             	aux = false;
-                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }
@@ -125,12 +120,12 @@ public class CidadeDAO {
         	}
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, cidade.getNome());
-            this.stmt.setString(1, cidade.getUf());
+            this.stmt.setString(2, cidade.getUf());
             ResultSet rs = stmt.executeQuery();  
             boolean aux = true;    
             while(rs.next()) {
             	aux = false;
-                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
             }
             if(aux) {
@@ -153,10 +148,6 @@ public class CidadeDAO {
 		return this.consultarCidade("uf", cidade.getUf(), comparador);
 	}
 
-	public Cidade consultarCep(Cidade cidade, int comparador){
-		return this.consultarCidade("cep", cidade.getCep(), comparador).get(0);
-	}
-
 	public ArrayList<Cidade> listarCidades(int comparador){
 		try {
 			String sql = "";
@@ -175,7 +166,7 @@ public class CidadeDAO {
             ResultSet rs = stmt.executeQuery();
             ArrayList<Cidade> cidades = new ArrayList<Cidade>();
             while(rs.next()) {
-                Cidade cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                Cidade cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }

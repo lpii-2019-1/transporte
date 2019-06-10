@@ -168,7 +168,7 @@ public class RotaDAO {
             InstituicaoDAO iDAO = new InstituicaoDAO();
             PontoDAO pDAO = new PontoDAO();
             if(rs.next()) {
-                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
+                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
             }
@@ -215,19 +215,8 @@ public class RotaDAO {
         }
 	}
 	public ArrayList<Rota> consultarIdInsituicao(Instituicao instituicao, int comparador){
-        try {
-            String sql = "";
-            switch(comparador) {
-            case 0:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ? AND validacao = 0";
-                break;
-            case 1:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?  AND validacao = 1";
-                break;
-            case 2:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?";
-                break;
-            }
+        try {         
+            String sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, instituicao.getId());
             ResultSet rs = this.stmt.executeQuery();

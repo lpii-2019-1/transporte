@@ -116,18 +116,7 @@ public class PontoDAO {
 	
     public ArrayList<Ponto> consultarIdRota(Rota rota, int comparador){
         try {
-            String sql = "";
-            switch(comparador) {
-            case 0:
-                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 0";
-                break;
-            case 1:
-                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ? AND validacao = 1";
-                break;
-            case 2:
-                sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ?";
-                break;
-            }
+            String sql = "SELECT * FROM rota_has_ponto WHERE id_rota = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, rota.getId());
             ResultSet rs = stmt.executeQuery();

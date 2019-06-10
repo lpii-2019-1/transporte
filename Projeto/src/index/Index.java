@@ -14,7 +14,7 @@ public class Index {
 			System.out.println("\n\n-------------------------------------------------------------------------\n");
 			System.out.println(cU.tela);
 			if(!cU.exit) {
-				cU.entrada(input.next());
+				cU.entrada(input.nextLine());
 			}
 		}while(!cU.exit);
 	}

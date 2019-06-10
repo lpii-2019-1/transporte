@@ -110,12 +110,6 @@ public class ControlerUsuarioView{
 					case 1:
 						switch(this.acesso3){
 							case 0:
-								if(entrada.length() >= 1){
-						            String s[] = entrada.split("[0-9]");
-						            if(s.length == 0){
-										arg = Integer.parseInt(entrada);
-									}
-								}
 								if(arg == 0){
 									this.acesso2 = 0;
 									TelaConsultaInstituicao tela = new TelaConsultaInstituicao();
@@ -133,7 +127,7 @@ public class ControlerUsuarioView{
 									}
 									else{
 										this.acesso3 = -1;
-										this.tela = new TelaArgInvalido().telaIni;
+										this.tela = new TelaOpcPosTurno().telaErro;
 									}
 								}
 								break;

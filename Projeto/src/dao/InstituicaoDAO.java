@@ -157,7 +157,7 @@ public class InstituicaoDAO {
             boolean aux1 = true;
             while(rs.next()) {
             	aux1 = false;
-                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("cep"), rs.getString("uf"));
+                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"));
                 instituicoes.add(instituicao);
             }
             if(aux1) {
@@ -172,18 +172,8 @@ public class InstituicaoDAO {
 
     public ArrayList<Instituicao> consultarIdRota(Rota rota, int comparador){
         try {
-            String sql = "";
-            switch(comparador) {
-            case 0:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ? AND validacao = 0";
-                break;
-            case 1:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?  AND validacao = 1";
-                break;
-            case 2:
-                sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
-                break;
-            }
+            String sql = "SELECT * FROM rota_has_instituicao WHERE id_rota = ?";
+            
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, rota.getId());
             ResultSet rs = this.stmt.executeQuery();
@@ -244,13 +234,13 @@ public class InstituicaoDAO {
 			String sql = "";
 			switch(comparador) {
     		case 0:
-    			sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 0";
+    			sql = "SELECT * FROM instituicao WHERE id = ? AND validacao = 0";
     			break;
 			case 1:
-				sql = "SELECT * FROM ponto WHERE id = ?  AND validacao = 1";
+				sql = "SELECT * FROM instituicao WHERE id = ?  AND validacao = 1";
     			break;
 			case 2:
-				sql = "SELECT * FROM ponto WHERE id = ?";
+				sql = "SELECT * FROM instituicao WHERE id = ?";
 				break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
