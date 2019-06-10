@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import dao.*;
 
 public class ControlUsuario {
+	private ArrayList<Rota> rotasIntituicao;
+	private ArrayList<Rota> rotasTurno;
+	private ArrayList<Rota> rotasFim;
 	
+	private String turnoSelecionado;
 	private Rota rotaSelecionada;
 	private Cidade cidadeSelecionada;
 	private Instituicao instituicaoSelecionada;
-	private ArrayList<Rota> rotas;
 	private Onibus onibusSelecionado;
-	private ArrayList<ArrayList<Horario>> turnosTodasRotas;
-	private ArrayList<Instituicao> InstituicoesCidadeSelecionada;
+	
+	private ArrayList<ArrayList<String>> todosIniciosFim;
+	private ArrayList<String> todosPercursos;
 	/*------------ Métodos para pesquisar cidade e retornar instituições ------------*/
 	
 	public Cidade pesquisarCidade(String nome, String uf){
@@ -37,18 +41,18 @@ public class ControlUsuario {
 	}
 	/*------------------------------------------------------------------------------------*/
 	
-	public ArrayList<Rota> buscarRotas() {
+	public ArrayList<Rota> buscarRotasBanco() {
 		RotaDAO rDAO = new RotaDAO();
-		this.rotas  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); //FALTA CRIAR ESSE MÉTODO NO InstituicaoDAO
-		return this.rotas;
+		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); //FALTA CRIAR ESSE MÉTODO NO InstituicaoDAO
+		return this.rotasIntituicao;
 	}
 	
 	public void selecionarRota(int i) {
 		i--;
-		this.rotaSelecionada = this.rotas.get(i);
+		this.rotaSelecionada = this.rotasFim.get(i);
 	}
 /*----------------------------------------------------------------------------------------------*/
-	public ArrayList<ArrayList<Horario>> listarTurnosDasRotas() {
+	/*public ArrayList<ArrayList<Horario>> listarTurnosDasRotas() {
 		ArrayList<Horario> turnosCadaRota = new ArrayList<Horario>();
 		
 		for(int i = 0; i < this.rotas.size(); i++) {
@@ -61,9 +65,9 @@ public class ControlUsuario {
 			this.turnosTodasRotas.add(turnosCadaRota);
 		}
 		return this.turnosTodasRotas;
-	}
+	}*/
 	
-	public  ArrayList<Horario> verificaHorariosIguais(ArrayList<ArrayList<Horario>> turnosTodasRotas) {
+	/*public  ArrayList<Horario> verificaHorariosIguais(ArrayList<ArrayList<Horario>> turnosTodasRotas) {
 		Horario auxHr = new Horario();
 		Horario auxHr2 = new Horario();
 
@@ -84,27 +88,42 @@ public class ControlUsuario {
 			}
 		}
 		return turnos;
-	}
+	}*/
 	
 /*----------------------------------------------------------------------------------------------*/
-	/*public ArrayList<Horario> listarTurnos(String turno) {
-		ArrayList<Horario> turnos = new ArrayList<Horario>();
-		for(int i = 0; i < this.rotas.size(); i++) {
-			for(int j = 0; j < 3; j++) {
-				if(this.rotas.get(i).getHorarios().get(j) != null) {
-					if(this.rotas.get(i).getHorarios().get(j).getTurno().getTurno() == turno) {
-						turnos.add(this.rotas.get(i).getHorarios().get(j));
-					}
-				}
-			}
-			
+	public boolean filtrarRotasTurno(int turno) {
+		
+		switch(turno) {
+			case 1:
+				this.turnoSelecionado = "Matutino";
+			case 2:
+				this.turnoSelecionado = "Vespertino";
+			case 3: 
+				this.turnoSelecionado = "Noturno";
 		}
-		return turnos;
-	}*/
+		boolean test = false;
+		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
+		for(int i = 0; i < this.rotasIntituicao.size(); i++) {
+			for(int j = 0; j < this.rotasIntituicao.get(i).getHorarios().size(); j++) {
+					if(this.rotasIntituicao.get(i).getHorarios().get(j).getTurno().getTurno() == this.turnoSelecionado) {
+						auxRotas.add(this.rotasIntituicao.get(i));
+						test = true;
+						break;
+					}	
+			}
+		}
+		if(test) {
+			this.rotasTurno = auxRotas;
+			return true;
+		}else {
+			return false;
+		}
+
+	}
 
 	/*Métodos para Filtrar rotas por inicio e fim, percurso e ponto*/	
 	
-	public void filtrarRotasTurno(String turno, String ida, String volta) {
+	/*public void filtrarRotasTurno(String turno, String ida, String volta) {
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		Horario auxHr = new Horario();
 		for(int i = 0; i < this.rotas.size(); i++) {
@@ -119,33 +138,50 @@ public class ControlUsuario {
 		}
 		this.rotas = new ArrayList<Rota>();
 		this.rotas = auxRotas;
-	}
+	}*/
 	
 	
 	public ArrayList<ArrayList<String>> listarInicioFimDiferentes() {
-		ArrayList<ArrayList<String>> inicioFim = new  ArrayList<ArrayList<String>>();
-		for(int i = 0; i < this.rotas.size(); i++) {
-			for(int j = 0; j < 2; j++) {
-				inicioFim.get(i).add(this.rotas.get(i).getInicio());
-				inicioFim.get(i).add(this.rotas.get(i).getFim());
+		ArrayList<ArrayList<String>> todosInicioFim = new  ArrayList<ArrayList<String>>();
+		ArrayList<String> auxInicioFim = new ArrayList<String>();
+		boolean test = true;
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			auxInicioFim.add(this.rotasTurno.get(i).getInicio());
+			auxInicioFim.add(this.rotasTurno.get(i).getFim());			
+			if(i == 0) {
+				todosInicioFim.add(auxInicioFim);
+			}
+			for(int j = 0; j < todosInicioFim.size(); j++) {
+				if(auxInicioFim.get(0) == todosInicioFim.get(j).get(0) && auxInicioFim.get(1) == todosInicioFim.get(j).get(1)) {
+					test = false;
+					break;
+				}
+			}
+			if(test) {
+				todosInicioFim.add(auxInicioFim);	
 			}
 		}
-		return inicioFim;
+		this.todosIniciosFim = todosInicioFim;
+		return this.todosIniciosFim;
 	}
 	
 	
 	
-	public boolean filtrarRotasInicioFim(String inicio, String fim) {
+	public boolean filtrarRotasInicioFim(int x) {
+		x--;
+		String inicio = this.todosIniciosFim.get(x).get(1);
+		String fim = this.todosIniciosFim.get(x).get(2);
+		
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		boolean test = false;
-		for(int i = 0; i < this.rotas.size(); i++) {
-			if(this.rotas.get(i).getInicio() == inicio && this.rotas.get(i).getFim() == fim) {
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			if(this.rotasTurno.get(i).getInicio() == inicio && this.rotasTurno.get(i).getFim() == fim) {
 				test = true;
-				auxRotas.add(this.rotas.get(i));
+				auxRotas.add(this.rotasTurno.get(i));
 			}
 		}
-		this.rotas = new ArrayList<Rota>();
-		this.rotas = auxRotas;
+		this.rotasFim = new ArrayList<Rota>();
+		this.rotasFim = auxRotas;
 		if(test) {
 			return true;
 		}else {
@@ -155,34 +191,49 @@ public class ControlUsuario {
 		
 	}
 	
-	public void filtrarRotasPercurso(String percurso) {
+	public void filtrarRotasPercurso(String percurso) {//-----------------------------------------------------------
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
-		for(int i = 0; i < this.rotas.size(); i++) {
-			if(this.rotas.get(i).getPercurso() == percurso) {
-				auxRotas.add(this.rotas.get(i));
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			if(this.rotasTurno.get(i).getPercurso() == percurso) {
+				auxRotas.add(this.rotasTurno.get(i));
 			}
 		}
-		this.rotas = new ArrayList<Rota>();
-		this.rotas = auxRotas;
+		this.rotasFim = new ArrayList<Rota>();
+		this.rotasFim = auxRotas;
 	}
 	
-	public ArrayList<ArrayList<Ponto>> listarPontos() {
+	public ArrayList<ArrayList<Ponto>> listarPontos() { //- -----------------------------------------------------------------
 		ArrayList<ArrayList<Ponto>> pontosTodasRotas = new ArrayList<ArrayList<Ponto>> ();
 		ArrayList<Ponto> pontosCadaRota = new ArrayList<Ponto>();
-		for(int i = 0; i < this.rotas.size(); i++) {
-			for(int j = 0; j < this.rotas.get(i).getPontos().size(); i++) {
-				pontosCadaRota.add(this.rotas.get(i).getPontos().get(j));
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			for(int j = 0; j < this.rotasTurno.get(i).getPontos().size(); i++) {
+				pontosCadaRota.add(this.rotasTurno.get(i).getPontos().get(j));
 			}
 			pontosTodasRotas.add(pontosCadaRota);
 		}
 		return pontosTodasRotas;
 	}
 	
-	public 	ArrayList<String> listarPercursos() {
+	public 	ArrayList<String> listarPercursos() {//-------------------------------------------------
 		ArrayList<String> percursos = new ArrayList<String>();
-		for(int i = 0; i < this.rotas.size(); i++) {
-			percursos.add(this.rotas.get(i).getPercurso());		
+		String auxPercurso = "";
+		boolean test = true;
+		for(int i = 0; i < this.rotasTurno.size(); i++) {
+			auxPercurso = this.rotasTurno.get(i).getPercurso();
+			if(i == 0) {		
+				percursos.add(auxPercurso);
+			}
+			for(int j = 0; j < percursos.size(); j++) {
+				if(auxPercurso == percursos.get(j)) {
+					test = false;
+					break;
+				}
+			}
+			if(test) {
+				percursos.add(auxPercurso);
+			}
 		}
+		
 		return percursos;
 	}
 	public void buscarOnibus() {
@@ -216,22 +267,6 @@ public class ControlUsuario {
 		this.instituicaoSelecionada = instituicaoSelecionada;
 	}
 
-	public ArrayList<Rota> getRotas() {
-		return rotas;
-	}
-
-	public void setRotas(ArrayList<Rota> rotas) {
-		this.rotas = rotas;
-	}
-
-	public ArrayList<ArrayList<Horario>> getTurnosTodasRotas() {
-		return turnosTodasRotas;
-	}
-
-	public void setTurnosTodasRotas(ArrayList<ArrayList<Horario>> turnosTodasRotas) {
-		this.turnosTodasRotas = turnosTodasRotas;
-	}
-
 	public Onibus getOnibusSelecionado() {
 		return onibusSelecionado;
 	}
@@ -239,6 +274,15 @@ public class ControlUsuario {
 	public void setOnibusSelecionado(Onibus onibusSelecionado) {
 		this.onibusSelecionado = onibusSelecionado;
 	}
+	
+	public String getTurnoSelecionado() {
+		return turnoSelecionado;
+	}
+
+	public void setTurnoSelecionado(String turnoSelecionado) {
+		this.turnoSelecionado = turnoSelecionado;
+	}
+
 	
 }
 
