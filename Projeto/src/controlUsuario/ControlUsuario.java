@@ -40,12 +40,14 @@ public class ControlUsuario {
 	public void selecionarInstituicao(int i) {
 		i--;
 		this.instituicaoSelecionada = this.cidadeSelecionada.getInstituicoes().get(i);
+		System.out.println("a");
 		buscarRotasBanco();
 	}
 	
 	private void buscarRotasBanco() {
 		RotaDAO rDAO = new RotaDAO();
-		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1); 
+		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1);
+		System.out.println("b");
 	}
 	
 	public void selecionarRota(int i) {
@@ -68,7 +70,7 @@ public class ControlUsuario {
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		for(int i = 0; i < this.rotasIntituicao.size(); i++) {
 			for(int j = 0; j < this.rotasIntituicao.get(i).getHorarios().size(); j++) {
-					if(this.rotasIntituicao.get(i).getHorarios().get(j).getTurno().getTurno() == this.turnoSelecionado) {
+					if(this.rotasIntituicao.get(i).getHorarios().get(j).getTurno().getTurno() == "Vespertino") {
 						auxRotas.add(this.rotasIntituicao.get(i));
 						test = true;
 						break;

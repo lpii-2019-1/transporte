@@ -122,11 +122,13 @@ public class RotaDAO {
             Rota rota = new Rota();
             InstituicaoDAO iDAO = new InstituicaoDAO();
             PontoDAO pDAO = new PontoDAO();
+            HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
             	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota, comparador));
+                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
             	rotas.add(rota);
             }
             if(aux) {
@@ -167,10 +169,12 @@ public class RotaDAO {
             Rota rota = new Rota();
             InstituicaoDAO iDAO = new InstituicaoDAO();
             PontoDAO pDAO = new PontoDAO();
-            if(rs.next()) {
+            HorarioDAO hDAO = new HorarioDAO();
+            if(rs.next()){
                 rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
+                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
             }
             this.stmt.close();
             return rota;
@@ -200,9 +204,15 @@ public class RotaDAO {
             ArrayList<Rota> rotas = new ArrayList<Rota>();
             Rota rota = new Rota();
             RotaDAO rDAO = new RotaDAO();
+            InstituicaoDAO iDAO = new InstituicaoDAO();
+            PontoDAO pDAO = new PontoDAO();
+            HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
             	rota = rDAO.consultarId(rs.getInt("id_rota"), comparador);
+            	rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
+                rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
+                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
             	rotas.add(rota);
             }
             if(aux) {
@@ -224,10 +234,13 @@ public class RotaDAO {
             Rota rota = new Rota();
             boolean aux1 = true;
             while(rs.next()) {
+                System.out.println("01");
                 aux1 = false;
                 rota = this.consultarId(rs.getInt("id_rota"), comparador);
+                System.out.println("02");
                 rotas.add(rota);
             }
+            System.out.println("03");
             if(aux1) {
                 rotas.add(rota);
             }
@@ -259,11 +272,13 @@ public class RotaDAO {
             Rota rota = new Rota();
             InstituicaoDAO iDAO = new InstituicaoDAO();
             PontoDAO pDAO = new PontoDAO();
+            HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
                 aux = false;
                 rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
+                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
                 rotas.add(rota);
             }
             if(aux){

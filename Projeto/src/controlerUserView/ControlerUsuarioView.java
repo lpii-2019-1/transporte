@@ -87,12 +87,7 @@ public class ControlerUsuarioView{
 						}
 						break;
 					case 0:
-						if(entrada.length() >= 1){
-				            String s[] = entrada.split("[0-9]");
-				            if(s.length == 0){
-								arg = Integer.parseInt(entrada);
-							}
-						}
+						arg = Integer.parseInt(entrada);
 						if(arg == 0){
 							this.acesso1 = 0;
 							this.tela = new TelaConsultaCidade().telaIni;
@@ -102,13 +97,37 @@ public class ControlerUsuarioView{
 							this.tela = new TelaArgInvalido().telaIni;
 						}
 						else{
+							System.out.println("teste1");
 							this.controler.selecionarInstituicao(arg);
+							System.out.println("teste2");
 							this.tela = new TelaConsultaTurno().telaIni;
 							this.acesso2 = 1;
 						}
 						break;
 					case 1:
 						switch(this.acesso3){
+							case -1:
+								switch(arg) {
+									case 0:
+										this.acesso3 = 0;
+										this.acesso2 = 0;
+										this.acesso1 = 0;
+										this.exit = true;
+										this.tela = new TelaFim().telaIni;
+										break;
+									case 1:
+										TelaConsultaInstituicao tela = new TelaConsultaInstituicao();
+										tela.setTelaConsulta(this.controler.getCidadeSelecionada());
+										this.tela = tela.telaConsulta;
+										this.acesso3 = 0;
+										this.acesso2 = 0;
+										break;
+									default:
+										this.tela = new TelaArgInvalido().telaIni;
+										this.acesso3 = -1;
+										break;
+									}
+								break;
 							case 0:
 								if(arg == 0){
 									this.acesso2 = 0;
@@ -126,8 +145,8 @@ public class ControlerUsuarioView{
 										this.acesso3 = 1;
 									}
 									else{
-										this.acesso3 = -1;
-										this.tela = new TelaOpcPosTurno().telaErro;
+										this.acesso3 = 0;
+										this.tela =  new TelaConsultaTurno().telaErro + new TelaConsultaTurno().telaIni;
 									}
 								}
 								break;
@@ -159,22 +178,22 @@ public class ControlerUsuarioView{
 											case 0:
 												this.acesso4 = 0;
 												this.acesso3 = 0;
-												this.tela = new TelaConsultaCidade().telaIni;
+												this.tela = new TelaConsultaTurno().telaIni;
 												break;
 											case 1:
 												this.tela = new TelaConsultaPonto().telaIni;
 												this.acesso4 = 1;												
 												break;
 											case 2:
-												this.tela = new TelaConsultaPonto().telaIni;
+												this.tela = new TelaConsultaPercurso().telaIni;
 												this.acesso4 = 2;
 												break;
 											case 3:
-												this.tela = new TelaConsultaPonto().telaIni;
+												this.tela = new TelaConsultaInicioFim().telaIni;
 												this.acesso4 = 3;
 												break;
 											default:
-												this.acesso3 = -1;
+												this.acesso4 = -1;
 												this.tela = new TelaArgInvalido().telaIni;
 												break;
 										}
@@ -195,7 +214,7 @@ public class ControlerUsuarioView{
 													case 1:
 														this.acesso5 = 0;
 														this.acesso4 = 0;
-														this.tela = new TelaOpcPosTurno().telaIni;
+														this.tela = new TelaConsultaTurno().telaIni;
 														break;
 													default:
 														this.tela = new TelaArgInvalido().telaIni;
@@ -206,7 +225,7 @@ public class ControlerUsuarioView{
 											case 0:
 												if(entrada.length() >= 1){
 										            String s[] = entrada.split("[0-9]");
-										            if(s.length == 0){
+										            if(s[0].length() == 0){
 														arg = Integer.parseInt(entrada);
 													}
 												}
