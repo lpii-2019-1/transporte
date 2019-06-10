@@ -171,7 +171,30 @@ public class ControlUsuario {
 		}
 		this.pontosTodasRotas = pontosTodasRotas;
 	}
-	
+	public ArrayList<Ponto>  listarPontos(){
+		ArrayList<Ponto> pontosSeparados = new ArrayList<Ponto>();
+		ArrayList<Ponto> pontosDiferentes = new ArrayList<Ponto>();
+		for (Rota r : this.rotasTurno) {
+			for (Ponto p : r.getPontos()) {
+					pontosSeparados.add(p);
+			}
+		}
+		boolean aux = true;
+		for(int i = 0; i < pontosSeparados.size(); i++){
+			aux = true;
+			for(int j = 0; j < pontosDiferentes.size(); j++){
+				if(pontosSeparados.get(i).getId() == pontosDiferentes.get(j).getId()){
+					aux = false;
+				}
+			}
+			if(aux){
+				pontosDiferentes.add(pontosSeparados.get(i));
+			}
+		}
+		this.pontos = pontosDiferentes;
+		return pontosDiferentes;
+	}
+	/*
 	public ArrayList<Ponto>  listarPontos() {
 		ArrayList<Ponto> pontos = new ArrayList<Ponto>();
 		Ponto auxPonto = new Ponto();
@@ -198,6 +221,7 @@ public class ControlUsuario {
 		this.pontos = pontos;
 		return this.pontos;
 	}
+	*/
 	
 	public void selecionarPonto(int i) {
 		i--;

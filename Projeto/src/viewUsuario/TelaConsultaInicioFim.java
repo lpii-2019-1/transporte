@@ -18,6 +18,6 @@ public class TelaConsultaInicioFim{
 			this.telaConsulta += "\n           Inicio: " + ini.get(0);
 			this.telaConsulta += "\n           Fim: " + ini.get(1);
 		}
-		this.telaConsulta += "\n        0 - Sair \n\nDigite o numero correspondente: ";
+		this.telaConsulta += "\n       0 - Sair \n\nDigite o numero correspondente: ";
 	}
 }
