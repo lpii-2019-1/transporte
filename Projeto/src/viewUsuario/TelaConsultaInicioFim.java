@@ -15,7 +15,7 @@ public class TelaConsultaInicioFim{
 		int i = 0;
 		for(ArrayList<String> ini : inicioFim){
 			i++;
-			this.telaConsulta += "\n       " + i + " - Inicio: " + ini.get(0);
+			this.telaConsulta += "\n       " + i + " - Rota:";
 			this.telaConsulta += "\n           Inicio: " + ini.get(0);
 			this.telaConsulta += "\n           Fim: " + ini.get(1);
 		}
