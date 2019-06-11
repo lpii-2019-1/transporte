@@ -97,7 +97,7 @@ public class ControlAdmInstituicao {
 		 iDAO.editarEndereco(this.instituicaoSelecionada);
 
 	 }
-	 public void editarTelefone(String telefone) {
+	 public boolean editarTelefone(String telefone) {
 		 this.instituicaoSelecionada.setTelefone(telefone);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
 		 iDAO.editarTelefone(this.instituicaoSelecionada);

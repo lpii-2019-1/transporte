@@ -7,37 +7,39 @@ import model.Onibus;
 import model.Rota;
 
 public class TelaOnibus{
-	public String opcoes = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Rota \n5 - Mensalidade \n6 - Telefone \n7 - Validacao  \n0 - Sair \n\nDigite o nome de uma cidade: ";
+	public String manterOnibus = "\n1 - Consutar \n2 - Cadastrar \n3 - Editar \n4 - Manter Rotas\n4 - Excluir \n5 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcEdicao = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n6 - Validacao  \n0 - Voltar \n\nDigite o numero correspondentes: ";
+	public String opcConsulta = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n0 - Voltar \n\nDigite o numero correspondentes: ";
 	public String cadastro = "\nDigite o valores do onibus (Ex.: abc-1234, Cinza, Joao, 300.00, Disponivel): ";
 	public String Excluir = "\nDigite o placa da onibus (Ex.: abc-1234): ";
-	public String telaOnibus;
+	public String telaConsulta;
 
-	public void setTelaOnibus(ArrayList<Onibus> onibuss){
-		this.telaOnibus = "\nOnibus: ";
+	public void setTelaConsulta(ArrayList<Onibus> onibuss){
+		this.telaConsulta = "\nOnibus: ";
 		for (Onibus o : onibuss) {
-			this.telaOnibus += "\n    Placa: " + o.getPlaca();
-			this.telaOnibus += "\n    Cor: " + o.getCor();
-			this.telaOnibus += "\n    Motorista: " + o.getMotorista();
-			this.telaOnibus += "\n    Telefone: " + o.getTelefone();
-			this.telaOnibus += "\n    Mensalidade: " + o.getMensalidade();
-			this.telaOnibus += "\n    Rotas: ";
+			this.telaConsulta += "\n    Placa: " + o.getPlaca();
+			this.telaConsulta += "\n    Cor: " + o.getCor();
+			this.telaConsulta += "\n    Motorista: " + o.getMotorista();
+			this.telaConsulta += "\n    Telefone: " + o.getTelefone();
+			this.telaConsulta += "\n    Mensalidade: " + o.getMensalidade();
+			this.telaConsulta += "\n    Rotas: ";
 			for (Rota r : o.getRotas()) {
-				this.telaOnibus += "\n        Inicio: " + r.getInicio();
-				this.telaOnibus += "\n        Fim: " + r.getFim();
-				this.telaOnibus += "\n        Turnos: ";
+				this.telaConsulta += "\n        Inicio: " + r.getInicio();
+				this.telaConsulta += "\n        Fim: " + r.getFim();
+				this.telaConsulta += "\n        Turnos: ";
 				for (Horario h : r.getHorarios()) {
-					this.telaOnibus += "\n            Turno: " + h.getTurno().getTurno();
-					this.telaOnibus += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-					this.telaOnibus += "\n            Haririo de regresso: " + h.getHrRegresso();
-					this.telaOnibus += "\n            Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
-					this.telaOnibus += "\n";
+					this.telaConsulta += "\n            Turno: " + h.getTurno().getTurno();
+					this.telaConsulta += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+					this.telaConsulta += "\n            Haririo de regresso: " + h.getHrRegresso();
+					this.telaConsulta += "\n            Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+					this.telaConsulta += "\n";
 				}
-				this.telaOnibus += "\n        Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
-				this.telaOnibus += "\n";
+				this.telaConsulta += "\n        Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
+				this.telaConsulta += "\n";
 			}
-			this.telaOnibus += "\n    Disponibilidade: " + (o.getValidacao() == 1? "Disponivel": "Indisponivel");
-			this.telaOnibus += "\n";
+			this.telaConsulta += "\n    Disponibilidade: " + (o.getValidacao() == 1? "Disponivel": "Indisponivel");
+			this.telaConsulta += "\n";
 		}
-		this.telaOnibus += "\nDigite 0 para voltar: ";
+		this.telaConsulta += "\nDigite 0 para voltar: ";
 	}
 }
