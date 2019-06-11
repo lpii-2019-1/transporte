@@ -6,6 +6,9 @@ public class CtrlAdmViewCidade{
 	public String acesso4;
 	public String acesso5;
 
+	private ControlAdmCidade controler = new ControlAdmCidade();
+	
+
 	public String entrada(){
 		switch(this.acesso2){
 			//Tela de fim de operacao ou argumento invalido

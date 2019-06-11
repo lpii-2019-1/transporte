@@ -44,29 +44,46 @@ public class CtrlAdmViewHorario{
 						break;
 					default:
 						this.tela = new TelaArgInvalido().telaIni;
-						this.acesso2 = -1;
+						this.acesso2 = 0;
 						break;
 				}
 				break;
 			//Vai para tela de consulta da opcao selecionada
 			case 1:
-				switch(arg){
+				switch(this.acesso3){
 					case 0:
-						this.acesso2 = 0;
-						this.tela = new TelaManter().telaIni;
+						switch(arg){
+							case 0:
+								this.acesso2 = 0;
+								this.tela = new TelaManter().telaIni;
+								break;
+							case 1:
+								this.acesso3 = 1;
+								this.tela = new TelaHorario().entrada;
+								break;
+							case 2:
+								this.acesso3 = 2;
+								this.tela = new TelaHorario().entrada;
+								break;
+							case 3:
+								this.acesso3 = 3;
+								this.tela = new TelaHorario().entrada;
+								break;
+							default:
+								this.tela = new TelaArgInvalido().telaIni;
+								this.acesso2 = 0;
+								break;
+						}
 						break;
 					case 1:
-
-						break;
-					case 2:
-
-						break;
-					case 3:
-
+						if(controler.selecionarHorario(entrada)){
+							TelaHorario tela = TelaHorario();
+							tela.setTelaConsulta(controler.getHorario);
+							this.tela = 
+						}
 						break;
 				}
 				break;
-
 		}
 	}
 }

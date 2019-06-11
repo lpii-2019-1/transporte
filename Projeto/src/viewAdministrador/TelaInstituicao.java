@@ -8,7 +8,7 @@ public class TelaInstituicao{
 	public String opcEdicao = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n4 - Validacao \n0 - Sair \n\nDigite o numero correspondente: ";
 	public String opcCidade = "\n1 - Inserir \n2 - Excluir \n0 - Sair \n\nDigite o numero correspondente: ";
 	public String opcConsulta = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n0 - Sair \n\nDigite o endereco instituicao: ";
-	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Disponivel): ";
+	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Ceres, Disponivel): ";
 	public String entrada = "\nDigite o endereco da instituicao (Ex.: Meio do mato): ";
 	public String telaConsulta;
 
