@@ -21,7 +21,7 @@ public class RotaDAO {
 	
 	public boolean inserirRota(Rota rota){
         try {
-            String sql = "INSERT INTO rota (inicio, fim) VALUES (?, ?)";
+            String sql = "INSERT INTO rota (inicio, fim, identificador) VALUES (?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, rota.getInicio());
             this.stmt.setString(2, rota.getFim());
@@ -59,7 +59,7 @@ public class RotaDAO {
 
     public boolean editarPonto(Rota rota, Ponto ponto){
         try {
-            String sql = "UPDATE rota_has_ponto SET ordem = ? WHERE id_rota = ? AND id_ponto";
+            String sql = "UPDATE rota_has_ponto SET ordem = ? WHERE id_rota = ? AND id_ponto = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, ponto.getOrdem());
             this.stmt.setInt(2, rota.getId());
@@ -125,7 +125,7 @@ public class RotaDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota, comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -140,6 +140,46 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
+	
+	public Rota consultarIdentificador(Onibus onibus, int identificador, int comparador){
+		try {
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM rota WHERE id_onibus = ? AND identificador = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM rota WHERE id_onibus = ? AND identificador = ? AND validacao = 1";
+    			break;
+			
+        	}
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setInt(1, onibus.getId());
+			this.stmt.setInt(2, identificador);
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            Rota rota = new Rota();
+            InstituicaoDAO iDAO = new InstituicaoDAO();
+            PontoDAO pDAO = new PontoDAO();
+            HorarioDAO hDAO = new HorarioDAO();
+            while(rs.next()) {
+            	aux = false;
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"));
+                rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
+                rota.setPontos(pDAO.consultarIdRota(rota, comparador));
+                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
+       
+            }
+            if(aux) {
+            	rota = new Rota();
+            }
+            this.stmt.close();
+            return rota;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
 	
 	public ArrayList<Rota> consultarInicio(Rota rota, int comparador){
 		return this.consultarRota("inicio", rota.getInicio(), comparador);
