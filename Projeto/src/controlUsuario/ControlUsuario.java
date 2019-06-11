@@ -121,13 +121,13 @@ public class ControlUsuario {
 	
 	public boolean filtrarRotasInicioFim(int x) {
 		x--;
-		String inicio = this.todosIniciosFim.get(x).get(1);
-		String fim = this.todosIniciosFim.get(x).get(2);
+		String inicio = this.todosIniciosFim.get(x).get(0);
+		String fim = this.todosIniciosFim.get(x).get(1);
 		
 		ArrayList<Rota> auxRotas = new ArrayList<Rota>();
 		boolean test = false;
 		for(int i = 0; i < this.rotasTurno.size(); i++) {
-			if(this.rotasTurno.get(i).getInicio() == inicio && this.rotasTurno.get(i).getFim() == fim) {
+			if(compararArray(this.rotasTurno.get(i).getInicio().toCharArray(), inicio.toCharArray()) && compararArray(this.rotasTurno.get(i).getFim().toCharArray(), fim.toCharArray() )) {
 				test = true;
 				auxRotas.add(this.rotasTurno.get(i));
 			}
