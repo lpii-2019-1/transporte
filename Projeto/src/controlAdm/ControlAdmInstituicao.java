@@ -5,11 +5,31 @@ import model.Instituicao;
 
 import java.util.ArrayList;
 
-import dao.CidadeDAO;
 import dao.InstituicaoDAO;
 
 public class ControlAdmInstituicao {
+	
+	/*
+	 * PROVAVELMENTE VAI TER QUE CRIAR UM MÉTODO PARA PESQUISAR CIDADE POR INSTITUICAO NO CidadeDAO
+	 * ESSE MÉTODO SERÁ PARA MOSTRAR PARA O ADM DE QUAL CIDADE A INSTITUICAO PESQUISADA É;
+	 * E VAI SER USADO PARA EDITAR DE QUAL CIDADE ESSA INSTITUICAO É;
+	 * PARA ISSO É PRECISO FAZER UM METODO QUE FAÇA A SEGUNTE CONSULTA NO BANCO
+	 * M.D DECIDA AÍ SE VAI USAR
+	 * 
+	 * SELECT c.nome, c.uf FROM cidade c 
+		INNER JOIN instituicao i
+		ON c.id = i.id_cidade
+		WHERE i.nome = 'UEG';
+		que seria o sql a baixo
+	 *  
+	 *  */
+	// String sql ="SELECT c.nome, c.uf FROM cidade c INNER JOIN instituicao i ON c.id = i.id_cidade WHERE i.nome = ?" ;
+
+			
+	
 	private Cidade cidadeSelecionada;
+	
+
 	private Instituicao instituicaoSelecionada;
 	private ArrayList<Instituicao> instituicoes;
 	
@@ -45,10 +65,8 @@ public class ControlAdmInstituicao {
 		this.instituicoes = iDAO.consultarIdCidade(this.cidadeSelecionada, 2);	
 		return this.instituicoes;
 	}
-	 public ArrayList<Instituicao> consultarIdRota(){
-		 
-	 }
-	 public void inserirInstituicao(ArrayList<String> valores) {
+	
+	 public boolean inserirInstituicao(ArrayList<String> valores) {// Se a Instituicao n existir no banco o método insere e retorna true//Se ela n existir, não insere e retorna false
 		this.instituicaoSelecionada = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
 		InstituicaoDAO  iDAO =new InstituicaoDAO();
 		Instituicao auxInstituicao = new Instituicao();
@@ -57,13 +75,86 @@ public class ControlAdmInstituicao {
 			iDAO.inserirInstituicao(this.instituicaoSelecionada);
 			if(valores.size() == 4) {
 				if(valores.get(3) == "Disponivel") {
-					iDAO.editarValidacao(consultarEndereco(this.instituicaoSelecionada.getEndereco()));
+					this.instituicaoSelecionada = consultarEndereco(this.instituicaoSelecionada.getEndereco());
+					this.instituicaoSelecionada.setValidacao(1);
+					iDAO.editarValidacao(this.instituicaoSelecionada);
 				}
 			}
-			iDAO.inserirInstituicao(this.instituicaoSelecionada);
-
+			return true;
+		}else {
+			return false;
 		}
 		 
+	 }
+	 public void editarNome(String nome) {
+		 this.instituicaoSelecionada.setNome(nome);
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 iDAO.editarNome(this.instituicaoSelecionada);
+	 }
+	 public void editarEndereco(String endereco) {
+		 this.instituicaoSelecionada.setEndereco(endereco);
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 iDAO.editarEndereco(this.instituicaoSelecionada);
+
+	 }
+	 public void editarTelefone(String telefone) {
+		 this.instituicaoSelecionada.setTelefone(telefone);
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 iDAO.editarTelefone(this.instituicaoSelecionada);
+
+	 }
+	 public void editarIdCidade(String cidade) {//Alterar Esse método
+		 this.instituicaoSelecionada.setNome(cidade);
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 iDAO.editarIdCidade(this.instituicaoSelecionada, this.cidadeSelecionada);
+
+	 }
+	 public void editarValidacao(String validacao) {
+		 int validade = 0;
+		 if(validacao == "Disponivel") {
+			 validade = 1;
+		 }
+		 this.instituicaoSelecionada.setValidacao(validade);
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 iDAO.editarValidacao(this.instituicaoSelecionada);
+
+	 }
+	 
+	 public boolean excluirInstituicao() {
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+
+		 if(iDAO.excluirInstituicao(this.instituicaoSelecionada)) {
+			 return true;
+		 }else {
+			 return false;
+		 }
+	 }
+ 
+	 public ArrayList<Instituicao> listarInstituicaoes(){
+		 InstituicaoDAO  iDAO =new InstituicaoDAO();
+		 this.instituicoes = new ArrayList<Instituicao>();
+		 this.instituicoes = iDAO.listarInstituicoes(2);
+		 return this.instituicoes;
+		 
+	 }
+	 
+	 public Cidade getCidadeSelecionada() {
+		return cidadeSelecionada;
+	 }
+	 public void setCidadeSelecionada(Cidade cidadeSelecionada) {
+		this.cidadeSelecionada = cidadeSelecionada;
+	 }
+	 public Instituicao getInstituicaoSelecionada() {
+		return instituicaoSelecionada;
+	 }
+	 public void setInstituicaoSelecionada(Instituicao instituicaoSelecionada) {
+		this.instituicaoSelecionada = instituicaoSelecionada;
+	 }
+	 public ArrayList<Instituicao> getInstituicoes() {
+		return instituicoes;
+	 }
+	 public void setInstituicoes(ArrayList<Instituicao> instituicoes) {
+		this.instituicoes = instituicoes;
 	 }
 	
 }
