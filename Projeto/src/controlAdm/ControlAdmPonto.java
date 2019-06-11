@@ -14,6 +14,7 @@ public class ControlAdmPonto {
 
 	private ArrayList<ArrayList<Ponto>> pontosTodasRotas;
 	private ArrayList<Ponto> pontos;
+	
 
 	public boolean verificaId(Cidade c) {
 		if (c.getId() == 0) {
@@ -22,7 +23,8 @@ public class ControlAdmPonto {
 			return true;
 		}
 	}
-
+	
+	/** Refazer **/
 	public void inserirPonto(String endereco) {
 		PontoDAO poDAO = new PontoDAO();
 		Ponto po = new Ponto();
@@ -31,41 +33,40 @@ public class ControlAdmPonto {
 		poDAO.inserirPonto(this.getPontoSelecionado());
 	}
 		
-	public void editarEndereco(String endereco) {
+	public boolean editarEndereco(String endereco) {
 		PontoDAO poDAO = new PontoDAO();
-		Ponto po = new Ponto();
-		po.setEndereco(endereco);
-//		po.setId(id);
-		po = poDAO.consultarEndereco(po, 2);
-		this.setPontoSelecionado(po);
-		poDAO.editarEndereco(this.getPontoSelecionado());	
+		this.pontoSelecionado.setEndereco(endereco);
+		if(poDAO.editarEndereco(this.pontoSelecionado)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public void editarValidacao(int x) {
+	public boolean editarValidacao(String validacao) {
 		PontoDAO poDAO = new PontoDAO();
-		Ponto po = new Ponto();
-		po.setValidacao(x);
-//		po.setId(id);
-		this.setPontoSelecionado(po);
-		poDAO.editarValidacao(this.getPontoSelecionado());
+		if(validacao.equals(validacao)) {
+			this.pontoSelecionado.setValidacao(1);
+		}
+		if(poDAO.editarValidacao(this.pontoSelecionado)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public Ponto consultarEndereco(String endereco) {
+	public ArrayList<Ponto> consultarEndereco(String valor) {
+		this.pontoSelecionado = new Ponto();
 		PontoDAO poDAO = new PontoDAO();
-		Ponto po = new Ponto();
-		po.setEndereco(endereco);
-		po = poDAO.consultarEndereco(po, 2);
-		this.setPontoSelecionado(po);
-		return this.getPontoSelecionado();
+		this.pontoSelecionado = poDAO.consultarEndereco(this.pontoSelecionado, 2);
+		return this.pontos;
 	}
 
-	public Ponto consultarId(int id) {
+	public ArrayList<Ponto> consultarId(int id) {
+		this.pontoSelecionado = new Ponto();
 		PontoDAO poDAO = new PontoDAO();
-		Ponto po = new Ponto();
-		po.setId(id);
-		po = poDAO.consultarId(id, 2);
-		this.setPontoSelecionado(po);
-		return this.getPontoSelecionado();
+		this.pontoSelecionado = poDAO.consultarId(id, 2);
+		return this.pontos;
 	}
 	
 	/** Verificar erro metodo **//*
@@ -75,38 +76,21 @@ public class ControlAdmPonto {
 		return this.getPontoSelecionado();
 	}
 	*/
-
+	
 	public ArrayList<Ponto> listarPontos() {
-		ArrayList<Ponto> pontos = new ArrayList<Ponto>();
-		Ponto auxPonto = new Ponto();
-		boolean test = true;
-		for (int i = 0; i < this.pontosTodasRotas.size(); i++) {
-			for (int j = 0; j < this.pontosTodasRotas.get(i).size(); j++) {
-				auxPonto = this.pontosTodasRotas.get(i).get(j);
-				if (i == 0 && j == 0) {
-					pontos.add(auxPonto);
-				}
-				for (int k = 0; k < pontos.size(); k++) {
-					if (auxPonto.getId() == pontos.get(k).getId()) {
-						test = false;
-						break;
-					}
-				}
-				if (test) {
-					pontos.add(auxPonto);
-				}
-			}
-		}
-		this.pontos = pontos;
+		PontoDAO poDAO = new PontoDAO();
+		this.pontos = new ArrayList<Ponto>();
+		this.pontos = poDAO.listarPontos(2);
 		return this.pontos;
 	}
-
-	public void excluirPonto(int x) {
+	
+	public boolean excluirPonto(int x) {
 		PontoDAO poDAO = new PontoDAO();
-		Ponto po = new Ponto();
-		po.setId(x);
-		this.setPontoSelecionado(po);
-		poDAO.excluirPonto(this.getPontoSelecionado());
+		if(poDAO.excluirPonto(this.pontoSelecionado)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public Ponto getPontoSelecionado() {
