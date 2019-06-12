@@ -43,11 +43,11 @@ public class ControlAdmPonto {
 		}
 	}
 
-	public ArrayList<Ponto> consultarEndereco(String valor) {
+	public Ponto consultarEndereco(String valor) {
 		this.pontoSelecionado = new Ponto();
 		PontoDAO poDAO = new PontoDAO();
 		this.pontoSelecionado = poDAO.consultarEndereco(this.pontoSelecionado, 2);
-		return this.pontos;
+		return this.pontoSelecionado;
 	}
 
 	public ArrayList<Ponto> consultarId(int id) {

@@ -50,6 +50,21 @@ public class RotaDAO {
         }
 	}
 	
+	public boolean inserirPontoRota(Rota rota, Ponto ponto){
+        try {
+            String sql = "INSERT INTO rota_has_ponto (id_rota, id_ponto) VALUES (?, ?)";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            this.stmt.setInt(2, ponto.getId());
+            this.stmt.execute();
+            this. stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
+	
 	private boolean editarRota(String campo, String valor, int id){
         try {
             String sql = "UPDATE rota SET " + campo + " = ? WHERE id = ?";
