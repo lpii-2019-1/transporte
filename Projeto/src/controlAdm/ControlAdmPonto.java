@@ -58,14 +58,14 @@ public class ControlAdmPonto {
 	}
 
 	/** Verificar erro metodo **/
-	/*
+	
 		public ArrayList<Ponto> consultarIdRota(Rota rota) {
 		PontoDAO poDAO = new PontoDAO();
 		this.pontoSelecionado = new Ponto();
 		this.pontos = poDAO.consultarIdRota(rota, 2);
 		return this.pontos;
 	}
-	*/
+	
 	
 	public ArrayList<Ponto> listarPontos() {
 		PontoDAO poDAO = new PontoDAO();

@@ -12,7 +12,8 @@ import model.Ponto;
 public class ControlAdmRota {
 	private Rota rotaSelecionada;
 	private ArrayList<Rota> listaDeRotas;
-	
+	private ArrayList<Ponto> pontosDaRota;
+	private Ponto pontoSelecionado;
 	
 	public boolean inserirRota(int id_onibus, ArrayList<String> dadosRota) {
 		RotaDAO rDAO = new RotaDAO();
@@ -121,13 +122,42 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
+	/*---------------------------------------------------------------------------------*/
+	public ArrayList<Ponto> listarPontosRota() {
+		this.pontosDaRota = new ArrayList<Ponto>();
+		for(int i = 0; i < this.rotaSelecionada.getPontos().size(); i++) {
+			this.pontosDaRota.add(this.rotaSelecionada.getPontos().get(i));
+		}
+		return this.pontosDaRota;
+	}
 	
-	
-	
-	
-	
-	
-	
+	public boolean selecionarPonto(String endereco) {
+		boolean test = false;
+		for(int i = 0; i < this.pontosDaRota.size(); i++) {
+			if(this.pontosDaRota.get(i).getEndereco() == endereco) {
+				this.pontoSelecionado = this.pontosDaRota.get(i);
+				test = true;
+				break;
+			}
+		}
+		if(test) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public boolean editarOrdemPonto(String ordem) {
+		
+		int ordemAux = Integer.parseInt(ordem);
+		RotaDAO rDAO = new RotaDAO();
+		this.pontoSelecionado.setOrdem(ordemAux);
+		if(rDAO.editarPonto(this.rotaSelecionada, this.pontoSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	/*--------------------------------------------------------------------------------------------*/
 	public Rota getRotaSelecionada() {
 		return rotaSelecionada;
 	}
@@ -140,6 +170,7 @@ public class ControlAdmRota {
 	public void setListaDeRotas(ArrayList<Rota> listaDeRotas) {
 		this.listaDeRotas = listaDeRotas;
 	}
-
+	
+	
 	
 }
