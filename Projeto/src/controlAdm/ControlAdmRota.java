@@ -5,7 +5,7 @@ import model.Rota;
 import java.util.ArrayList;
 
 import dao.RotaDAO;
-
+import model.Instituicao;
 import model.Onibus;
 
 public class ControlAdmRota {
@@ -87,7 +87,28 @@ public class ControlAdmRota {
 		}
 	}
 	
+	public boolean inserirInstituicao(String endereco) {
+		RotaDAO rDAO = new RotaDAO();
+
+		ControlAdmInstituicao ctrlInst = new ControlAdmInstituicao();
+		Instituicao inst = new Instituicao();
+		
+		inst = ctrlInst.consultarEndereco(endereco);
+		if(inst.getId() != 0) {
+			if(rDAO.inserirInstituicaoRota(this.rotaSelecionada, inst)) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+	}
 	
+	public void inserirPonto() {
+		RotaDAO rDAO = new RotaDAO();
+
+	}
 	
 	
 	

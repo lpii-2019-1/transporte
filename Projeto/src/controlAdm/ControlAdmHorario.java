@@ -3,8 +3,6 @@ package controlAdm;
 import model.Horario;
 import model.Rota;
 
-import java.sql.Date;
-
 import java.util.ArrayList;
 
 import java.text.SimpleDateFormat;
@@ -52,8 +50,6 @@ public class ControlAdmHorario {
 	}
 	
 	
-	
-
 	public Horario getHorarioSelecionado() {
 		return horarioSelecionado;
 	}
