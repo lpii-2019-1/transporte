@@ -53,6 +53,13 @@ public class Horario {
 		}
 	}
 
+	public Date getHrSaidaPrimeiroPontoDate(){
+		return this.hrSaidaPrimeiroPonto;
+	}
+	public Date getHrRegressoDate(){
+		return this.hrRegresso;
+	}
+
 	public String getHrRegresso() {
 		return this.formatoDate.format(hrRegresso);
 	}

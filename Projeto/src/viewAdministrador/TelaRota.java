@@ -8,9 +8,11 @@ import model.Ponto;
 import model.Rota;
 
 public class TelaRota{
-	public String opcoes = "\n1 - Inicio \n2 - Fim \n3 - Percurso \n4 - Pontos \n5 - Instituicoes \n6 - Horario \n7 - Validacao \n0 - Sair \n\nDigite o nome de uma cidade: ";
+	public String manterRota = "\n1 - Consutar \n2 - Cadastrar \n3 - Editar \n4 - Manter Pontos \n5 - Manter Instituicoes \n6 - Manter Horario \n7 - Excluir \n8 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcEdicao = "\n1 - Inicio \n2 - Fim \n3 - Percurso \n4 - Validacao \n0 - Sair \n\nDigite o nome de uma cidade: ";
+	public String opcConsulta = "\n1 - Inicio \n2 - Fim \n3 - Percurso \n4 - Pontos \n5 - Instituicoes \n6 - Turno \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String cadastro = "\nDigite o valores do onibus (Ex.: Rua 1, UEG, BR - 153, Curumim, 00:00, 00:00, Disponivel): ";
-	public String Excluir = "\nDigite o placa da onibus (Ex.: abc-1234): ";
+	public String entrada = "\nDigite o identificador da rota: ";
 	public String telaRota;
 	public void setTelaRota(ArrayList<Rota> rotas){
 		this.telaRota = "\nRotas:";
