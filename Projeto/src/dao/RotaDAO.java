@@ -21,10 +21,11 @@ public class RotaDAO {
 	
 	public boolean inserirRota(Rota rota){
         try {
-            String sql = "INSERT INTO rota (inicio, fim, identificador) VALUES (?, ?)";
+            String sql = "INSERT INTO rota (inicio, fim, percurso) VALUES (?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, rota.getInicio());
             this.stmt.setString(2, rota.getFim());
+            this.stmt.setString(3, rota.getPercurso());
             this.stmt.execute();
             this. stmt.close();
             return true;

@@ -27,12 +27,12 @@ public class ControlAdmOnibus {
 		return this.listaDeOnibus;
 	}
 	
-	public ArrayList<Onibus> consultarPlaca(String placa){
+	public Onibus consultarPlaca(String placa){
 		OnibusDAO oDAO = new OnibusDAO();
 		this.onibusSelecionado = new Onibus();
 		this.onibusSelecionado.setPlaca(placa);
-		this.listaDeOnibus =  oDAO.consultarPlaca(this.onibusSelecionado, 2);
-		return this.listaDeOnibus;
+		this.onibusSelecionado =  oDAO.consultarPlaca(this.onibusSelecionado, 2).get(0);
+		return this.onibusSelecionado;
 	}
 	
 	
@@ -61,23 +61,23 @@ public class ControlAdmOnibus {
 	public boolean inserirOnibus(ArrayList<String> valores) {//Placa, cor, motorista, telefone5
 		OnibusDAO oDAO = new OnibusDAO();
 
-		if(consultarPlaca(valores.get(0)).size() == 0) {
+		if(consultarPlaca(valores.get(0)).getId() == 0) {
 			this.onibusSelecionado = new Onibus();
 			this.onibusSelecionado.setPlaca(valores.get(0));
 			this.onibusSelecionado.setCor(valores.get(1));
 			this.onibusSelecionado.setMotorista(valores.get(2));
 			this.onibusSelecionado.setTelefone(valores.get(3));
-			
+			oDAO.inserirOnibus(this.onibusSelecionado);
 			if(valores.size() == 5) {
 				if(valores.get(4) == "Disponivel") {
+					this.onibusSelecionado = consultarPlaca(this.onibusSelecionado.getPlaca());
 					this.onibusSelecionado.setValidacao(1);
-					if(oDAO.inserirOnibus(this.onibusSelecionado)) {
+					oDAO.editarValidacao(this.onibusSelecionado);
 						return true;
 					}else {
 						return false;
 					}
 				}
-			}
 			return true;
 		}else {
 			return false;
