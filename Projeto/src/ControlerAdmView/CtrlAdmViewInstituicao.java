@@ -1,11 +1,23 @@
 package controlerAdmView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import controlAdm.ControlAdmInstituicao;
+
+import view.*;
+import viewAdministrador.TelaManter;
+import viewAdministrador.TelaInicial;
+import viewAdministrador.TelaInstituicao;
+
+import model.Instituicao;
+
 public class CtrlAdmViewInstituicao{
 	public String tela;
-	public String acesso2;
-	public String acesso3;
-	public String acesso4;
-	public String acesso5;
+	public int acesso2;
+	public int acesso3;
+	public int acesso4;
+	public int acesso5;
 
 	private ControlAdmInstituicao controler = new ControlAdmInstituicao();
 
@@ -82,19 +94,19 @@ public class CtrlAdmViewInstituicao{
 						}
 						break;
 					case 1:
-						TelaInstituicao tela = TelaInstituicao();
-						tela.setTelaConsulta(controler.consultarNomeInstituicao(entrada));
-						this.tela =  tela.telaIni;
+						TelaInstituicao tela1 = new TelaInstituicao();
+						tela1.setTelaConsulta(controler.consultarNomeInstituicao(entrada));
+						this.tela =  tela1.telaConsulta;
 						break;
 					case 2:
-						TelaInstituicao tela = TelaInstituicao();
-						tela.setTelaConsulta(controler.consultarEnderecoInstituicao(entrada));
-						this.tela =  tela.telaIni;
+						TelaInstituicao tela2 = new TelaInstituicao();
+						tela2.setTelaConsulta(controler.consultarEnderecoInstituicao(entrada));
+						this.tela =  tela2.telaConsulta;
 						break;
-					case 1:
-						TelaInstituicao tela = TelaInstituicao();
-						tela.setTelaConsulta(controler.consultarTelefoneInstituicao(entrada));
-						this.tela =  tela.telaIni;
+					case 3:
+						TelaInstituicao tela3 = new TelaInstituicao();
+						tela3.setTelaConsulta(controler.consultarTelefoneInstituicao(entrada));
+						this.tela =  tela3.telaConsulta;
 						break;
 				}
 				break;
@@ -134,6 +146,14 @@ public class CtrlAdmViewInstituicao{
 								this.acesso3 = 3;
 								this.tela = new TelaManter().telaEdicao;
 								break;
+							case 4:
+								this.acesso3 = 4;
+								this.tela = new TelaManter().telaEdicao;
+								break;
+							case 5:
+								this.acesso3 = 5;
+								this.tela = new TelaManter().telaEdicao;
+								break;
 							default:
 								this.tela = new TelaArgInvalido().telaIni;
 								this.acesso2 = 0;
@@ -142,56 +162,77 @@ public class CtrlAdmViewInstituicao{
 						break;
 					case 1:
 						if(arg != 0){
-							if(controler.editarNomeInstituicao(entrada)){
-								this.tela = new TelaFimOperacao.sucesso;
+							if(controler.editarNome(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
 						break;
 					case 2:
 						if(arg != 0){
-							if(controler.editarEnderecoInstituicao(entrada)){
-								this.tela = new TelaFimOperacao.sucesso;
+							if(controler.editarEndereco(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
 						break;
 					case 3:
 						if(arg != 0){
-							if(controler.editarTelefoneInstituicao(entrada)){
-								this.tela = new TelaFimOperacao.sucesso;
+							if(controler.editarTelefone(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
 						break;
 					case 4:
 						if(arg != 0){
-							if(controler.editarValidacaoInstituicao(entrada)){
-								this.tela = new TelaFimOperacao.sucesso;
+							String regex = "(( , )|( ,)|(, )|(,))";
+							ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
+							if(controler.editarCidadeInstituicao(entradas)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
+							this.acesso2 = 0;
+							this.acesso3 = 0;
+						}
+						break;
+					case 5:
+						if(arg != 0){
+							if(controler.editarValidacaoInstituicao(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
+							}
+							else{
+								this.tela = new TelaFimOperacao().erro;	
+							}
+						}
+						else{
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
@@ -199,9 +240,9 @@ public class CtrlAdmViewInstituicao{
 
 				}
 				break;
-			case 4;
+			case 4:
 				if(arg != 0){
-					if(controler.excluirInstituicao(entradas)){
+					if(controler.excluirInstituicao(entrada)){
 						this.tela = new TelaFimOperacao().sucesso;
 					}
 					else{
@@ -225,8 +266,6 @@ public class CtrlAdmViewInstituicao{
 					this.acesso2 = 0;
 				}
 			break;
-		}
-
 		return this.tela;
 	}
 }

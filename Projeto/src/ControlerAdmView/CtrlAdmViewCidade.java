@@ -237,7 +237,7 @@ public class CtrlAdmViewCidade{
 							case 0:
 								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								selecionarCidade(entradas);//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 								this.tela = new TelaManter().telaEdicao;
 								this.acesso4 = 1;
 								break;

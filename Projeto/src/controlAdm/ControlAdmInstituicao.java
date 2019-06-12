@@ -120,7 +120,7 @@ public class ControlAdmInstituicao {
 			 return false;
 		 } 
 	 }
-	 
+
 	 public boolean editarTelefone(String telefone) {
 		 this.instituicaoSelecionada.setTelefone(telefone);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
