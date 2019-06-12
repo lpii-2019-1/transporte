@@ -58,7 +58,7 @@ public class ControlAdmOnibus {
 		return this.listaDeOnibus;
 	}
 	
-	public boolean inserirOnibus(ArrayList<String> valores) {//Placa, cor, motorista, telefone5
+	public boolean inserirOnibus(ArrayList<String> valores) {//Placa, cor, motorista, telefone, mensalidade
 		OnibusDAO oDAO = new OnibusDAO();
 
 		if(consultarPlaca(valores.get(0)).getId() == 0) {
@@ -67,6 +67,8 @@ public class ControlAdmOnibus {
 			this.onibusSelecionado.setCor(valores.get(1));
 			this.onibusSelecionado.setMotorista(valores.get(2));
 			this.onibusSelecionado.setTelefone(valores.get(3));
+			double mensalidade = Double.parseDouble(valores.get(4));
+			this.onibusSelecionado.setMensalidade(mensalidade);
 			oDAO.inserirOnibus(this.onibusSelecionado);
 			if(valores.size() == 5) {
 				if(valores.get(4) == "Disponivel") {

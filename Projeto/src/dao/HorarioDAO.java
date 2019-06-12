@@ -19,12 +19,14 @@ public class HorarioDAO {
 		this.conexao = new Conexao().getConexao();
 	}
 	
-	public boolean inserirHorario(Horario horario){
+	public boolean inserirHorario(int id_rota, Horario horario, int turno){
         try {
-            String sql = "INSERT INTO horario (horario_saida, horario_regresso) VALUES (?, ?)";
+            String sql = "INSERT INTO horario (horario_saida, horario_regresso, id_turno, id_rota) VALUES (?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, horario.getHrSaidaPrimeiroPonto());
             this.stmt.setString(2, horario.getHrRegresso());
+            this.stmt.setInt(3, turno);
+            this.stmt.setInt(4, id_rota);
             this.stmt.execute();
             this. stmt.close();
             return true;
@@ -54,11 +56,11 @@ public class HorarioDAO {
 		return this.editarHorario("horario_Regresso", horario.getHrRegresso(), horario.getId());
 	}
 
-    public boolean editarTurno(Horario horario, Turno turno){
+    public boolean editarTurno(Horario horario, int turno){
         try {
             String sql = "UPDATE horario SET id_turno = ? WHERE id = ?";
             this.stmt = this.conexao.prepareStatement(sql);
-            this.stmt.setInt(1, turno.getId());
+            this.stmt.setInt(1, turno);
             this.stmt.setInt(2, horario.getId());
             this.stmt.execute();
             this.stmt.close();

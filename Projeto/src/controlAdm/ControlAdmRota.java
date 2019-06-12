@@ -45,7 +45,47 @@ public class ControlAdmRota {
 		}
 	}
 	
+	public boolean cadastrarHorario(ArrayList<String> valores){
+		ControlAdmHorario ctrl = new ControlAdmHorario();
+		
+		ctrl.inserirHorario(this.rotaSelecionada.getId(), valores);
+		
+		return true;
+		
+	}
 	
+	public boolean editarPercurso(String percurso) {
+		RotaDAO rDAO = new RotaDAO();
+
+		this.rotaSelecionada.setPercurso(percurso);
+		if(rDAO.editarPercurso(this.rotaSelecionada)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarInicio(String inicio) {
+		RotaDAO rDAO = new RotaDAO();
+
+		this.rotaSelecionada.setInicio(inicio);
+		if(rDAO.editarInicio(this.rotaSelecionada)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarFim(String fim) {
+		RotaDAO rDAO = new RotaDAO();
+
+		this.rotaSelecionada.setFim(fim);
+		if(rDAO.editarFim(this.rotaSelecionada)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 	
