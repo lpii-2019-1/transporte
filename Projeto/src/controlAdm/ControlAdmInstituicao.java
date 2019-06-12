@@ -1,6 +1,7 @@
 package controlAdm;
 
 import model.Cidade;
+
 import model.Instituicao;
 
 import java.util.ArrayList;
@@ -66,48 +67,78 @@ public class ControlAdmInstituicao {
 		return this.instituicoes;
 	}
 	
-	 public boolean inserirInstituicao(ArrayList<String> valores) {// Se a Instituicao n existir no banco o método insere e retorna true//Se ela n existir, não insere e retorna false
+	 public boolean inserirInstituicao(ArrayList<String> valores) {// Se a Instituicao n existir no banco o método insere e retorna true//Se ela existir, não insere e retorna false
 		this.instituicaoSelecionada = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
-		InstituicaoDAO  iDAO =new InstituicaoDAO();
-		Instituicao auxInstituicao = new Instituicao();
-		auxInstituicao = consultarEndereco(this.instituicaoSelecionada.getEndereco());
-		if(auxInstituicao.getId() == 0) {
-			iDAO.inserirInstituicao(this.instituicaoSelecionada);
-			if(valores.size() == 4) {
-				if(valores.get(3) == "Disponivel") {
-					this.instituicaoSelecionada = consultarEndereco(this.instituicaoSelecionada.getEndereco());
-					this.instituicaoSelecionada.setValidacao(1);
-					iDAO.editarValidacao(this.instituicaoSelecionada);
+		ControlAdmCidade ctrlCidade = new ControlAdmCidade();
+		
+		ArrayList<String> dadosCidade = new ArrayList<String> ();
+		dadosCidade.add(valores.get(3));
+		dadosCidade.add(valores.get(4));
+		
+		this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(dadosCidade);
+		if(this.cidadeSelecionada.getId() == 0) {
+
+			InstituicaoDAO  iDAO =new InstituicaoDAO();
+			Instituicao auxInstituicao = new Instituicao();
+			auxInstituicao = consultarEndereco(this.instituicaoSelecionada.getEndereco());
+			if(auxInstituicao.getId() == 0) {
+				iDAO.inserirInstituicao(this.instituicaoSelecionada);
+				if(valores.size() == 5) {
+					if(valores.get(4) == "Disponivel") {
+						this.instituicaoSelecionada = consultarEndereco(this.instituicaoSelecionada.getEndereco());
+						this.instituicaoSelecionada.setValidacao(1);
+						iDAO.editarValidacao(this.instituicaoSelecionada);
+					}
 				}
+				
+				return true;
+			}else {
+				return false;
 			}
-			return true;
+		
 		}else {
 			return false;
 		}
+		
 		 
 	 }
-	 public void editarNome(String nome) {
+	 public boolean editarNome(String nome) {
 		 this.instituicaoSelecionada.setNome(nome);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 iDAO.editarNome(this.instituicaoSelecionada);
+		 if(iDAO.editarNome(this.instituicaoSelecionada)) {
+			return true; 
+		 }else {
+			 return false;
+		 }
 	 }
-	 public void editarEndereco(String endereco) {
+	 public boolean editarEndereco(String endereco) {
 		 this.instituicaoSelecionada.setEndereco(endereco);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 iDAO.editarEndereco(this.instituicaoSelecionada);
-
+		 if(iDAO.editarEndereco(this.instituicaoSelecionada)) {
+			 return true; 
+		 }else {
+			 return false;
+		 } 
 	 }
-	 public void editarTelefone(String telefone) {
+	 
+	 public boolean editarTelefone(String telefone) {
 		 this.instituicaoSelecionada.setTelefone(telefone);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 iDAO.editarTelefone(this.instituicaoSelecionada);
-
+		 if(iDAO.editarTelefone(this.instituicaoSelecionada)) {
+			 return true; 
+		 }else {
+			 return false;
+		 }
 	 }
-	 public void editarIdCidade(String cidade) {//Alterar Esse método
-		 this.instituicaoSelecionada.setNome(cidade);
+	 public boolean editarIdCidade(ArrayList<String> cidade) {
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 iDAO.editarIdCidade(this.instituicaoSelecionada, this.cidadeSelecionada);
-
+		 ControlAdmCidade ctrlCidade = new ControlAdmCidade();
+		 ctrlCidade.consultarCidadeNomeUf(cidade);
+		 if(iDAO.editarIdCidade(this.instituicaoSelecionada, this.cidadeSelecionada)) {
+			 return true; 
+		 }else {
+			 return false;
+		 }
 	 }
 	 public void editarValidacao(String validacao) {
 		 int validade = 0;

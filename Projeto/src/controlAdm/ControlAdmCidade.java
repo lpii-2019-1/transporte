@@ -13,6 +13,7 @@ public class ControlAdmCidade {
 	private ArrayList<Cidade> cidades;
 	private ArrayList<Cidade> todasCidades;
 	private ArrayList<Instituicao> instituicoes;
+	private Instituicao instituicaoSelecionada;
 	
 	
 	
@@ -21,6 +22,13 @@ public class ControlAdmCidade {
 		this.cidadeSelecionada = new Cidade(valores.get(0), valores.get(2));
 		CidadeDAO cDAO = new CidadeDAO();
 		this.cidadeSelecionada = cDAO.consultarNomeUf(this.cidadeSelecionada, 2);
+		return this.cidadeSelecionada;
+	}
+	
+	public Cidade consultarPorInstituicao(ArrayList<String> dadosInstituicao) {
+		this.instituicaoSelecionada =  new Instituicao();
+		this.instituicaoSelecionada.setNome(dadosInstituicao.get(0));
+		this.instituicaoSelecionada.setEndereco(dadosInstituicao.get(1));
 		return this.cidadeSelecionada;
 	}
 	
