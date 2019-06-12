@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import controlAdm.ControlAdmCidade;
+import controlAdm.ControlAdmInstituicao;
 import model.Cidade;
 import view.TelaArgInvalido;
 import view.TelaFimOperacao;
@@ -19,6 +20,8 @@ public class CtrlAdmViewCidade{
 	public int acesso5;
 
 	private ControlAdmCidade controler = new ControlAdmCidade();
+	private ControlAdmInstituicao controlerInst = new ControlAdmInstituicao();
+	
 	public String tela;
 	
 
@@ -125,7 +128,9 @@ public class CtrlAdmViewCidade{
 							//Consulta por instituicao
 							case 3:
 								TelaCidade tela2 = new TelaCidade();
-								tela2.setTelaConsulta(controler.consultarPorInstituicao(entrada));
+								ArrayList<Cidade> c = new ArrayList<Cidade>();
+								c.add(controler.consultarPorInstituicao(entrada));
+								tela2.setTelaConsulta(c);
 								this.tela = tela2.telaConsulta;
 								break;
 							default:
@@ -410,10 +415,10 @@ public class CtrlAdmViewCidade{
 										}
 										break;
 									case 1:
-										controler.inserirInstituicao(controler.consultarPorInstituicao(entrada));
+										controler.inserirInstituicao(controlerInst.consultarEndereco(entrada));
 										break;
 									case 2:
-										controler.removeInstituicaoCidade(controler.consultaEnderecoInstituicao(entrada));
+										controler.removeInstituicaoCidade(controlerInst.consultarEndereco(entrada));
 										break;
 								}
 							case 3:

@@ -52,11 +52,11 @@ public class ControlAdmInstituicao {
 		return this.instituicaoSelecionada;
 	}
 	
-	public Instituicao consultarTelefone(String telefone) {
+	public ArrayList<Instituicao> consultarTelefone(String telefone) {
 		InstituicaoDAO  iDAO =new InstituicaoDAO();
 		this.instituicaoSelecionada.setTelefone(telefone);
-		this.instituicaoSelecionada = iDAO.consultarTelefone(this.instituicaoSelecionada, 2);
-		return this.instituicaoSelecionada;
+		this.instituicoes = iDAO.consultarTelefone(this.instituicaoSelecionada, 2);
+		return this.instituicoes;
 	}
 	
 	public ArrayList<Instituicao> consultarIdCidade(ArrayList<String> valoresCidade) {
