@@ -13,15 +13,15 @@ public class ControlAdmRota {
 	private ArrayList<Rota> listaDeRotas;
 	
 	
-	public void inserirRota(Onibus onibus, ArrayList<String> dadosRota) { // Consertar esse método
+	public boolean inserirRota(int id_onibus, ArrayList<String> dadosRota) {
 		RotaDAO rDAO = new RotaDAO();
 		this.rotaSelecionada =  new Rota(dadosRota.get(0), dadosRota.get(1), dadosRota.get(2));
-		
-		rDAO.inserirRota(this.rotaSelecionada); /////////// Consertar esse método no DAO para receber um onibus
-		
-		if(dadosRota.size() == 4) {
-			
+		if(rDAO.inserirRota(this.rotaSelecionada, id_onibus)) {
+			return true;
+		}else {
+			return false;
 		}
+	
 	}
 	public Rota consultarIdentificador(Onibus onibus, int identificador) {
 		RotaDAO rDAO = new RotaDAO();

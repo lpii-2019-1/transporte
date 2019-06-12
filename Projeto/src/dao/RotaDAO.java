@@ -19,13 +19,15 @@ public class RotaDAO {
 		this.conexao = new Conexao().getConexao();
 	}
 	
-	public boolean inserirRota(Rota rota){
+	public boolean inserirRota(Rota rota, int id_onibus){
         try {
-            String sql = "INSERT INTO rota (inicio, fim, percurso) VALUES (?, ?)";
+            String sql = "INSERT INTO rota (inicio, fim, percurso, id_onibus) VALUES (?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, rota.getInicio());
             this.stmt.setString(2, rota.getFim());
             this.stmt.setString(3, rota.getPercurso());
+            this.stmt.setInt(4, id_onibus);
+
             this.stmt.execute();
             this. stmt.close();
             return true;

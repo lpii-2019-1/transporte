@@ -82,7 +82,14 @@ public class ControlAdmOnibus {
 		}else {
 			return false;
 		}
-		
-
+	}
+	
+	public boolean cadastrarRotaOnibus(ArrayList<String> dadosRota) {
+		ControlAdmRota ctrlRota = new ControlAdmRota();
+		if(ctrlRota.inserirRota(this.onibusSelecionado.getId(), dadosRota)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
