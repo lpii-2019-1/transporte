@@ -76,7 +76,7 @@ public class ControlAdmInstituicao {
 		dadosCidade.add(valores.get(4));
 		
 		this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(dadosCidade);
-		if(this.cidadeSelecionada.getId() == 0) {
+		if(this.cidadeSelecionada.getId() != 0) {
 
 			InstituicaoDAO  iDAO =new InstituicaoDAO();
 			Instituicao auxInstituicao = new Instituicao();
@@ -133,12 +133,17 @@ public class ControlAdmInstituicao {
 	 public boolean editarIdCidade(ArrayList<String> cidade) {
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
 		 ControlAdmCidade ctrlCidade = new ControlAdmCidade();
-		 ctrlCidade.consultarCidadeNomeUf(cidade);
-		 if(iDAO.editarIdCidade(this.instituicaoSelecionada, this.cidadeSelecionada)) {
-			 return true; 
+		 this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(cidade);
+		 if(this.cidadeSelecionada.getId() != 0) {
+			 if(iDAO.editarIdCidade(this.instituicaoSelecionada, this.cidadeSelecionada)) {
+				 return true; 
+			 }else {
+				 return false;
+			 }
 		 }else {
 			 return false;
 		 }
+		 
 	 }
 	 public void editarValidacao(String validacao) {
 		 int validade = 0;
