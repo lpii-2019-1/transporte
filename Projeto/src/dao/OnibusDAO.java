@@ -180,7 +180,7 @@ public class OnibusDAO {
         }
 	}
 	
-	public ArrayList<Onibus> consutarMensalidade(Onibus onibusSel, int comparador){
+	public ArrayList<Onibus> consultarMensalidade(Onibus onibusSel, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
