@@ -13,7 +13,7 @@ public class TelaOnibus{
 	public String opcEdicao = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n6 - Validacao  \n0 - Voltar \n\nDigite o numero correspondentes: ";
 	public String opcConsulta = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n0 - Voltar \n\nDigite o numero correspondentes: ";
 	public String cadastro = "\nDigite o valores do onibus (Ex.: abc-1234, Cinza, Joao, 300.00, Disponivel): ";
-	public String Excluir = "\nDigite o placa da onibus (Ex.: abc-1234): ";
+	public String entrada = "\nDigite o placa da onibus (Ex.: abc-1234): ";
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Onibus> onibuss){

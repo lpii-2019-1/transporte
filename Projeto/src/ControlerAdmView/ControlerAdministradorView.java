@@ -1,9 +1,5 @@
 package controlerAdmView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import model.*;
 import viewAdministrador.*;
 import view.*;
 
@@ -11,13 +7,9 @@ public class ControlerAdministradorView{
 	public boolean exit = false;
 	public int acesso1;
 	public CtrlAdmViewCidade cAVCidade = new CtrlAdmViewCidade();
-	public CtrlAdmViewHorario cAVHorario = new CtrlAdmViewHorario();
 	public CtrlAdmViewInstituicao cAVInstituicao = new CtrlAdmViewInstituicao();
 	public CtrlAdmViewOnibus cAVOnibus = new CtrlAdmViewOnibus();
-	public CtrlAdmViewPercurso cAVPercurso = new CtrlAdmViewPercurso();
 	public CtrlAdmViewPonto cAVPonto = new CtrlAdmViewPonto();
-	public CtrlAdmViewRota cAVRota = new CtrlAdmViewRota();
-	public CtrlAdmViewTurno cAVTurno = new CtrlAdmViewTurno();
 
 	public String tela = new TelaInicial().telaIni;
 
@@ -87,28 +79,28 @@ public class ControlerAdministradorView{
 				if(this.tela == new TelaInicial().telaIni){
 					this.acesso1 = 0;
 				}
-				break		
+				break;	
 			//Entra nas opcoes de Manter Instituicao
 			case 2:
 				this.tela = this.cAVInstituicao.entrada(entrada, arg);
 				if(this.tela == new TelaInicial().telaIni){
 					this.acesso1 = 0;
 				}
-				break	
+				break;	
 			//Entra nas opcoes de Manter Onibus
 			case 3:
 				this.tela = this.cAVOnibus.entrada(entrada, arg);
 				if(this.tela == new TelaInicial().telaIni){
 					this.acesso1 = 0;
 				}
-				break	
+				break;	
 			//Entra nas opcoes de Manter Ponto
 			case 4:
 				this.tela = this.cAVPonto.entrada(entrada, arg);
 				if(this.tela == new TelaInicial().telaIni){
 					this.acesso1 = 0;
 				}
-				break
+				break;
 		}
 	}
 }

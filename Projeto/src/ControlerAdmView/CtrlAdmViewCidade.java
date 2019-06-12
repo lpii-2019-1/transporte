@@ -1,23 +1,34 @@
 package controlerAdmView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import controlAdm.ControlAdmCidade;
+import model.Cidade;
+import view.TelaArgInvalido;
+import view.TelaFimOperacao;
+import viewAdministrador.TelaCidade;
+import viewAdministrador.TelaInicial;
+import viewAdministrador.TelaInstituicao;
+import viewAdministrador.TelaManter;
+
 public class CtrlAdmViewCidade{
-	public String acesso2;
-	public String acesso3;
-	public String acesso4;
-	public String acesso5;
+	public int acesso2;
+	public int acesso3;
+	public int acesso4;
+	public int acesso5;
 
 	private ControlAdmCidade controler = new ControlAdmCidade();
+	public String tela;
 	
 
-	public String entrada(){
+	public String entrada(String entrada, int arg){
 		switch(this.acesso2){
 			//Tela de fim de operacao ou argumento invalido
 			case -1:
 				switch(arg) {
 					case 0:
 						this.acesso2 = 0;
-						this.acesso1 = 0;
-						this.exit = true;
 						this.tela = new TelaInicial().telaIni;
 						break;
 					case 1:
@@ -59,7 +70,7 @@ public class CtrlAdmViewCidade{
 						break;
 					//Vai para tela de Listagem
 					case 5:
-						ArrayList<Cidade> consulta = listarCidades();//Metodo que lista cidade --M.W. deve setar
+						ArrayList<Cidade> consulta = controler.listarTodasCidades();//Metodo que lista cidade --M.W. deve setar
 						TelaCidade tela = new TelaCidade();
 						tela.setTelaConsulta(consulta);
 						this.tela = tela.telaConsulta;
@@ -78,8 +89,8 @@ public class CtrlAdmViewCidade{
 							case 0:
 								this.acesso3 = 0;
 								this.acesso2 = 0;
-								this.acesso1 = 0;
-								this.exit = true;
+								
+								
 								this.tela = new TelaInicial().telaIni;
 								break;
 							case 1:
@@ -95,26 +106,27 @@ public class CtrlAdmViewCidade{
 						break;
 					case 0:
 						switch(arg){
+							case 0:
+								this.acesso2 = 0;
+								this.tela = new TelaManter().telaIni;
+								break;
 							//Consulta por nome
 							case 1:
-								ArrayList<Cidade> consulta = lista(entrada);//Metodo que lista cidade por nome --M.W. deve setar, entrada corespone a string usada de parametro
 								TelaCidade tela = new TelaCidade();
-								tela.setTelaConsulta(consulta);
+								tela.setTelaConsulta(controler.consultarNome(entrada));
 								this.tela = tela.telaConsulta;
 								break;
 							//Consulta por uf
 							case 2:
-								ArrayList<Cidade> consulta = lista(entrada);//Metodo que lista cidade por uf --M.W. deve setar, entrada corespone a string usada de parametro
-								TelaCidade tela = new TelaCidade();
-								tela.setTelaConsulta(consulta);
-								this.tela = tela.telaConsulta;
+								TelaCidade tela1 = new TelaCidade();
+								tela1.setTelaConsulta(controler.consultarUf(entrada));
+								this.tela = tela1.telaConsulta;
 								break;
 							//Consulta por instituicao
 							case 3:
-								ArrayList<Cidade> consulta = lista(entrada);//Metodo que lista cidade por instituicao --M.W. deve setar, entrada corespone a string usada de parametro
-								TelaCidade tela = new TelaCidade();
-								tela.setTelaConsulta(consulta);
-								this.tela = tela.telaConsulta;
+								TelaCidade tela2 = new TelaCidade();
+								tela2.setTelaConsulta(controler.consultarPorInstituicao(entrada));
+								this.tela = tela2.telaConsulta;
 								break;
 							default:
 								this.tela = new TelaArgInvalido().telaIni;
@@ -132,8 +144,8 @@ public class CtrlAdmViewCidade{
 							case 0:
 								this.acesso3 = 0;
 								this.acesso2 = 0;
-								this.acesso1 = 0;
-								this.exit = true;
+								
+								
 								this.tela = new TelaInicial().telaIni;
 								break;
 							case 1:
@@ -152,7 +164,7 @@ public class CtrlAdmViewCidade{
 							case 1:
 								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								if(inseriCidadeSelecionada(entradas.get(0), entradas.get(1), entradas.get(3))){//Metodo insere dados na tabela Cidade --M.W. deve setar, entrada corespone a string usada de parametro
+								if(controler.inserirCidade(entradas)){
 									this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().telaIni;
 								}
 								else{
@@ -173,8 +185,8 @@ public class CtrlAdmViewCidade{
 							case 0:
 								this.acesso3 = 0;
 								this.acesso2 = 0;
-								this.acesso1 = 0;
-								this.exit = true;
+								
+								
 								this.tela = new TelaInicial().telaIni;
 								break;
 							case 1:
@@ -220,8 +232,8 @@ public class CtrlAdmViewCidade{
 										this.acesso4 = 0;
 										this.acesso3 = 0;
 										this.acesso2 = 0;
-										this.acesso1 = 0;
-										this.exit = true;
+										
+										
 										this.tela = new TelaInicial().telaIni;
 										break;
 									case 1:
@@ -237,12 +249,12 @@ public class CtrlAdmViewCidade{
 							case 0:
 								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								selecionarCidade(entradas);//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.consultarCidadeNomeUf(entradas);
 								this.tela = new TelaManter().telaEdicao;
 								this.acesso4 = 1;
 								break;
 							case 1:
-								editrarNomeCidadeSelecionada(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.editarNomeCidade(entrada);
 								this.tela = new TelaFimOperacao().telaIni;
 								acesso4 = 2;
 								break;
@@ -251,8 +263,8 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									this.acesso1 = 0;
-									this.exit = true;
+									
+									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
@@ -276,8 +288,8 @@ public class CtrlAdmViewCidade{
 										this.acesso4 = 0;
 										this.acesso3 = 0;
 										this.acesso2 = 0;
-										this.acesso1 = 0;
-										this.exit = true;
+										
+										
 										this.tela = new TelaInicial().telaIni;
 										break;
 									case 1:
@@ -291,14 +303,14 @@ public class CtrlAdmViewCidade{
 								}
 								break;
 							case 0:
-								SString regex = "(( , )|( ,)|(, )|(,))";
+								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.consultarCidadeNomeUf(entradas);
 								this.tela = new TelaManter().telaEdicao;
 								this.acesso4 = 1;
 								break;
 							case 1:
-								editrarUfCidadeSelecionad(entrada); //Metodo edita nome da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.editarUfCidade(entrada);
 								this.tela = new TelaFimOperacao().telaIni;
 								this.acesso4 = 2;
 								break;
@@ -307,8 +319,8 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									this.acesso1 = 0;
-									this.exit = true;
+									
+									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
@@ -331,8 +343,8 @@ public class CtrlAdmViewCidade{
 										this.acesso4 = 0;
 										this.acesso3 = 0;
 										this.acesso2 = 0;
-										this.acesso1 = 0;
-										this.exit = true;
+										
+										
 										this.tela = new TelaInicial().telaIni;
 										break;
 									case 1:
@@ -348,12 +360,12 @@ public class CtrlAdmViewCidade{
 							case 0:
 								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.consultarCidadeNomeUf(entradas);
 								this.tela = new TelaManter().telaEdicao;
 								this.acesso4 = 1;
 								break;
 							case 1:
-								this.tela = new TelaInstituicao().opcCidade;
+								this.tela = new TelaInstituicao().opcConsulta;
 								this.acesso4 = 2;
 								break;
 							case 2:
@@ -364,13 +376,13 @@ public class CtrlAdmViewCidade{
 												this.acesso4 = 0;
 												this.acesso3 = 0;
 												this.acesso2 = 0;
-												this.acesso1 = 0;
-												this.exit = true;
+												
+												
 												this.tela = new TelaInicial().telaIni;
 												break;
 											case 1:
 												this.acesso5 = 0;
-												this.tela = new TelaInstituicao().opcCidade;
+												this.tela = new TelaInstituicao().opcConsulta;
 												break;
 											default:
 												this.tela = new TelaArgInvalido().telaIni;
@@ -398,7 +410,7 @@ public class CtrlAdmViewCidade{
 										}
 										break;
 									case 1:
-										controler.getCidadeSelecionada().getInstituicoes().add(controler.consultaEnderecoInstituicao(entrada));
+										controler.inserirInstituicao(controler.consultarPorInstituicao(entrada));
 										break;
 									case 2:
 										controler.removeInstituicaoCidade(controler.consultaEnderecoInstituicao(entrada));
@@ -416,13 +428,13 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									this.acesso1 = 0;
-									this.exit = true;
+									
+									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
 									this.acesso5 = 0;
-									this.tela = new TelaInstituicao().opcCidade;
+									this.tela = new TelaInstituicao().opcConsulta;
 								}
 								break;
 							default:
@@ -439,8 +451,8 @@ public class CtrlAdmViewCidade{
 										this.acesso4 = 0;
 										this.acesso3 = 0;
 										this.acesso2 = 0;
-										this.acesso1 = 0;
-										this.exit = true;
+										
+										
 										this.tela = new TelaInicial().telaIni;
 										break;
 									case 1:
@@ -456,12 +468,12 @@ public class CtrlAdmViewCidade{
 							case 0:
 								String regex = "(( , )|( ,)|(, )|(,))";
 								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								selecionarCidade(entradas.get(0), entradas.get(1));//Metodo seleciona cidade no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.consultarCidadeNomeUf(entradas);
 								this.tela = new TelaManter().telaEdicao;
-								this.acesso4 = 1
+								this.acesso4 = 1;
 								break;
 							case 1:
-								editrarValidacaoCidade(entrada); //Metodo edita validacao da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
+								controler.editarValidacaoCidade(entrada); //Metodo edita validacao da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
 								this.tela = new TelaFimOperacao().telaIni;
 								acesso4 = 2;
 								break;
@@ -470,8 +482,8 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									this.acesso1 = 0;
-									this.exit = true;
+									
+									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
@@ -490,7 +502,9 @@ public class CtrlAdmViewCidade{
 
 						break;
 				}
+				break;
 		}
 		break;
+		return this.tela;
 	}
 }

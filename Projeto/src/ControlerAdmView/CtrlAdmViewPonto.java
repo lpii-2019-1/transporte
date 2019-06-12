@@ -1,6 +1,10 @@
 package controlerAdmView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import controlAdm.ControlAdmPonto;
+import model.Ponto;
 import view.*;
 import viewAdministrador.TelaManter;
 import viewAdministrador.TelaInicial;
@@ -43,9 +47,8 @@ public class CtrlAdmViewPonto{
 						this.acesso2 = 4;
 						break;
 					case 5:
-						ArrayList<Ponto> consulta = controler.listarPontos();
 						TelaPonto tela = new TelaPonto();
-						tela.setTelaConsulta(consulta);
+						tela.setTelaConsulta(controler.listarPontos());
 						this.tela = tela.telaConsulta;
 						break;
 					default:
@@ -56,14 +59,12 @@ public class CtrlAdmViewPonto{
 				break;
 			case 1:
 				TelaPonto tela1 = new TelaPonto();
-				tela1.setTelaConsulta(controler.consultarEnderecoPonto(entrada));
+				tela1.setTelaConsulta(controler.consultarEndereco(entrada));
 				this.tela =  tela1.telaConsulta;
 				break;
 			case 2:
 				if(arg != 0){
-					String regex = "(( , )|( ,)|(, )|(,))";
-					ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-					if(controler.inserirPonto(entradas)){
+					if(controler.inserirPonto(entrada)){
 						this.tela = new TelaFimOperacao().sucesso;
 					}
 					else{
@@ -99,29 +100,30 @@ public class CtrlAdmViewPonto{
 						break;
 					case 1:
 						if(arg != 0){
-							if(controler.editarEnderecoPonto(entrada)){
-								this.tela = new TelaFimOperacao.sucesso;
+							if(controler.editarEndereco(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
 						break;
 					case 2:
-						agr = Integer.parseInt(entrada);
 						if(arg != 0){
-							if(controler.editarValidacaoPonto(arg)){
-								this.tela = new TelaFimOperacao.sucesso;
+							if(controler.editarValidacao(entrada)){
+								this.tela = new TelaFimOperacao().sucesso;
 							}
 							else{
-								this.tela = new TelaFimOperacao.erro;	
+								this.tela = new TelaFimOperacao().erro;	
 							}
+						}
 						else{
-							this.tela = new TelaManter.telaIni;
+							this.tela = new TelaManter().telaIni;
 							this.acesso2 = 0;
 							this.acesso3 = 0;
 						}
@@ -129,10 +131,8 @@ public class CtrlAdmViewPonto{
 				}
 				break;
 			case 4:
-				String regex = "(( , )|( ,)|(, )|(,))";
-				ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
 				if(arg != 0){
-					if(controler.excluirPonto(entradas)){
+					if(controler.excluirPonto(entrada)){
 						this.tela = new TelaFimOperacao().sucesso;
 					}
 					else{
@@ -148,7 +148,7 @@ public class CtrlAdmViewPonto{
 			case 5:
 				if(arg != 0){
 					TelaPonto tela = new TelaPonto();
-					tela.setConsulta(controler.listarInstituicoes());
+					tela.setTelaConsulta(controler.listarPontos());
 					this.tela = tela.telaConsulta;
 				}
 				else if (arg == 0){

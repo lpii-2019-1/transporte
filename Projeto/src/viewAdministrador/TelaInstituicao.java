@@ -6,7 +6,7 @@ import view.TelaFimOperacao;
 import model.Instituicao;
 
 public class TelaInstituicao{
-	public String manterInstituicao = "\n1 - Consultar \n2 - Inserir \n3 - Excluir \n4 - Listar"
+	public String manterInstituicao = "\n1 - Consultar \n2 - Inserir \n3 - Excluir \n4 - Listar";
 	public String opcEdicao = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n4 - Cidade \n5 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
 	public String opcConsulta = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n0 - Voltar \n\nDigite o endereco instituicao: ";
 	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Ceres, Disponivel): ";
