@@ -3,6 +3,7 @@ package viewAdministrador;
 import java.util.ArrayList;
 
 import model.Ponto;
+import view.TelaFimOperacao;
 
 public class TelaPonto{
 	public String opcEdicao = "\n1 - Endereco \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
@@ -11,7 +12,7 @@ public class TelaPonto{
 	public String telaPonto;
 
 	public void setTelaPonto(ArrayList<Ponto> pontos){
-		if(pontos.get(0).getId(0) != 0){
+		if(pontos.get(0).getId() != 0){
 			this.telaPonto = "\nPontos: ";
 			for (Ponto p : pontos) {
 				this.telaPonto += (p.getOrdem() != 0 ? "\n    Ordem: " + p.getOrdem() : "");

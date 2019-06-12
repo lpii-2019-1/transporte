@@ -21,12 +21,6 @@ public class ControlerAdministradorView{
 
 	public String tela = new TelaInicial().telaIni;
 
-	private controlAdministrador controler;
-	
-	public controlerAdministradorView(controlAdministrador controler){
-		this.controler = controler;
-	}
-
 	public void entrada(String entrada){
 		int arg = -1;
         if(entrada.length() == 1){
@@ -61,7 +55,8 @@ public class ControlerAdministradorView{
 					case 0:
 						//Retorna para tela inicial
 						this.acesso1 = 0;
-						this.tela = new TelaInicial().telaIni;
+						this.tela = new TelaFim().telaIni;
+						this.exit = true;
 						break;
 					case 1:
 						//Vai para tela Manter Cidade
@@ -69,113 +64,51 @@ public class ControlerAdministradorView{
 						this.acesso1 = 1;
 						break;
 					case 2:
-						//Vai para tela Manter Horario
+						//Vai para tela Manter Instituicao
 						this.tela = new TelaManter().telaIni;
 						this.acesso1 = 2;
 						break;
 					case 3:
-						//Vai para tela Manter Instituicao
+						//Vai para tela Manter Onibus
 						this.tela = new TelaManter().telaIni;
 						this.acesso1 = 3;
 						break;
 					case 4:
-						//Vai para tela Manter Onibus
+						//Vai para tela Manter Ponto
 						this.tela = new TelaManter().telaIni;
 						this.acesso1 = 4;
 						break;
-					case 5:
-						//Vai para tela Manter Ponto
-						this.tela = new TelaManter().telaIni;
-						this.acesso1 = 5;
-						break;
-					case 6:
-						//Vai para tela Manter Cidade
-						this.tela = new TelaManter().telaIni;
-						this.acesso1 = 6;
-						break;
-					default:
-						this.tela = new TelaArgInvalido().telaIni;
-						this.acesso1 = -1;
-						break;
+						
 				}
 				break;
 			//Entra nas opcoes de Manter Cidade
 			case 1:
-				
-			//Entra nas opcoes de Manter Horario
-			case 2:
-				switch(this.acesso2){
-					case 0:
-						this.acesso2 = 1;
-						this.tela = new TelaManter().telaIni;
-						break;
-					case 1:
-						//Vai para tela Cidade
-						this.tela = new TelaHorario().opcoes;
-						this.acesso1 = 1;
-						break;
+				this.tela = this.cAVCidade.entrada(entrada, arg);
+				if(this.tela == new TelaInicial().telaIni){
+					this.acesso1 = 0;
 				}
-				break;
+				break		
 			//Entra nas opcoes de Manter Instituicao
-			case 3:
-				switch(this.acesso2){
-					case 0:
-						this.acesso2 = 1;
-						this.tela = new TelaManter().telaIni;
-						break;
-					case 1:
-						//Vai para tela Cidade
-						this.tela = new TelaInstituicao().opcConsulta;
-						this.acesso1 = 1;
-						break;
+			case 2:
+				this.tela = this.cAVInstituicao.entrada(entrada, arg);
+				if(this.tela == new TelaInicial().telaIni){
+					this.acesso1 = 0;
 				}
-				break;
+				break	
 			//Entra nas opcoes de Manter Onibus
-			case 4:
-				switch(this.acesso2){
-					case 0:
-						this.acesso2 = 1;
-						this.tela = new TelaManter().telaIni;
-						break;
-					case 1:
-						//Vai para tela Cidade
-						this.tela = new TelaOnibus().opcoes;
-						this.acesso1 = 1;
-						break;
+			case 3:
+				this.tela = this.cAVOnibus.entrada(entrada, arg);
+				if(this.tela == new TelaInicial().telaIni){
+					this.acesso1 = 0;
 				}
-				break;
+				break	
 			//Entra nas opcoes de Manter Ponto
-			case 5:
-				switch(this.acesso2){
-					case 0:
-						this.acesso2 = 1;
-						this.tela = new TelaManter().telaIni;
-						break;
-					case 1:
-						//Vai para tela Cidade
-						this.tela = new TelaPonto().opcoes;
-						this.acesso1 = 1;
-						break;
+			case 4:
+				this.tela = this.cAVPonto.entrada(entrada, arg);
+				if(this.tela == new TelaInicial().telaIni){
+					this.acesso1 = 0;
 				}
-				break;
-			//Entra nas opcoes de Manter Rota
-			case 6:
-				switch(this.acesso2){
-					case 0:
-						this.acesso2 = 1;
-						this.tela = new TelaManter().telaIni;
-						break;
-					case 1:
-						//Vai para tela Cidade
-						this.tela = new TelaCidade().opcConsulta;
-						this.acesso1 = 1;
-						break;
-				}
-				break;
-			default:
-				this.tela = new TelaArgInvalido().telaIni;
-				this.acesso1 = -1;
-				break;
+				break
 		}
 	}
 }

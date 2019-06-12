@@ -3,6 +3,7 @@ package viewAdministrador;
 import java.util.ArrayList;
 
 import model.Horario;
+import model.Rota;
 public class TelaHorario{
 	public String opcEdicao = "\n1 - Turno \n2 - Horario de Saida \n3 - Horario de Regresso \n4 - Validacao \n0 - Sair";
 	public String opcConsulta = "\n1 - Turno \n2 - Horario de Saida \n3 - Horario de Regresso \n0 - Sair";
@@ -12,7 +13,6 @@ public class TelaHorario{
 
 	public void setTelaConsulta(ArrayList<Rota> rotas){
 		for(Rota r : rotas){
-			this.telaConsulta
 			this.telaConsulta = "\n    Horarios:";
 			for(Horario h : r.getHorarios()){
 				this.telaConsulta += "\n        Turno: " + h.getTurno().getTurno();

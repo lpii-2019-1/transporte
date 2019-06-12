@@ -2,6 +2,8 @@ package viewAdministrador;
 
 import java.util.ArrayList;
 
+import view.TelaFimOperacao;
+
 import model.Horario;
 import model.Onibus;
 import model.Rota;
@@ -15,7 +17,7 @@ public class TelaOnibus{
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Onibus> onibuss){
-		if(anibuss.get(0).getId() != 0){
+		if(onibuss.get(0).getId() != 0){
 			this.telaConsulta = "\nOnibus: ";
 			for (Onibus o : onibuss) {
 				this.telaConsulta += "\n    Placa: " + o.getPlaca();
