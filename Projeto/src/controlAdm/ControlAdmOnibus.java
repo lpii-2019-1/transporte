@@ -57,4 +57,32 @@ public class ControlAdmOnibus {
 		this.listaDeOnibus = oDAO.listarOnibus(2);
 		return this.listaDeOnibus;
 	}
+	
+	public boolean inserirOnibus(ArrayList<String> valores) {//Placa, cor, motorista, telefone5
+		OnibusDAO oDAO = new OnibusDAO();
+
+		if(consultarPlaca(valores.get(0)).size() == 0) {
+			this.onibusSelecionado = new Onibus();
+			this.onibusSelecionado.setPlaca(valores.get(0));
+			this.onibusSelecionado.setCor(valores.get(1));
+			this.onibusSelecionado.setMotorista(valores.get(2));
+			this.onibusSelecionado.setTelefone(valores.get(3));
+			
+			if(valores.size() == 5) {
+				if(valores.get(4) == "Disponivel") {
+					this.onibusSelecionado.setValidacao(1);
+					if(oDAO.inserirOnibus(this.onibusSelecionado)) {
+						return true;
+					}else {
+						return false;
+					}
+				}
+			}
+			return true;
+		}else {
+			return false;
+		}
+		
+
+	}
 }
