@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Horario;
 import model.Rota;
-import model.Turno;
 
 
 public class HorarioDAO {

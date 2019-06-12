@@ -6,6 +6,7 @@ import model.Instituicao;
 import java.util.ArrayList;
 
 import dao.CidadeDAO;
+import dao.InstituicaoDAO;
 
 public class ControlAdmCidade {
 	private Cidade cidadeSelecionada;
@@ -25,10 +26,13 @@ public class ControlAdmCidade {
 		return this.cidadeSelecionada;
 	}
 	
-	public Cidade consultarPorInstituicao(ArrayList<String> dadosInstituicao) {
-		this.instituicaoSelecionada =  new Instituicao();
-		this.instituicaoSelecionada.setNome(dadosInstituicao.get(0));
-		this.instituicaoSelecionada.setEndereco(dadosInstituicao.get(1));
+	public Cidade consultarPorInstituicao(String endereco) {
+		Instituicao instituicao = new Instituicao();
+		instituicao.setEndereco(endereco);
+		InstituicaoDAO iDAO = new InstituicaoDAO();
+		instituicao = iDAO.consultarEndereco(instituicao, 2);
+		CidadeDAO cDAO = new CidadeDAO();
+		this.cidadeSelecionada = cDAO.consultarInstituicao(instituicao, 2);
 		return this.cidadeSelecionada;
 	}
 	

@@ -147,6 +147,35 @@ public class CidadeDAO {
 	public ArrayList<Cidade> consultarUf(Cidade cidade, int comparador){
 		return this.consultarCidade("uf", cidade.getUf(), comparador);
 	}
+	
+	public Cidade consultarInstituicao(Instituicao instituicao, int comparador){
+		try {
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM cidade INNER JOIN instituicao ON cidade.id = id_cidade AND instituicao.id = ? AND instituicao.validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM cidade INNER JOIN instituicao ON cidade.id = id_cidade AND instituicao.id = ? AND instituicao.validacao = 0";
+    			break;
+			case 2:
+				sql = "SELECT * FROM cidade INNER JOIN instituicao ON cidade.id = id_cidade AND instituicao.id = ?";
+				break;
+        	}
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, instituicao.getId());
+            ResultSet rs = stmt.executeQuery();
+            Cidade cidade = new Cidade();
+            if(rs.next()) {
+                cidade = new Cidade(rs.getInt("cidade.id"), rs.getString("cidade.nome"), rs.getString("uf"));
+                cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
+            }
+            this.stmt.close();
+            return cidade;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
 
 	public ArrayList<Cidade> listarCidades(int comparador){
 		try {

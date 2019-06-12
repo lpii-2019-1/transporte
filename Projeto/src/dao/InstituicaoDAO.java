@@ -127,8 +127,8 @@ public class InstituicaoDAO {
 		return this.consultarInstituicoes("nome", instituicao.getNome(), comparador);
 	}
 
-	public Instituicao consultarTelefone(Instituicao instituicao, int comparador){
-		return this.consultarInstituicoes("telefone", instituicao.getTelefone(), comparador).get(0);
+	public ArrayList<Instituicao> consultarTelefone(Instituicao instituicao, int comparador){
+		return this.consultarInstituicoes("telefone", instituicao.getTelefone(), comparador);
 	}
 
 	public Instituicao consultarEndereco(Instituicao instituicao, int comparador){
