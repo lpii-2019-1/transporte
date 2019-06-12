@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import controlAdm.ControlAdmCidade;
-import controlAdm.ControlAdmInstituicao;
 import model.Cidade;
 import view.TelaArgInvalido;
 import view.TelaFimOperacao;
 import viewAdministrador.TelaCidade;
 import viewAdministrador.TelaInicial;
-import viewAdministrador.TelaInstituicao;
 import viewAdministrador.TelaManter;
 
 public class CtrlAdmViewCidade{
@@ -20,7 +18,6 @@ public class CtrlAdmViewCidade{
 	public int acesso5;
 
 	private ControlAdmCidade controler = new ControlAdmCidade();
-	private ControlAdmInstituicao controlerInst = new ControlAdmInstituicao();
 	
 	public String tela;
 	
@@ -219,10 +216,6 @@ public class CtrlAdmViewCidade{
 								this.acesso3 = 3;
 								this.tela = new TelaCidade().entrada;
 								break;
-							case 4:
-								this.acesso3 = 4;
-								this.tela = new TelaCidade().entrada;
-								break;
 							default:
 								this.tela = new TelaArgInvalido().telaIni;
 								this.acesso3 = -1;
@@ -237,8 +230,6 @@ public class CtrlAdmViewCidade{
 										this.acesso4 = 0;
 										this.acesso3 = 0;
 										this.acesso2 = 0;
-										
-										
 										this.tela = new TelaInicial().telaIni;
 										break;
 									case 1:
@@ -268,8 +259,6 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									
-									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
@@ -283,7 +272,6 @@ public class CtrlAdmViewCidade{
 								this.acesso4 = -1;
 								break;
 						}
-						
 						break;
 					case 2:
 						switch(this.acesso4){
@@ -339,116 +327,8 @@ public class CtrlAdmViewCidade{
 								this.acesso4 = -1;
 								break;
 						}
-						break;
+						break;							
 					case 3:
-						switch(this.acesso4){
-							case -1:
-								switch(arg) {
-									case 0:
-										this.acesso4 = 0;
-										this.acesso3 = 0;
-										this.acesso2 = 0;
-										
-										
-										this.tela = new TelaInicial().telaIni;
-										break;
-									case 1:
-										this.acesso4 = 0;
-										this.tela = new TelaManter().telaEdicao;
-										break;
-									default:
-										this.tela = new TelaArgInvalido().telaIni;
-										this.acesso4 = -1;
-										break;
-								}
-								break;
-							case 0:
-								String regex = "(( , )|( ,)|(, )|(,))";
-								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								controler.consultarCidadeNomeUf(entradas);
-								this.tela = new TelaManter().telaEdicao;
-								this.acesso4 = 1;
-								break;
-							case 1:
-								this.tela = new TelaInstituicao().opcConsulta;
-								this.acesso4 = 2;
-								break;
-							case 2:
-								switch(this.acesso5){
-									case -1:
-										switch(arg) {
-											case 0:
-												this.acesso4 = 0;
-												this.acesso3 = 0;
-												this.acesso2 = 0;
-												
-												
-												this.tela = new TelaInicial().telaIni;
-												break;
-											case 1:
-												this.acesso5 = 0;
-												this.tela = new TelaInstituicao().opcConsulta;
-												break;
-											default:
-												this.tela = new TelaArgInvalido().telaIni;
-												this.acesso4 = -1;
-												break;
-										}
-										break;
-									case 0:
-										switch(arg){
-											case 0:
-												this.tela = new TelaCidade().opcEdicao;
-												this.acesso3 = 0;
-												break;
-											case 1:
-												this.tela = new TelaInstituicao().entrada;
-												this.acesso5 = 1;
-												break;
-											case 2:
-												this.tela = new TelaInstituicao().entrada;
-												this.acesso5 = 2;
-											default:
-												this.tela = new TelaArgInvalido().telaIni;
-												this.acesso4 = -1;
-												break;
-										}
-										break;
-									case 1:
-										controler.inserirInstituicao(controlerInst.consultarEndereco(entrada));
-										break;
-									case 2:
-										controler.removeInstituicaoCidade(controlerInst.consultarEndereco(entrada));
-										break;
-								}
-							case 3:
-								TelaInstituicao tela = new TelaInstituicao();
-								tela.setTelaConsulta(controler.getCidadeSelecionada().getInstituicoes()); //Metodo edita instituicao da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
-								this.tela = tela.telaConsulta;
-								this.acesso4 = 4;
-								break;
-							case 4:
-								if(arg == 0){
-									this.acesso5 = 0;
-									this.acesso4 = 0;
-									this.acesso3 = 0;
-									this.acesso2 = 0;
-									
-									
-									this.tela = new TelaInicial().telaIni;
-								}
-								else if(arg == 1){
-									this.acesso5 = 0;
-									this.tela = new TelaInstituicao().opcConsulta;
-								}
-								break;
-							default:
-								this.tela =  new TelaArgInvalido().telaIni;
-								this.acesso4 = -1;
-								break;
-						}
-						break;
-					case 4:
 						switch(this.acesso4){
 							case -1:
 								switch(arg) {
@@ -509,7 +389,6 @@ public class CtrlAdmViewCidade{
 				}
 				break;
 		}
-		break;
 		return this.tela;
 	}
 }

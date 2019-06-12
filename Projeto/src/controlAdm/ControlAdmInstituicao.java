@@ -145,20 +145,24 @@ public class ControlAdmInstituicao {
 		 }
 		 
 	 }
-	 public void editarValidacao(String validacao) {
+	 public boolean editarValidacao(String validacao) {
 		 int validade = 0;
 		 if(validacao == "Disponivel") {
 			 validade = 1;
 		 }
 		 this.instituicaoSelecionada.setValidacao(validade);
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 iDAO.editarValidacao(this.instituicaoSelecionada);
+		 if(iDAO.editarValidacao(this.instituicaoSelecionada)) {
+			 return true; 
+		 }else {
+			 return false;
+		 }
 
 	 }
 	 
-	 public boolean excluirInstituicao() {
-		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-
+	 public boolean excluirInstituicao(String endereco) {
+		 InstituicaoDAO  iDAO = new InstituicaoDAO();
+		 this.consultarEndereco(endereco);
 		 if(iDAO.excluirInstituicao(this.instituicaoSelecionada)) {
 			 return true;
 		 }else {
@@ -166,7 +170,7 @@ public class ControlAdmInstituicao {
 		 }
 	 }
  
-	 public ArrayList<Instituicao> listarInstituicaoes(){
+	 public ArrayList<Instituicao> listarInstituicoes(){
 		 InstituicaoDAO  iDAO =new InstituicaoDAO();
 		 this.instituicoes = new ArrayList<Instituicao>();
 		 this.instituicoes = iDAO.listarInstituicoes(2);

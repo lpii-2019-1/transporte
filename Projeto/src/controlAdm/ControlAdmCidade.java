@@ -14,7 +14,6 @@ public class ControlAdmCidade {
 	private ArrayList<Cidade> cidades;
 	private ArrayList<Cidade> todasCidades;
 	private ArrayList<Instituicao> instituicoes;
-	private Instituicao instituicaoSelecionada;
 	
 	
 	
@@ -132,8 +131,7 @@ public class ControlAdmCidade {
 		this.instituicoes = cDAO.listarInstituicoes(this.cidadeSelecionada, 2);
 		return this.instituicoes;
 	}
-	
-	
+
 	//Getters and Setters
 	
 	public Cidade getCidadeSelecionada() {

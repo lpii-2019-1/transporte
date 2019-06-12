@@ -7,7 +7,7 @@ import model.Cidade;
 import model.Instituicao;
 
 public class TelaCidade{
-	public String opcEdicao = "\n1 - Nome \n2 - UF \n3 - Instituicoes \n4 - Validacao  \n0 - Sair \n\nDigite o nome de uma cidade: ";
+	public String opcEdicao = "\n1 - Nome \n2 - UF \n3 - Validacao  \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String opcConsulta = "\n1 - Nome \n2 - UF \n3 - Instituicao \n0 - Sair \n\nDigite o nome de uma cidade: ";
 	public String cadastro = "\nDigite o valores da Cidade (Ex.: Ceres, GO, Disponivel): ";
 	public String entrada = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";

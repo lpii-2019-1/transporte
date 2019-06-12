@@ -55,7 +55,7 @@ public class CtrlAdmViewInstituicao{
 						break;
 					//Vai para tela de Listagem
 					case 5:
-						ArrayList<Instituicao> consulta = controler.listarInstituicaos();//#############Metodo que lista cidade --M.W. deve setar
+						ArrayList<Instituicao> consulta = controler.listarInstituicoes();
 						TelaInstituicao tela = new TelaInstituicao();
 						tela.setTelaConsulta(consulta);
 						this.tela = tela.telaConsulta;
@@ -67,205 +67,208 @@ public class CtrlAdmViewInstituicao{
 				}
 				break;
 			//Vai para tela de consulta da opcao selecionada
-			case 1:
-				switch(this.acesso3){
-					case 0:
-						switch(arg){
-							case 0:
-								this.acesso2 = 0;
-								this.tela = new TelaManter().telaIni;
-								break;
-							case 1:
-								this.acesso3 = 1;
-								this.tela = new TelaInstituicao().entrada;
-								break;
-							case 2:
-								this.acesso3 = 2;
-								this.tela = new TelaInstituicao().entrada;
-								break;
-							case 3:
-								this.acesso3 = 3;
-								this.tela = new TelaInstituicao().entrada;
-								break;
-							default:
-								this.tela = new TelaArgInvalido().telaIni;
-								this.acesso2 = 0;
-								break;
-						}
-						break;
-					case 1:
-						TelaInstituicao tela1 = new TelaInstituicao();
-						tela1.setTelaConsulta(controler.consultarNomeInstituicao(entrada));
-						this.tela =  tela1.telaConsulta;
-						break;
-					case 2:
-						TelaInstituicao tela2 = new TelaInstituicao();
-						tela2.setTelaConsulta(controler.consultarEnderecoInstituicao(entrada));
-						this.tela =  tela2.telaConsulta;
-						break;
-					case 3:
-						TelaInstituicao tela3 = new TelaInstituicao();
-						tela3.setTelaConsulta(controler.consultarTelefoneInstituicao(entrada));
-						this.tela =  tela3.telaConsulta;
-						break;
-				}
-				break;
-			case 2:
-				if(arg != 0){
-					String regex = "(( , )|( ,)|(, )|(,))";
-					ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-					if(controler.inserirInstituicao(entradas)){
-						this.tela = new TelaFimOperacao().sucesso;
+				case 1:
+					switch(this.acesso3){
+						case 0:
+							switch(arg){
+								case 0:
+									this.acesso2 = 0;
+									this.tela = new TelaManter().telaIni;
+									break;
+								case 1:
+									this.acesso3 = 1;
+									this.tela = new TelaInstituicao().entrada;
+									break;
+								case 2:
+									this.acesso3 = 2;
+									this.tela = new TelaInstituicao().entrada;
+									break;
+								case 3:
+									this.acesso3 = 3;
+									this.tela = new TelaInstituicao().entrada;
+									break;
+								default:
+									this.tela = new TelaArgInvalido().telaIni;
+									this.acesso2 = 0;
+									break;
+							}
+							break;
+						case 1:
+							TelaInstituicao tela1 = new TelaInstituicao();
+							tela1.setTelaConsulta(controler.consultarNome(entrada));
+							this.tela =  tela1.telaConsulta;
+							break;
+						case 2:
+							TelaInstituicao tela2 = new TelaInstituicao();
+							ArrayList<Instituicao> i = new ArrayList<Instituicao>();
+							i.add(controler.consultarEndereco(entrada));
+							tela2.setTelaConsulta(i);
+							this.tela =  tela2.telaConsulta;
+							break;
+						case 3:
+							TelaInstituicao tela3 = new TelaInstituicao();
+							tela3.setTelaConsulta(controler.consultarTelefone(entrada));
+							this.tela =  tela3.telaConsulta;
+							break;
 					}
-					else{
-						this.tela = new TelaFimOperacao().erro;
+					break;
+				case 2:
+					if(arg != 0){
+						String regex = "(( , )|( ,)|(, )|(,))";
+						ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
+						if(controler.inserirInstituicao(entradas)){
+							this.tela = new TelaFimOperacao().sucesso;
+						}
+						else{
+							this.tela = new TelaFimOperacao().erro;
+							this.acesso2 = 0;
+						}
+					}
+					else if (arg == 0){
+						this.tela = new TelaManter().telaIni;
 						this.acesso2 = 0;
 					}
-				}
-				else if (arg == 0){
-					this.tela = new TelaManter().telaIni;
-					this.acesso2 = 0;
-				}
-			case 3:
-				switch(this.acesso3){
-					case 0:
-						switch(arg){
-							case 0:
-								this.acesso2 = 0;
+				case 3:
+					switch(this.acesso3){
+						case 0:
+							switch(arg){
+								case 0:
+									this.acesso2 = 0;
+									this.tela = new TelaManter().telaIni;
+									break;
+								case 1:
+									this.acesso3 = 1;
+									this.tela = new TelaManter().telaEdicao;
+									break;
+								case 2:
+									this.acesso3 = 2;
+									this.tela = new TelaManter().telaEdicao;
+									break;
+								case 3:
+									this.acesso3 = 3;
+									this.tela = new TelaManter().telaEdicao;
+									break;
+								case 4:
+									this.acesso3 = 4;
+									this.tela = new TelaManter().telaEdicao;
+									break;
+								case 5:
+									this.acesso3 = 5;
+									this.tela = new TelaManter().telaEdicao;
+									break;
+								default:
+									this.tela = new TelaArgInvalido().telaIni;
+									this.acesso2 = 0;
+									break;
+							}
+							break;
+						case 1:
+							if(arg != 0){
+								if(controler.editarNome(entrada)){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erro;	
+								}
+							}
+							else{
 								this.tela = new TelaManter().telaIni;
-								break;
-							case 1:
-								this.acesso3 = 1;
-								this.tela = new TelaManter().telaEdicao;
-								break;
-							case 2:
-								this.acesso3 = 2;
-								this.tela = new TelaManter().telaEdicao;
-								break;
-							case 3:
-								this.acesso3 = 3;
-								this.tela = new TelaManter().telaEdicao;
-								break;
-							case 4:
-								this.acesso3 = 4;
-								this.tela = new TelaManter().telaEdicao;
-								break;
-							case 5:
-								this.acesso3 = 5;
-								this.tela = new TelaManter().telaEdicao;
-								break;
-							default:
-								this.tela = new TelaArgInvalido().telaIni;
 								this.acesso2 = 0;
-								break;
-						}
-						break;
-					case 1:
-						if(arg != 0){
-							if(controler.editarNome(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
+								this.acesso3 = 0;
+							}
+							break;
+						case 2:
+							if(arg != 0){
+								if(controler.editarEndereco(entrada)){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erro;	
+								}
 							}
 							else{
-								this.tela = new TelaFimOperacao().erro;	
+								this.tela = new TelaManter().telaIni;
+								this.acesso2 = 0;
+								this.acesso3 = 0;
 							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
-						}
-						break;
-					case 2:
-						if(arg != 0){
-							if(controler.editarEndereco(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
-							}
-							else{
-								this.tela = new TelaFimOperacao().erro;	
-							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
-						}
-						break;
-					case 3:
-						if(arg != 0){
-							if(controler.editarTelefone(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
+							break;
+						case 3:
+							if(arg != 0){
+								if(controler.editarTelefone(entrada)){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erro;	
+								}
 							}
 							else{
-								this.tela = new TelaFimOperacao().erro;	
+								this.tela = new TelaManter().telaIni;
+								this.acesso2 = 0;
+								this.acesso3 = 0;
 							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
-						}
-						break;
-					case 4:
-						if(arg != 0){
-							String regex = "(( , )|( ,)|(, )|(,))";
-							ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-							if(controler.editarCidadeInstituicao(entradas)){
-								this.tela = new TelaFimOperacao().sucesso;
-							}
-							else{
-								this.tela = new TelaFimOperacao().erro;	
-							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
-						}
-						break;
-					case 5:
-						if(arg != 0){
-							if(controler.editarValidacaoInstituicao(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
+							break;
+						case 4:
+							if(arg != 0){
+								String regex = "(( , )|( ,)|(, )|(,))";
+								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
+								if(controler.editarIdCidade(entradas)){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erro;	
+								}
 							}
 							else{
-								this.tela = new TelaFimOperacao().erro;	
+								this.tela = new TelaManter().telaIni;
+								this.acesso2 = 0;
+								this.acesso3 = 0;
 							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
-						}
-						break;
-
-				}
-				break;
-			case 4:
-				if(arg != 0){
-					if(controler.excluirInstituicao(entrada)){
-						this.tela = new TelaFimOperacao().sucesso;
+							break;
+						case 5:
+							if(arg != 0){
+								if(controler.editarValidacao(entrada)){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erro;	
+								}
+							}
+							else{
+								this.tela = new TelaManter().telaIni;
+								this.acesso2 = 0;
+								this.acesso3 = 0;
+							}
+							break;
+	
 					}
-					else{
-						this.tela = new TelaFimOperacao().erroExcluir;
+					break;
+				case 4:
+					if(arg != 0){
+						if(controler.excluirInstituicao(entrada)){
+							this.tela = new TelaFimOperacao().sucesso;
+						}
+						else{
+							this.tela = new TelaFimOperacao().erroExcluir;
+							this.acesso2 = 0;
+						}
+					}
+					else if (arg == 0){
+						this.tela = new TelaManter().telaIni;
 						this.acesso2 = 0;
 					}
-				}
-				else if (arg == 0){
-					this.tela = new TelaManter().telaIni;
-					this.acesso2 = 0;
-				}
-				break;
-			case 5:
-				if(arg != 0){
-					TelaInstituicao tela = new TelaInstituicao();
-					tela.setConsulta(controler.listarInstituicoes());
-					this.tela = tela.telaConsulta;
-				}
-				else if (arg == 0){
-					this.tela = new TelaManter().telaIni;
-					this.acesso2 = 0;
-				}
-			break;
+					break;
+				case 5:
+					if(arg != 0){
+						TelaInstituicao tela = new TelaInstituicao();
+						tela.setTelaConsulta(controler.listarInstituicoes());
+						this.tela = tela.telaConsulta;
+					}
+					else if (arg == 0){
+						this.tela = new TelaManter().telaIni;
+						this.acesso2 = 0;
+					}
+					break;
+			}
 		return this.tela;
 	}
 }

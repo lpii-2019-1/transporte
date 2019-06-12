@@ -1,7 +1,6 @@
 package controlerAdmView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import controlAdm.ControlAdmPonto;
 import model.Ponto;
@@ -59,7 +58,9 @@ public class CtrlAdmViewPonto{
 				break;
 			case 1:
 				TelaPonto tela1 = new TelaPonto();
-				tela1.setTelaConsulta(controler.consultarEndereco(entrada));
+				ArrayList<Ponto> p = new ArrayList<Ponto>();
+				p.add(controler.consultarEndereco(entrada));
+				tela1.setTelaConsulta(p);
 				this.tela =  tela1.telaConsulta;
 				break;
 			case 2:
@@ -132,7 +133,7 @@ public class CtrlAdmViewPonto{
 				break;
 			case 4:
 				if(arg != 0){
-					if(controler.excluirPonto(entrada)){
+					if(controler.excluirPonto(controler.consultarEndereco(entrada).getId())){
 						this.tela = new TelaFimOperacao().sucesso;
 					}
 					else{
