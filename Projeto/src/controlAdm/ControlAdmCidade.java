@@ -75,10 +75,21 @@ public class ControlAdmCidade {
 	
 	public boolean editarValidacaoCidade(String validacao) {
 		CidadeDAO cDAO = new CidadeDAO();
+		boolean test = false; 
 		if(validacao.equalsIgnoreCase("Disponivel")) {
-			this.cidadeSelecionada.setValidacao(1);
-			if(cDAO.editarValidacao(this.cidadeSelecionada)) {
-				return true;
+			for(int i = 0; i < this.cidadeSelecionada.getInstituicoes().size(); i++) {
+				if(this.cidadeSelecionada.getInstituicoes().get(i).getValidacao() == 1) {
+					test = true;
+					break;
+				}
+			}
+			if(test) {
+				this.cidadeSelecionada.setValidacao(1);
+				if(cDAO.editarValidacao(this.cidadeSelecionada)) {
+					return true;
+				}else {
+					return false;
+				}
 			}else {
 				return false;
 			}
