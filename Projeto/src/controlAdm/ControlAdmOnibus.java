@@ -155,19 +155,38 @@ public class ControlAdmOnibus {
 	public boolean editarValidacao(String validacao) {
 		OnibusDAO oDAO = new OnibusDAO();
 		int validade = 0;
+		boolean test = false;
 		if(validacao == "Disponivel") {
 			validade = 1;
 		}else {
 			validade  = 0;
 		}
-		
-		this.onibusSelecionado.setValidacao(validade);
-		
-		if(oDAO.editarValidacao(this.onibusSelecionado)) {
-			return true;
+		if(validade == 1) {
+			for(int i = 0; i < this.onibusSelecionado.getRotas().size(); i++) {
+				if(this.onibusSelecionado.getRotas().get(i).getValidacao() == 1) {
+					test = true;
+					break;
+				}
+			}
+			if(test) {
+				this.onibusSelecionado.setValidacao(validade);
+				if(oDAO.editarValidacao(this.onibusSelecionado)) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
 		}else {
-			return false;
+			this.onibusSelecionado.setValidacao(validade);
+			if(oDAO.editarValidacao(this.onibusSelecionado)) {
+				return true;
+			}else {
+				return false;
+			}
 		}
+		
 	}
 	
 	public boolean removerRota(String identidicador) { // Antes de usar esse método, vc precisa utilizar o listar Rotas pra copiar o identificador dela e passar aqui como parametro

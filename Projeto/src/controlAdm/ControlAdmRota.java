@@ -14,6 +14,8 @@ public class ControlAdmRota {
 	private ArrayList<Rota> listaDeRotas;
 	private ArrayList<Ponto> pontosDaRota;
 	private Ponto pontoSelecionado;
+	private ArrayList<Instituicao> listaDeInstituicoes;
+	private Instituicao instituicaoSelecionada;
 	
 	public boolean inserirRota(int id_onibus, ArrayList<String> dadosRota) {
 		RotaDAO rDAO = new RotaDAO();
@@ -46,15 +48,7 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
-	
-	public boolean cadastrarHorario(ArrayList<String> valores){
-		ControlAdmHorario ctrl = new ControlAdmHorario();
-		
-		ctrl.inserirHorario(this.rotaSelecionada.getId(), valores);
-		
-		return true;
-		
-	}
+
 	
 	public boolean editarPercurso(String percurso) {
 		RotaDAO rDAO = new RotaDAO();
@@ -88,7 +82,7 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
-	
+	/*---------------------------------------INSTITUICOES ---------------------------------------*/
 	public boolean inserirInstituicao(String endereco) {
 		RotaDAO rDAO = new RotaDAO();
 
@@ -106,6 +100,25 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
+	
+	public ArrayList<Instituicao> listarinstituicoes() {
+		this.listaDeInstituicoes = new ArrayList<Instituicao>();
+		for(int i = 0; i < this.rotaSelecionada.getInstituicoes().size(); i++) {
+			this.listaDeInstituicoes.add(this.rotaSelecionada.getInstituicoes().get(i));
+		}
+		return this.listaDeInstituicoes;
+	}
+	
+	public boolean removerInstituicao() {
+		RotaDAO rDAO = new RotaDAO();
+		if(rDAO.excluirInstituicao(this.rotaSelecionada, this.instituicaoSelecionada)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	/*---------------------------------------PONTOS---------------------------------------*/
 	
 	public boolean inserirPonto(String endereco) {
 		RotaDAO rDAO = new RotaDAO();
@@ -134,7 +147,7 @@ public class ControlAdmRota {
 	public void setPontoSelecionado(Ponto pontoSelecionado) {
 		this.pontoSelecionado = pontoSelecionado;
 	}
-	/*---------------------------------------------------------------------------------*/
+
 	public ArrayList<Ponto> listarPontosRota() {
 		this.pontosDaRota = new ArrayList<Ponto>();
 		for(int i = 0; i < this.rotaSelecionada.getPontos().size(); i++) {
@@ -169,7 +182,62 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
-	/*--------------------------------------------------------------------------------------------*/
+	/*------------------------------------HORÁRIOS-------------------------------------------------------*/
+	
+	public boolean cadastrarHorario(ArrayList<String> valores){
+		ControlAdmHorario ctrl = new ControlAdmHorario();
+		ctrl.inserirHorario(this.rotaSelecionada.getId(), valores);
+		return true;
+	}
+	/*--------------------------------------------------------------------------------------------------*/
+	@SuppressWarnings("unused")  // Não sei o motivo dessa linha, mas comenta ea aí pra ver o que acontece com os contadores dos FORs
+	public boolean editarValidacao(String validacao) {
+		RotaDAO rDAO = new RotaDAO();
+		boolean test1 = false, test2 = false, test3 = false;
+		int validade = 0;
+		if( validacao == "Disponivel"){
+			validade = 1;
+		}else {
+			validade = 0;
+		}
+		if(validade == 1) {
+			for(int i = 0; i < this.rotaSelecionada.getInstituicoes().size(); i++) {
+				if(this.rotaSelecionada.getInstituicoes().get(i).getValidacao() == 1) {
+					test1 = true;
+					break;
+				}
+			}
+			for(int j = 0; j < this.rotaSelecionada.getPontos().size(); j++) {
+				if(this.rotaSelecionada.getPontos().get(j).getValidacao() == 1)
+					test2 = true;
+					break;
+			}
+			for(int k = 0; k < this.rotaSelecionada.getHorarios().size(); k++) {
+				if(this.rotaSelecionada.getHorarios().get(k).getValidacao() == 1)
+					test3 = true;
+					break;
+			}
+			
+			if(test1 && test2 && test3) {
+				this.rotaSelecionada.setValidacao(validade);
+				if(rDAO.editarValidacao(this.rotaSelecionada)) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		}else {
+			this.rotaSelecionada.setValidacao(validade);
+			if(rDAO.editarValidacao(this.rotaSelecionada)) {
+				return true;
+			}else {
+				return false;
+			}
+		}	
+	}
+	
 	public Rota getRotaSelecionada() {
 		return rotaSelecionada;
 	}
