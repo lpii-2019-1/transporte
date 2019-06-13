@@ -126,20 +126,29 @@ public class ControlAdmInstituicao {
 		 }
 		 
 	 }
+	 
 	 public boolean editarValidacao(String validacao) {
-		 int validade = 0;
-		 if(validacao == "Disponivel") {
-			 validade = 1;
-		 }
-		 this.instituicaoSelecionada.setValidacao(validade);
-		 InstituicaoDAO  iDAO =new InstituicaoDAO();
-		 if(iDAO.editarValidacao(this.instituicaoSelecionada)) {
-			 return true; 
-		 }else {
-			 return false;
-		 }
-
-	 }
+	 	InstituicaoDAO iDAO = new InstituicaoDAO();
+		if(validacao.equalsIgnoreCase("Disponivel")) {
+			this.instituicaoSelecionada.setValidacao(1);
+			if(iDAO.editarValidacao(this.instituicaoSelecionada)) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else if(validacao.equalsIgnoreCase("Indisponivel")){
+			this.instituicaoSelecionada.setValidacao(0);
+			if(iDAO.editarValidacao(this.instituicaoSelecionada)) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
 	 
 	 public boolean excluirInstituicao() {
 		RotaDAO rDAO = new RotaDAO();

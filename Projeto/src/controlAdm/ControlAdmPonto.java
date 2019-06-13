@@ -1,6 +1,7 @@
 package controlAdm;
 
 import java.util.ArrayList;
+
 import dao.PontoDAO;
 import dao.RotaDAO;
 import model.Ponto;
@@ -31,19 +32,30 @@ public class ControlAdmPonto {
 			return false;
 		}
 	}
-
-	public boolean editarValidacao(String validacao) {
-		PontoDAO poDAO = new PontoDAO();
-		if (validacao.equals(validacao)) {
+	
+	public boolean editarValidacaoCidade(String validacao) {
+		PontoDAO pDAO = new PontoDAO();
+		if(validacao.equalsIgnoreCase("Disponivel")) {
 			this.pontoSelecionado.setValidacao(1);
+			if(pDAO.editarValidacao(this.pontoSelecionado)) {
+				return true;
+			}else {
+				return false;
+			}
 		}
-		if (poDAO.editarValidacao(this.pontoSelecionado)) {
-			return true;
-		} else {
+		else if(validacao.equalsIgnoreCase("Indisponivel")){
+			this.pontoSelecionado.setValidacao(0);
+			if(pDAO.editarValidacao(this.pontoSelecionado)) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else {
 			return false;
 		}
 	}
-
+	
 	public Ponto consultarEndereco(String valor) {
 		Ponto ponto = new Ponto();
 		ponto.setEndereco(valor);
