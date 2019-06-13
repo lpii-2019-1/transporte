@@ -122,6 +122,18 @@ public class ControlAdmRota {
 			return false;
 		}
 	}
+	public ArrayList<Ponto> getPontosDaRota() {
+		return pontosDaRota;
+	}
+	public void setPontosDaRota(ArrayList<Ponto> pontosDaRota) {
+		this.pontosDaRota = pontosDaRota;
+	}
+	public Ponto getPontoSelecionado() {
+		return pontoSelecionado;
+	}
+	public void setPontoSelecionado(Ponto pontoSelecionado) {
+		this.pontoSelecionado = pontoSelecionado;
+	}
 	/*---------------------------------------------------------------------------------*/
 	public ArrayList<Ponto> listarPontosRota() {
 		this.pontosDaRota = new ArrayList<Ponto>();
@@ -156,8 +168,6 @@ public class ControlAdmRota {
 		}else {
 			return false;
 		}
-		
-		
 	}
 	/*--------------------------------------------------------------------------------------------*/
 	public Rota getRotaSelecionada() {

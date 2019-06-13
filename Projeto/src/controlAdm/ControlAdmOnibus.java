@@ -196,6 +196,30 @@ public class ControlAdmOnibus {
 		}
 	}
 	
+	public Onibus getOnibusSelecionado() {
+		return onibusSelecionado;
+	}
+
+	public void setOnibusSelecionado(Onibus onibusSelecionado) {
+		this.onibusSelecionado = onibusSelecionado;
+	}
+
+	public ArrayList<Onibus> getListaDeOnibus() {
+		return listaDeOnibus;
+	}
+
+	public void setListaDeOnibus(ArrayList<Onibus> listaDeOnibus) {
+		this.listaDeOnibus = listaDeOnibus;
+	}
+
+	public Rota getRotaSelecionada() {
+		return rotaSelecionada;
+	}
+
+	public void setRotaSelecionada(Rota rotaSelecionada) {
+		this.rotaSelecionada = rotaSelecionada;
+	}
+
 	public ArrayList<Rota> listarRotas(){
 		return this.onibusSelecionado.getRotas();
 	}
