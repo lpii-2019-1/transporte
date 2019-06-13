@@ -1,6 +1,7 @@
 package controlAdm;
 
 import model.Onibus;
+import model.Rota;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ public class ControlAdmOnibus {
 	
 	private Onibus onibusSelecionado;
 	private ArrayList<Onibus> listaDeOnibus;
+	private Rota rotaSelecionada;
 	
 	public ArrayList<Onibus> consultarCor(String cor){
 		OnibusDAO oDAO = new OnibusDAO();
@@ -94,4 +96,108 @@ public class ControlAdmOnibus {
 			return false;
 		}
 	}
+	
+	
+	public boolean editarCor(String cor) {
+		OnibusDAO oDAO = new OnibusDAO();
+
+		this.onibusSelecionado.setCor(cor);
+		if(oDAO.editarCor(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarMensalidade(String mensalidade) {
+		OnibusDAO oDAO = new OnibusDAO();
+  
+		double mensalidadeAux = Double.parseDouble(mensalidade);
+		this.onibusSelecionado.setMensalidade(mensalidadeAux);
+		if(oDAO.editarMensalidade(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarMotorista(String motorista) {
+		OnibusDAO oDAO = new OnibusDAO();
+		this.onibusSelecionado.setCor(motorista);
+		if(oDAO.editarMotorista(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	public boolean editarPlaca(String placa) {
+		OnibusDAO oDAO = new OnibusDAO();
+		this.onibusSelecionado.setPlaca(placa);
+		if(oDAO.editarPlaca(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarTelefone(String telefone) {
+		OnibusDAO oDAO = new OnibusDAO();
+		this.onibusSelecionado.setTelefone(telefone);
+		if(oDAO.editarTelefone(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean editarValidacao(String validacao) {
+		OnibusDAO oDAO = new OnibusDAO();
+		int validade = 0;
+		if(validacao == "Disponivel") {
+			validade = 1;
+		}else {
+			validade  = 0;
+		}
+		
+		this.onibusSelecionado.setValidacao(validade);
+		
+		if(oDAO.editarValidacao(this.onibusSelecionado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean removerRota(String identidicador) { // Antes de usar esse método, vc precisa utilizar o listar Rotas pra copiar o identificador dela e passar aqui como parametro
+														//O ADM QUE VAI FAZER ISSO
+		int aux = 0;
+		boolean test = false;
+		int identificador = Integer.parseInt(identidicador);
+		
+		for(int i = 0; i < this.onibusSelecionado.getRotas().size(); i++) {
+			if(this.onibusSelecionado.getRotas().get(i).getIdentificador() == identificador) {
+				aux = i;
+				test = true;
+				break;
+			}
+		}
+		if(test) {
+			this.rotaSelecionada = this.onibusSelecionado.getRotas().get(aux);
+			ControlAdmRota ctrlRota = new ControlAdmRota();
+			ctrlRota.setRotaSelecionada(this.rotaSelecionada);
+			if(ctrlRota.excluirRota()) {
+				return true;
+			}else
+				return false;
+		}else {
+			return false;
+		}
+	}
+	
+	public ArrayList<Rota> listarRotas(){
+		return this.onibusSelecionado.getRotas();
+	}
+	
 }
