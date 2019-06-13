@@ -1,8 +1,0 @@
-Tudo o que vc perceber que ta faltando, anota nesse arquivo quando for dar e
-commit e o push, que a gente vai fazendo.
-
-PARA FUNCIONAMENTO DO CONTROLE DO USUÁRIO É PRECISO:
-	Nas classes DAO.
-		consultarRota não ta setando os horários;
-		adicionar método de consultar ônibus por id da rota;
-		adicionar método de consultar rota por instituição.
