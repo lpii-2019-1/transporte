@@ -157,7 +157,7 @@ public class RotaDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"));
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"), rs.getInt("validacao"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota, comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -196,7 +196,7 @@ public class RotaDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"));
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("identificador"), rs.getInt("validacao"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota, comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota, comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -243,7 +243,7 @@ public class RotaDAO {
             PontoDAO pDAO = new PontoDAO();
             HorarioDAO hDAO = new HorarioDAO();
             if(rs.next()){
-                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
+                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("validacao"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -344,7 +344,7 @@ public class RotaDAO {
             HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
                 aux = false;
-                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"));
+                rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("getPercurso"), rs.getInt("validacao"));
                 rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
                 rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
                 rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
@@ -458,7 +458,7 @@ public class RotaDAO {
             Rota rota = new Rota();
             while(rs.next()) {
             	aux = false;
-            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"));
+            	rota = new Rota(rs.getInt("id"),  rs.getString("inicio"), rs.getString("fim"), rs.getString("percurso"), rs.getInt("validacao"));
             	rotas.add(rota);
             }
             if(aux) {

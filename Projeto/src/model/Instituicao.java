@@ -13,6 +13,13 @@ public class Instituicao{
         this.telefone = telefone;
         this.endereco = endereco;
     }
+    public Instituicao(int id, String nome, String telefone, String endereco, int validacao){;
+    this.id = id;
+    this.nome = nome;
+    this.telefone = telefone;
+    this.endereco = endereco;
+    this.validacao = validacao;
+}
 
     public Instituicao(String nome, String telefone, String endereco){;
         this.nome = nome;

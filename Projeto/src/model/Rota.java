@@ -31,6 +31,14 @@ public class Rota{
 		this.percurso = percurso;
 		this.identificador = identificador;
 	}
+	
+	public Rota(int id, String inicio, String fim, String percurso, int identificador, int validacao) {
+		this.id = id;
+		this.inicio = inicio;
+		this.fim = fim;
+		this.percurso = percurso;
+		this.identificador = identificador;
+	}
 	public Rota() {
 		
 	}

@@ -10,6 +10,16 @@ public class Ponto{
         this.id = id;
         this.endereco = endereco;
     }
+    public Ponto(int id, String endereco, int validacao){
+        this.id = id;
+        this.endereco = endereco;
+    }
+    
+    public Ponto(int id, String endereco, int ordem,  int validacao){
+        this.id = id;
+        this.endereco = endereco;
+    }
+    
     public Ponto(String endereco){
         this.endereco = endereco;
     }

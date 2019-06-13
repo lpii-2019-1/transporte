@@ -22,6 +22,17 @@ public class Horario {
 			e.printStackTrace();
 		}
     }
+    public Horario(int id, String hrSaidaPrimeiroPonto, String hrRegresso, Turno turno, int validacao){
+    	this.id = id;
+    	try {
+			this.hrSaidaPrimeiroPonto = this.formatoDate.parse(hrSaidaPrimeiroPonto);
+			this.hrRegresso = this.formatoDate.parse(hrRegresso);
+			this.turno = turno;
+			this.validacao = validacao;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    }
     public Horario(String hrSaidaPrimeiroPonto, String hrRegresso, Turno turno){
     	try {
 			this.hrSaidaPrimeiroPonto = this.formatoDate.parse(hrSaidaPrimeiroPonto);

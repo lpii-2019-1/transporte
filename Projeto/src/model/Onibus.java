@@ -20,6 +20,18 @@ public class Onibus {
 		this.mensalidade = mensalidade;
 		this.telefone = telefone;
 	}
+	
+	public Onibus(int id, String placa, String cor, String motorista, double mensalidade, String telefone, int validacao) {
+		this.id = id;
+		this.placa = placa;
+		this.cor = cor;
+		this.motorista = motorista;
+		this.mensalidade = mensalidade;
+		this.telefone = telefone;
+		this.validacao = validacao;
+				
+	}
+	
 	public Onibus(String placa, String cor, String motorista, double mensalidade) {
 		this.placa = placa;
 		this.cor = cor;

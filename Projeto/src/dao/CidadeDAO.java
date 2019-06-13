@@ -90,7 +90,7 @@ public class CidadeDAO {
             Cidade cidade = new Cidade();
             while(rs.next()) {
             	aux = false;
-                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
+                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"), rs.getInt("validacao"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }
@@ -125,7 +125,7 @@ public class CidadeDAO {
             boolean aux = true;    
             while(rs.next()) {
             	aux = false;
-                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
+                cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"), rs.getInt("validacao"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
             }
             if(aux) {
@@ -167,7 +167,7 @@ public class CidadeDAO {
             ResultSet rs = stmt.executeQuery();
             Cidade cidade = new Cidade();
             if(rs.next()) {
-                cidade = new Cidade(rs.getInt("cidade.id"), rs.getString("cidade.nome"), rs.getString("uf"));
+                cidade = new Cidade(rs.getInt("cidade.id"), rs.getString("cidade.nome"), rs.getString("uf"), rs.getInt("validacao"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
             }
             this.stmt.close();
@@ -195,7 +195,7 @@ public class CidadeDAO {
             ResultSet rs = stmt.executeQuery();
             ArrayList<Cidade> cidades = new ArrayList<Cidade>();
             while(rs.next()) {
-                Cidade cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"));
+                Cidade cidade = new Cidade(rs.getInt("id"), rs.getString("nome"), rs.getString("uf"), rs.getInt("validacao"));
                 cidade.setInstituicoes(this.listarInstituicoes(cidade, comparador));
                 cidades.add(cidade);
             }

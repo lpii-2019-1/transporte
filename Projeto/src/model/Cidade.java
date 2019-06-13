@@ -20,6 +20,12 @@ public class Cidade{
         this.setNome(nome);
         this.setUf(uf);
     }
+    public Cidade(int id, String nome, String uf, int validacao){
+        this.setId(id);
+        this.setNome(nome);
+        this.setUf(uf);
+        this.setValidacao(validacao);
+    }
     public Cidade() {
     	
     }

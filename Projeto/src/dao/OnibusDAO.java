@@ -119,7 +119,7 @@ public class OnibusDAO {
             while(rs.next()) {
             	aux = false;
             	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
-            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
             	onibus.setRotas(rotas);
             	onibuss.add(onibus);
             }
@@ -170,7 +170,7 @@ public class OnibusDAO {
             ArrayList<Rota> rotas;
             if(rs.next()) {
             	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
-            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
             	onibus.setRotas(rotas);
             }
             this.stmt.close();
@@ -202,7 +202,7 @@ public class OnibusDAO {
 	        Onibus onibus = new Onibus();
 	        while(rs.next()) {
 	        	aux = false;
-	        	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
+	        	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
 	        	onibuss.add(onibus);
 	        }
 	        if(aux) {
@@ -236,7 +236,7 @@ public class OnibusDAO {
             Onibus onibus = new Onibus();
             while(rs.next()) {
             	aux = false;
-            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"));
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
             	onibuss.add(onibus);
             }
             if(aux) {

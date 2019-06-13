@@ -109,7 +109,7 @@ public class InstituicaoDAO {
             boolean aux1 = true;
             while(rs.next()) {
             	aux1 = false;
-                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
+                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"), rs.getInt("validacao"));
                 instituicoes.add(instituicao);
             }
             if(aux1) {
@@ -157,7 +157,7 @@ public class InstituicaoDAO {
             boolean aux1 = true;
             while(rs.next()) {
             	aux1 = false;
-                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"));
+                instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"), rs.getInt("validacao"));
                 instituicoes.add(instituicao);
             }
             if(aux1) {
@@ -216,7 +216,7 @@ public class InstituicaoDAO {
             Instituicao instituicao = new Instituicao();
             while(rs.next()) {
                 aux = false;
-            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
+            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"), rs.getInt("validacao"));
                 instituicoes.add(instituicao);
             }
             if(aux) {
@@ -248,7 +248,7 @@ public class InstituicaoDAO {
             ResultSet rs = stmt.executeQuery();
             Instituicao instituicao = new Instituicao();
             if(rs.next()) {
-            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"));
+            	instituicao = new Instituicao(rs.getInt("id"), rs.getString("nome"), rs.getString("telefone"), rs.getString("endereco"), rs.getInt("validacao"));
             }
             this.stmt.close();
             return instituicao;

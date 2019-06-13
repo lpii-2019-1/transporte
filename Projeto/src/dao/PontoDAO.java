@@ -77,7 +77,7 @@ public class PontoDAO {
             ResultSet rs = stmt.executeQuery();
             Ponto ponto = new Ponto();
             if(rs.next()) {
-            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"));
+            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"), rs.getInt("validacao"));
             }
             this.stmt.close();
             return ponto;
@@ -105,7 +105,7 @@ public class PontoDAO {
             ResultSet rs = stmt.executeQuery();
             Ponto ponto = new Ponto();
             if(rs.next()) {
-            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"));
+            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"), rs.getInt("validacao"));
             }
             this.stmt.close();
             return ponto;
@@ -159,7 +159,7 @@ public class PontoDAO {
             ArrayList<Ponto> pontos = new ArrayList<Ponto>(); 
             Ponto ponto = new Ponto();
             while(rs.next()) {
-            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"));
+            	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"), rs.getInt("validacao"));
             }
             if(aux) {
             	pontos.add(ponto);
