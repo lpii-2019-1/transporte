@@ -16,6 +16,6 @@ public class TelaConsultaPercurso{
 			i++;
 			this.telaConsulta += "\n       " + i + " - Percurso: " + p;
 		}
-		this.telaConsulta += "\n       0 - Sair \n\nDigite o numero correspondente: ";
+		this.telaConsulta += "\n       0 - Voltar \n\nDigite o numero correspondente: ";
 	}
 }

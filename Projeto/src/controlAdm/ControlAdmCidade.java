@@ -74,12 +74,23 @@ public class ControlAdmCidade {
 	}
 	public boolean editarValidacaoCidade(String validacao) { // Tem possibilidade de Mudae o parametro para int.Depende da confirmação do M.D(Comunista)
 		CidadeDAO cDAO = new CidadeDAO();
-		if(validacao == "disponivel") {
+		if(validacao.equalsIgnoreCase("Disponivel")) {
 			this.cidadeSelecionada.setValidacao(1);
+			if(cDAO.editarValidacao(this.cidadeSelecionada)) {
+				return true;
+			}else {
+				return false;
+			}
 		}
-		if(cDAO.editarValidacao(this.cidadeSelecionada)) {;
-			return true;
-		}else {
+		else if(validacao.equalsIgnoreCase("Indisponivel")){
+			this.cidadeSelecionada.setValidacao(0);
+			if(cDAO.editarValidacao(this.cidadeSelecionada)) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else {
 			return false;
 		}
 	}

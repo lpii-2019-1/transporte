@@ -42,14 +42,14 @@ public class TelaConsultaRota{
 				for(Ponto p : r.getPontos()){
 					this.telaConsulta += "\n            " + p.getOrdem() + "º " + p.getEndereco();
 				}
-				this.telaConsulta += "\nHorarios:";
+				this.telaConsulta += "\n        Horarios:";
 				for(Horario h : r.getHorarios()){
 					this.telaConsulta += "\n            Turno: " + h.getTurno().getTurno();
 					this.telaConsulta += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
 					this.telaConsulta += "\n            Haririo de regresso: " + h.getHrRegresso();
 				}
 			}
-			this.telaConsulta += "\n    0 - Sair \n\nDigite o numero correspondente: ";
+			this.telaConsulta += "\n    0 - Voltar \n\nDigite o numero correspondente: ";
 		}
 		else{
 			this.telaConsulta = telaErro;

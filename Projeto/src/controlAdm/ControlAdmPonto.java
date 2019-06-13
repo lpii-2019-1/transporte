@@ -2,6 +2,7 @@ package controlAdm;
 
 import java.util.ArrayList;
 import dao.PontoDAO;
+import dao.RotaDAO;
 import model.Ponto;
 import model.Rota;
 
@@ -74,9 +75,14 @@ public class ControlAdmPonto {
 		return this.pontos;
 	}
 
-	public boolean excluirPonto(String endereco) {
-		Ponto p = new Ponto();
-		p.setEndereco(endereco);
+	public boolean excluirPonto() {
+		RotaDAO rDAO = new RotaDAO();
+		ArrayList<Rota> rotas = rDAO.consultarIdPonto(this.pontoSelecionado, 2);
+		if(rotas.get(0).getId() != 0){
+			for(Rota r: rotas){
+				rDAO.excluirPonto(r, this.pontoSelecionado);
+			}
+		}
 		PontoDAO poDAO = new PontoDAO();
 		if (poDAO.excluirPonto(this.pontoSelecionado)) {
 			return true;

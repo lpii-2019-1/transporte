@@ -260,7 +260,7 @@ public class InstituicaoDAO {
 	
 	public boolean excluirInstituicao(Instituicao instituicao){
         try {
-            String sql = "DELETE instituicao WHERE id = ?";
+            String sql = "DELETE FROM instituicao WHERE id = ?";
         	this.stmt = this.conexao.prepareStatement(sql);
         	this.stmt.setInt(1, instituicao.getId());
         	this.stmt.execute();

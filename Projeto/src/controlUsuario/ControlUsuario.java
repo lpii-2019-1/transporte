@@ -53,7 +53,7 @@ public class ControlUsuario {
 	
 	private void buscarRotasBanco() {
 		RotaDAO rDAO = new RotaDAO();
-		this.rotasIntituicao  = rDAO.consultarIdInsituicao(this.instituicaoSelecionada, 1);
+		this.rotasIntituicao  = rDAO.consultarIdInstituicao(this.instituicaoSelecionada, 1);
 	}
 	
 	public void selecionarRota(int i) {

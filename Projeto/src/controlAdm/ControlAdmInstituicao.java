@@ -3,10 +3,12 @@ package controlAdm;
 import model.Cidade;
 
 import model.Instituicao;
+import model.Rota;
 
 import java.util.ArrayList;
 
 import dao.InstituicaoDAO;
+import dao.RotaDAO;
 
 public class ControlAdmInstituicao {
 	private Cidade cidadeSelecionada;
@@ -139,14 +141,20 @@ public class ControlAdmInstituicao {
 
 	 }
 	 
-	 public boolean excluirInstituicao(String endereco) {
-		 InstituicaoDAO  iDAO = new InstituicaoDAO();
-		 this.consultarEndereco(endereco);
-		 if(iDAO.excluirInstituicao(this.instituicaoSelecionada)) {
-			 return true;
-		 }else {
-			 return false;
-		 }
+	 public boolean excluirInstituicao() {
+		RotaDAO rDAO = new RotaDAO();
+		ArrayList<Rota> rotas = rDAO.consultarIdInstituicao(this.instituicaoSelecionada, 2);
+		if(rotas.get(0).getId() != 0){
+			for(Rota r: rotas){
+				rDAO.excluirInstituicao(r, this.instituicaoSelecionada);
+			}
+		}
+		InstituicaoDAO iDAO = new InstituicaoDAO();
+		if (iDAO.excluirInstituicao(this.instituicaoSelecionada)) {
+			return true;
+		} else {
+			return false;
+		}
 	 }
  
 	 public ArrayList<Instituicao> listarInstituicoes(){

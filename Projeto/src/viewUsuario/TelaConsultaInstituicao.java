@@ -21,7 +21,7 @@ public class TelaConsultaInstituicao extends TelaFim{
 				this.telaConsulta += "\n            Endereco:" + i.getEndereco();
 				this.telaConsulta += "\n            Telefone:" + i.getTelefone();
 			}
-			this.telaConsulta += "\n        0 - Sair \n\nDigite o numero correspondente: ";
+			this.telaConsulta += "\n        0 - Voltar \n\nDigite o numero correspondente: ";
 		}
 		else{
 			this.telaConsulta = telaErro;

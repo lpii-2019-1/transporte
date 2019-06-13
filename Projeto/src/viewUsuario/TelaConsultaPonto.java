@@ -17,6 +17,6 @@ public class TelaConsultaPonto{
 			i++;
 			this.telaConsulta += "\n       " + i + " - Ponto: " + p.getEndereco();
 		}
-		this.telaConsulta += "\n       0 - Sair \n\nDigite o numero correspondente: ";
+		this.telaConsulta += "\n       0 - Voltar \n\nDigite o numero correspondente: ";
 	}
 }

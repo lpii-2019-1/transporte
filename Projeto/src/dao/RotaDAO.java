@@ -296,11 +296,35 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
-	public ArrayList<Rota> consultarIdInsituicao(Instituicao instituicao, int comparador){
+	public ArrayList<Rota> consultarIdInstituicao(Instituicao instituicao, int comparador){
         try {         
             String sql = "SELECT * FROM rota_has_instituicao WHERE id_instituicao = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, instituicao.getId());
+            ResultSet rs = this.stmt.executeQuery();
+            ArrayList<Rota> rotas = new ArrayList<Rota>();
+            Rota rota = new Rota();
+            boolean aux1 = true;
+            while(rs.next()) {
+                aux1 = false;
+                rota = this.consultarId(rs.getInt("id_rota"), comparador);
+                rotas.add(rota);
+            }
+            if(aux1) {
+                rotas.add(rota);
+            }
+            this.stmt.close();
+            return rotas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
+	public ArrayList<Rota> consultarIdPonto(Ponto ponto, int comparador){
+        try {         
+            String sql = "SELECT * FROM rota_has_ponto WHERE id_ponto = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, ponto.getId());
             ResultSet rs = this.stmt.executeQuery();
             ArrayList<Rota> rotas = new ArrayList<Rota>();
             Rota rota = new Rota();
@@ -422,9 +446,23 @@ public class RotaDAO {
 		}
 	}
 
+	public boolean excluirInstituicao(Rota rota, Instituicao instituicao){
+        try {
+        	String sql = "DELETE FROM rota_has_instituicao WHERE id_rota = ? AND id_instituicao = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            this.stmt.setInt(2, instituicao.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
     public boolean excluirPonto(Rota rota, Ponto ponto){
         try {
-            String sql = "DELETE rota_has_ponto WHERE id_rota = ? AND id_ponto = ?";
+            String sql = "DELETE FROM rota_has_ponto WHERE id_rota = ? AND id_ponto = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, rota.getId());
             this.stmt.setInt(2, ponto.getId());
@@ -470,4 +508,5 @@ public class RotaDAO {
             throw new RuntimeException(e);
         }
 	}
+
 }
