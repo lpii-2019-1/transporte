@@ -46,7 +46,8 @@ public class ControlAdmOnibus {
 		return this.listaDeOnibus;
 	}
 	
-	public ArrayList<Onibus> consultarMensalidade(double mensalidade){
+	public ArrayList<Onibus> consultarMensalidade(String valor){
+		double mensalidade = Double.parseDouble(valor);
 		OnibusDAO oDAO = new OnibusDAO();
 		this.onibusSelecionado = new Onibus();
 		this.onibusSelecionado.setMensalidade(mensalidade);
@@ -86,17 +87,7 @@ public class ControlAdmOnibus {
 		}else {
 			return false;
 		}
-	}
-	
-	public boolean cadastrarRotaOnibus(ArrayList<String> dadosRota) {
-		ControlAdmRota ctrlRota = new ControlAdmRota();
-		if(ctrlRota.inserirRota(this.onibusSelecionado.getId(), dadosRota)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
+	}	
 	
 	public boolean editarCor(String cor) {
 		OnibusDAO oDAO = new OnibusDAO();
@@ -189,31 +180,21 @@ public class ControlAdmOnibus {
 		
 	}
 	
-	public boolean removerRota(String identidicador) { // Antes de usar esse método, vc precisa utilizar o listar Rotas pra copiar o identificador dela e passar aqui como parametro
-														//O ADM QUE VAI FAZER ISSO
-		int aux = 0;
-		boolean test = false;
-		int identificador = Integer.parseInt(identidicador);
-		
-		for(int i = 0; i < this.onibusSelecionado.getRotas().size(); i++) {
-			if(this.onibusSelecionado.getRotas().get(i).getIdentificador() == identificador) {
-				aux = i;
-				test = true;
-				break;
+	public boolean excluirOnibus() {
+		OnibusDAO oDAO = new OnibusDAO();
+		ControlAdmRota ctrRota = new ControlAdmRota();
+		if(this.onibusSelecionado.getRotas().get(0).getId() != 0){
+			for(Rota r: this.onibusSelecionado.getRotas()){
+				ctrRota.setRotaSelecionada(r);
+				ctrRota.excluirRota();
 			}
 		}
-		if(test) {
-			this.rotaSelecionada = this.onibusSelecionado.getRotas().get(aux);
-			ControlAdmRota ctrlRota = new ControlAdmRota();
-			ctrlRota.setRotaSelecionada(this.rotaSelecionada);
-			if(ctrlRota.excluirRota()) {
-				return true;
-			}else
-				return false;
-		}else {
+		if (oDAO.excluirOnibus(this.onibusSelecionado)) {
+			return true;
+		} else {
 			return false;
 		}
-	}
+	}	
 	
 	public Onibus getOnibusSelecionado() {
 		return onibusSelecionado;

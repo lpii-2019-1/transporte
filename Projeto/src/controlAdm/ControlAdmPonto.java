@@ -33,7 +33,7 @@ public class ControlAdmPonto {
 		}
 	}
 	
-	public boolean editarValidacaoCidade(String validacao) {
+	public boolean editarValidacao(String validacao) {
 		PontoDAO pDAO = new PontoDAO();
 		if(validacao.equalsIgnoreCase("Disponivel")) {
 			this.pontoSelecionado.setValidacao(1);
@@ -73,7 +73,7 @@ public class ControlAdmPonto {
 
 	/** Verificar erro metodo **/
 	
-		public ArrayList<Ponto> consultarIdRota(Rota rota) {
+	public ArrayList<Ponto> consultarIdRota(Rota rota) {
 		PontoDAO poDAO = new PontoDAO();
 		this.pontoSelecionado = new Ponto();
 		this.pontos = poDAO.consultarIdRota(rota, 2);

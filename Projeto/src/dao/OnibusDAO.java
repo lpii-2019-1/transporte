@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import conexao.Conexao;
-import model.Horario;
 import model.Onibus;
 import model.Rota;
 
@@ -249,11 +248,11 @@ public class OnibusDAO {
         }
 	}
 	
-	public boolean excluirHorario(Horario horario){
+	public boolean excluirOnibus(Onibus onibus){
         try {
-            String sql = "DELETE horario WHERE id = ?";
+            String sql = "DELETE FROM onibus WHERE id = ?";
         	this.stmt = this.conexao.prepareStatement(sql);
-        	this.stmt.setInt(1, horario.getId());
+        	this.stmt.setInt(1, onibus.getId());
         	this.stmt.execute();
         	this.stmt.close();
             return true;

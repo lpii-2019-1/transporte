@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import conexao.Conexao;
 import model.Horario;
 import model.Rota;
+import model.Turno;
 
 
 public class HorarioDAO {
@@ -18,14 +19,14 @@ public class HorarioDAO {
 		this.conexao = new Conexao().getConexao();
 	}
 	
-	public boolean inserirHorario(int id_rota, Horario horario, int turno){
+	public boolean inserirHorario(Rota rota, Horario horario, int turno){
         try {
             String sql = "INSERT INTO horario (horario_saida, horario_regresso, id_turno, id_rota) VALUES (?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, horario.getHrSaidaPrimeiroPonto());
             this.stmt.setString(2, horario.getHrRegresso());
             this.stmt.setInt(3, turno);
-            this.stmt.setInt(4, id_rota);
+            this.stmt.setInt(4, rota.getId());
             this.stmt.execute();
             this. stmt.close();
             return true;
@@ -164,6 +165,42 @@ public class HorarioDAO {
         }
 	}
 	
+	public ArrayList<Horario> consultarIdTurno(Turno turno, int comparador){
+		try {
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM horario WHERE id_turno = ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM horario WHERE id_turno = ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM horario WHERE id_turno = ?";
+				break;
+        	}
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setInt(1, turno.getId());
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            ArrayList<Horario> horarios = new ArrayList<Horario>();
+            Horario horario = new Horario();
+            TurnoDAO tDAO = new TurnoDAO();
+            while(rs.next()) {
+                aux = false;
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
+                horarios.add(horario);
+            }
+            if(aux) {
+            	horarios.add(horario);
+            }
+            this.stmt.close();
+            return horarios;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
 	public ArrayList<Horario> listarHorarios(int comparador){
 		try {
 			String sql = "";
@@ -204,13 +241,13 @@ public class HorarioDAO {
 			String sql = "";
 			switch(comparador) {
     		case 0:
-    			sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 0";
+    			sql = "SELECT * FROM horario WHERE id = ? AND validacao = 0";
     			break;
 			case 1:
-				sql = "SELECT * FROM ponto WHERE id = ? AND validacao = 1";
+				sql = "SELECT * FROM horario WHERE id = ? AND validacao = 1";
     			break;
 			case 2:
-				sql = "SELECT * FROM ponto WHERE id = ??";
+				sql = "SELECT * FROM horario WHERE id = ??";
 				break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
@@ -227,10 +264,47 @@ public class HorarioDAO {
             throw new RuntimeException(e);
         }
 	}
+
+	public ArrayList<Horario> consultarHrSaidaRegresso(Horario horarioSel, int comparador) {
+		try {
+			String sql = "";
+			switch(comparador) {
+    		case 0:
+    			sql = "SELECT * FROM horario WHERE horario_saida = ? AND horario_regresso ? AND validacao = 0";
+    			break;
+			case 1:
+				sql = "SELECT * FROM horario WHERE horario_saida = ? AND horario_regresso ? AND validacao = 1";
+    			break;
+			case 2:
+				sql = "SELECT * FROM horario WHERE horario_saida = ? AND horario_regresso ?";
+				break;
+        	}
+			this.stmt = this.conexao.prepareStatement(sql);
+			this.stmt.setString(1, horarioSel.getHrSaidaPrimeiroPonto());
+			this.stmt.setString(2, horarioSel.getHrRegresso());
+            ResultSet rs = stmt.executeQuery();
+            boolean aux = true;
+            ArrayList<Horario> horarios = new ArrayList<Horario>();
+            Horario horario = new Horario();
+            TurnoDAO tDAO = new TurnoDAO();
+            while(rs.next()) {
+                aux = false;
+                horario = new Horario(rs.getInt("id"),  rs.getString("horario_saida"), rs.getString("horario_regresso"), tDAO.consultarId(rs.getInt("id_turno")));
+                horarios.add(horario);
+            }
+            if(aux) {
+            	horarios.add(horario);
+            }
+            this.stmt.close();
+            return horarios;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+	}
 	
 	public boolean excluirHorario(Horario horario){
         try {
-            String sql = "DELETE horario WHERE id = ?";
+            String sql = "DELETE FROM horario WHERE id = ?";
         	this.stmt = this.conexao.prepareStatement(sql);
         	this.stmt.setInt(1, horario.getId());
         	this.stmt.execute();
@@ -240,4 +314,5 @@ public class HorarioDAO {
             throw new RuntimeException(e);
         }
 	}
+
 }

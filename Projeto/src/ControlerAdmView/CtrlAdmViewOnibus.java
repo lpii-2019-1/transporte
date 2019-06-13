@@ -19,8 +19,8 @@ public class CtrlAdmViewOnibus{
 
 	private ControlAdmOnibus controler = new ControlAdmOnibus();
 	private ControlAdmRota controlerRota = new ControlAdmRota();
-	private ControlAdmPonto controlerPonto = new ControlAdmPonto();
-	private ControlAdmInstituicao controlerInstituicao = new ControlAdmInstituicao();
+	private ControlAdmPontoRota controlerPonto = new ControlAdmPontoRota();
+	private ControlAdmInstituicaoRota controlerInstituicao = new ControlAdmInstituicaoRota();
 	private ControlAdmHorario controlerHorario = new ControlAdmHorario();
 
 	public String entrada(String entrada, int arg){
@@ -399,15 +399,19 @@ public class CtrlAdmViewOnibus{
 				break;
 			case 4:
 				if(arg != 0){
-					if(controler.excluirOnibus(entrada)){
-						this.tela = new TelaFimOperacao().sucesso;
+					if(controler.consultarPlaca(entrada).getId() != 0){
+						if(controler.excluirOnibus()){
+							this.tela = new TelaFimOperacao().sucessoExcluir;
+						}
+						else{
+							this.tela = new TelaFimOperacao().erroExcluir;
+						}
 					}
 					else{
 						this.tela = new TelaFimOperacao().erroExcluir;
-						this.acesso2 = 0;
 					}
 				}
-				else if (arg == 0){
+				else{
 					this.tela = new TelaOnibus().manterOnibus;
 					this.acesso2 = 0;
 				}
@@ -453,7 +457,7 @@ public class CtrlAdmViewOnibus{
 							case 8:
 								this.acesso3 = 5;
 								TelaRota tela = new TelaRota();
-								tela.setTelaConsulta(controlerRota.listarRotas(entrada));
+								tela.setTelaConsulta(controlerRota.listarRotas());
 								this.tela = tela.telaConsulta;
 								break;
 							default:
@@ -465,6 +469,7 @@ public class CtrlAdmViewOnibus{
 						break;
 					case 0:
 						if(controler.consultarPlaca(entrada).getId() != 0){
+							controlerRota.setOnibusSelecionado(controler.consultarPlaca(entrada));
 							this.tela = new TelaRota().manterRota;
 							this.acesso3 = -1;
 						}
@@ -525,7 +530,9 @@ public class CtrlAdmViewOnibus{
 								break;
 							case 1:
 								TelaRota tela = new TelaRota();
-								tela.setTelaConsulta(controlerRota.consultarIdentificador(entrada));
+								ArrayList<Rota> r = new ArrayList<Rota>();
+								r.add(controlerRota.consultarIdentificador(entrada));
+								tela.setTelaConsulta(r);
 								this.tela =  tela.telaConsulta;
 								this.acesso4 = 8;
 								break;
@@ -628,7 +635,7 @@ public class CtrlAdmViewOnibus{
 							case 1:
 								switch(this.acesso6){
 									case 0:
-										if(controlerRota.consultaIndentificador(entrada)){
+										if(controlerRota.consultarIdentificador(entrada).getId() != 0){
 											this.acesso6 = 1;
 											this.tela = new TelaManter().telaEdicao;
 										}
@@ -656,7 +663,7 @@ public class CtrlAdmViewOnibus{
 							case 2:
 								switch(this.acesso6){
 									case 0:
-										if(controlerRota.consultarIndentificador(entrada)){
+										if(controlerRota.consultarIdentificador(entrada).getId() != 0){
 											this.acesso6 = 1;
 											this.tela = new TelaManter().telaEdicao;
 										}
@@ -684,7 +691,7 @@ public class CtrlAdmViewOnibus{
 							case 3:
 								switch(this.acesso6){
 									case 0:
-										if(controlerRota.consultarrIndentificador(entrada)){
+										if(controlerRota.consultarIdentificador(entrada).getId() != 0){
 											this.acesso6 = 1;
 											this.tela = new TelaManter().telaEdicao;
 										}
@@ -712,7 +719,7 @@ public class CtrlAdmViewOnibus{
 							case 4:
 								switch(this.acesso6){
 									case 0:
-										if(controlerRota.consultarIndentificador(entrada)){
+										if(controlerRota.consultarIdentificador(entrada).getId() != 0){
 											this.acesso6 = 1;
 											this.tela = new TelaManter().telaEdicao;
 										}
@@ -741,8 +748,13 @@ public class CtrlAdmViewOnibus{
 						break;
 					case 4:
 						if(arg != 0){
-							if(controlerRota.excluirRota(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
+							if(controlerRota.consultarIdentificador(entrada).getId() != 0) {
+								if(controlerRota.excluirRota()){
+									this.tela = new TelaFimOperacao().sucesso;
+								}
+								else{
+									this.tela = new TelaFimOperacao().erroExcluir;
+								}
 							}
 							else{
 								this.tela = new TelaFimOperacao().erroExcluir;
@@ -759,7 +771,7 @@ public class CtrlAdmViewOnibus{
 					case 5:
 						if(arg != 0){
 							TelaRota tela = new TelaRota();
-							tela.setConsulta(controler.listarRota());
+							tela.setTelaConsulta(controlerRota.listarRotas());
 							this.tela = tela.telaConsulta;
 						}
 						else if (arg == 0){
@@ -808,7 +820,7 @@ public class CtrlAdmViewOnibus{
 								}
 								break;
 							case 0:
-								if(controlerRota.consultarIndentificador(entrada).getId() != 0){
+								if(controlerRota.consultarIdentificador(entrada).getId() != 0){
 									this.tela = new TelaPontoRota().manterPonto;
 									this.acesso4 = -1;
 								}
@@ -844,7 +856,7 @@ public class CtrlAdmViewOnibus{
 									case 1:
 										if(arg != 0){
 											TelaPontoRota tela = new TelaPontoRota();
-											tela.setConsulta(controlerPonto.consultarOrdem(entrada, controlerRota.getRotaSelecionada().getId()));
+											tela.setTelaConsulta(controlerPonto.consultarOrdem(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else{
@@ -858,7 +870,9 @@ public class CtrlAdmViewOnibus{
 									case 2:
 										if(arg != 0){
 											TelaPontoRota tela = new TelaPontoRota();
-											tela.setConsulta(controlerPonto.consultarEndereco(entrada, controlerRota.getRotaSelecionada().getId()));
+											ArrayList<Ponto> p = new ArrayList<Ponto>();
+											p.add(controlerPonto.consultarEndereco(entrada));
+											tela.setTelaConsulta(p);
 											this.tela = tela.telaConsulta;
 										}
 										else{
@@ -905,10 +919,6 @@ public class CtrlAdmViewOnibus{
 												this.acesso5 = 1;
 												this.tela = new TelaManter().telaEdicao;
 												break;
-											case 2:
-												this.acesso5 = 2;
-												this.tela = new TelaManter().telaEdicao;
-												break;
 										}
 										break;
 									case 1:
@@ -928,33 +938,21 @@ public class CtrlAdmViewOnibus{
 											this.acesso2 = 0;
 										}
 										break;
-									case 2:
-										if(arg != 0){
-											if(controlerPonto.editarEndereco(entrada)){
-												this.tela = new TelaFimOperacao().sucesso;
-											}
-											else{
-												this.tela = new TelaFimOperacao().erro;
-											}
-										}
-										else{
-											this.tela = new TelaOnibus().manterOnibus;
-											this.acesso5 = 0;
-											this.acesso4 = 0;
-											this.acesso3 = 0;
-											this.acesso2 = 0;
-										}
-										break;
 								}
 								break;
 								//======================Excluir Ponto===============
 							case 4:
 								if(arg != 0){
-									if(controlerPonto.excluirPonto(entrada)){
-										this.tela = new TelaFimOperacao().sucesso;
+									if(controlerPonto.consultarEndereco(entrada).getId() != 0) {
+										if(controlerPonto.excluirPonto()){
+											this.tela = new TelaFimOperacao().sucessoExcluir;
+										}
+										else{
+											this.tela = new TelaFimOperacao().erroExcluir;
+										}
 									}
-									else{
-										this.tela = new TelaFimOperacao().sucesso;
+									else {
+										this.tela = new TelaFimOperacao().erroExcluir;
 									}
 								}
 								else{
@@ -1001,8 +999,8 @@ public class CtrlAdmViewOnibus{
 										this.acesso4 = 2;
 										break;
 									case 3:
-										TelaPontoRota tela = new TelaPontoRota();
-										tela.setConsulta(controlerInstituicao.listarInstituicao());
+										TelaInstituicao tela = new TelaInstituicao();
+										tela.setTelaConsulta(controlerInstituicao.listarInstituicoes());
 										this.tela = tela.telaConsulta;
 										this.acesso4 = 4;
 										break;
@@ -1012,13 +1010,14 @@ public class CtrlAdmViewOnibus{
 								}
 								break;
 							case 0:
-								if(controlerRota.consultarIndentificador(entrada).getId() != 0){
+								if(controlerRota.consultarIdentificador(entrada).getId() != 0){
+									controlerInstituicao.setRotaSelecionada(controlerRota.consultarIdentificador(entrada));
 									this.tela = new TelaInstituicao().manterInstituicao;
 									this.acesso4 = -1;
 								}
 								else{
 									ArrayList<Rota> r = new ArrayList<Rota>();
-									r.add(controladorRota.getRotaSelecionada());
+									r.add(controlerRota.getRotaSelecionada());
 									TelaRota tela = new TelaRota();
 									tela.setTelaConsulta(r);
 									this.tela = tela.telaConsulta;
@@ -1054,8 +1053,8 @@ public class CtrlAdmViewOnibus{
 										break;
 									case 1:
 										if(arg != 0){
-											TelaPontoRota tela = new TelaPontoRota();
-											tela.setConsulta(controlerInstituicao.consultarNome());
+											TelaInstituicao tela = new TelaInstituicao();
+											tela.setTelaConsulta(controlerInstituicao.consultarNome(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1068,8 +1067,10 @@ public class CtrlAdmViewOnibus{
 										break;
 									case 2:
 										if(arg != 0){
-											TelaPontoRota tela = new TelaPontoRota();
-											tela.setConsulta(controlerInstituicao.consultarEndereco());
+											TelaInstituicao tela = new TelaInstituicao();
+											ArrayList<Instituicao> i = new ArrayList<Instituicao>();
+											i.add(controlerInstituicao.consultarEndereco(entrada));
+											tela.setTelaConsulta(i);
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1082,8 +1083,8 @@ public class CtrlAdmViewOnibus{
 										break;
 									case 3:
 										if(arg != 0){
-											TelaPontoRota tela = new TelaPontoRota();
-											tela.setConsulta(controlerInstituicao.consultarTelefone());
+											TelaInstituicao tela = new TelaInstituicao();
+											tela.setTelaConsulta(controlerInstituicao.consultarTelefone(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1114,10 +1115,15 @@ public class CtrlAdmViewOnibus{
 								break;
 							case 3:
 								if(arg != 0){
-									if(controlerInstituicao.excluirInstituicao(entrada)){
-										this.tela = new TelaFimOperacao().sucesso;
+									if(controlerInstituicao.consultarEndereco(entrada).getId() != 0) {
+										if(controlerInstituicao.excluirInstituicao()){
+											this.tela = new TelaFimOperacao().sucesso;
+										}
+										else{
+											this.tela = new TelaFimOperacao().sucesso;
+										}
 									}
-									else{
+									else {
 										this.tela = new TelaFimOperacao().sucesso;
 									}
 								}
@@ -1184,13 +1190,14 @@ public class CtrlAdmViewOnibus{
 								}
 								break;
 							case 0:
-								if(controlerRota.consultarIndentificador(entrada).getId() != 0){
+								if(controlerRota.consultarIdentificador(entrada).getId() != 0){
+									controlerHorario.setRotaSelecionada(controlerRota.consultarIdentificador(entrada));
 									this.tela = new TelaManter().telaIni;
 									this.acesso4 = -1;
 								}
 								else{
 									ArrayList<Rota> r = new ArrayList<Rota>();
-									r.add(controladorRota.getRotaSelecionada());
+									r.add(controlerRota.getRotaSelecionada());
 									TelaRota tela = new TelaRota();
 									tela.setTelaConsulta(r);
 									this.tela = tela.telaConsulta;
@@ -1228,7 +1235,7 @@ public class CtrlAdmViewOnibus{
 									case 1:
 										if(arg != 0){
 											TelaHorario tela = new TelaHorario();
-											tela.setTelaConsulta(controlerInstituicao.consultarHrSaida(entrada));
+											tela.setTelaConsulta(controlerHorario.consultarHrSaida(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1242,7 +1249,7 @@ public class CtrlAdmViewOnibus{
 									case 2:
 										if(arg != 0){
 											TelaHorario tela = new TelaHorario();
-											tela.setTelaConsulta(controlerInstituicao.consultarHrSaida(entrada));
+											tela.setTelaConsulta(controlerHorario.consultarHrRegresso(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1256,7 +1263,7 @@ public class CtrlAdmViewOnibus{
 									case 3:
 										if(arg != 0){
 											TelaHorario tela = new TelaHorario();
-											tela.setTelaConsulta(controlerInstituicao.consultarTurno(entrada));
+											tela.setTelaConsulta(controlerHorario.consultarTurno(entrada));
 											this.tela = tela.telaConsulta;
 										}
 										else if (arg == 0){
@@ -1274,7 +1281,7 @@ public class CtrlAdmViewOnibus{
 								if(arg != 0){
 									String regex = "(( , )|( ,)|(, )|(,))";
 									ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-									if(controlerHorario.inserirInstituicao(entradas)){
+									if(controlerHorario.inserirHorario(entradas)){
 										this.tela = new TelaFimOperacao().sucesso;
 									}
 									else{
@@ -1315,54 +1322,78 @@ public class CtrlAdmViewOnibus{
 										}
 										break;
 									case 1:
-										if(arg != 0){
-											if(controlerHorario.editarHrSaida(entrada)){
-												this.tela = new TelaFimOperacao().sucesso;
-											}
-											else{
-												this.tela = new TelaFimOperacao().erro;
-											}
-										}
-										else{
-											this.tela = new TelaOnibus().manterOnibus;
-											this.acesso5 = 0;
-											this.acesso4 = 0;
-											this.acesso3 = 0;
-											this.acesso2 = 0;
+										switch(this.acesso5){
+											case 0:
+												this.tela = new TelaManter().telaEdicao;
+												this.acesso5 = 1;
+												break;
+											case 1:
+												if(arg != 0){
+													if(controlerHorario.editarHrSaida(entrada)){
+														this.tela = new TelaFimOperacao().sucesso;
+													}
+													else{
+														this.tela = new TelaFimOperacao().erro;
+													}
+												}
+												else{
+													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.acesso3 = 0;
+													this.acesso2 = 0;
+												}
+												break;
 										}
 										break;
 									case 2:
-										if(arg != 0){
-											if(controlerHorario.editarHrRegresso(entrada)){
-												this.tela = new TelaFimOperacao().sucesso;
-											}
-											else{
-												this.tela = new TelaFimOperacao().erro;
-											}
-										}
-										else{
-											this.tela = new TelaOnibus().manterOnibus;
-											this.acesso5 = 0;
-											this.acesso4 = 0;
-											this.acesso3 = 0;
-											this.acesso2 = 0;
+										switch(this.acesso5){
+											case 0:
+												this.tela = new TelaManter().telaEdicao;
+												this.acesso5 = 1;
+												break;
+											case 1:
+												if(arg != 0){
+													if(controlerHorario.editarHrRegresso(entrada)){
+														this.tela = new TelaFimOperacao().sucesso;
+													}
+													else{
+														this.tela = new TelaFimOperacao().erro;
+													}
+												}
+												else{
+													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.acesso3 = 0;
+													this.acesso2 = 0;
+												}
+												break;
 										}
 										break;
 									case 3:
-										if(arg != 0){
-											if(controlerHorario.editarValidacao(entrada)){
-												this.tela = new TelaFimOperacao().sucesso;
-											}
-											else{
-												this.tela = new TelaFimOperacao().erro;
-											}
-										}
-										else{
-											this.tela = new TelaOnibus().manterOnibus;
-											this.acesso5 = 0;
-											this.acesso4 = 0;
-											this.acesso3 = 0;
-											this.acesso2 = 0;
+										switch(this.acesso5){
+											case 0:
+												this.tela = new TelaManter().telaEdicao;
+												this.acesso5 = 1;
+												break;
+											case 1:
+												if(arg != 0){
+													if(controlerHorario.editarValidacao(entrada)){
+														this.tela = new TelaFimOperacao().sucesso;
+													}
+													else{
+														this.tela = new TelaFimOperacao().erro;
+													}
+												}
+												else{
+													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso5 = 0;
+													this.acesso4 = 0;
+													this.acesso3 = 0;
+													this.acesso2 = 0;
+												}
+												break;
 										}
 										break;
 								}
@@ -1372,11 +1403,16 @@ public class CtrlAdmViewOnibus{
 								if(arg != 0){
 									String regex = "(( , )|( ,)|(, )|(,))";
 									ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-									if(controlerHorario.excluirHorario(entradas)){
-										this.tela = new TelaFimOperacao().sucesso;
+									if(controlerHorario.consultarHrSaidaRegresso(entradas).getId() != 0) {
+										if(controlerHorario.excluirHorario()){
+											this.tela = new TelaFimOperacao().sucessoExcluir;
+										}
+										else{
+											this.tela = new TelaFimOperacao().erroExcluir;
+										}
 									}
-									else{
-										this.tela = new TelaFimOperacao().sucesso;
+									else {
+										this.tela = new TelaFimOperacao().erroExcluir;
 									}
 								}
 								else{
@@ -1389,7 +1425,7 @@ public class CtrlAdmViewOnibus{
 							case 5:
 								if(arg != 0){
 									TelaHorario tela = new TelaHorario();
-									tela.setConsulta(controlerHorario.listarHorario());
+									tela.setTelaConsulta(controlerHorario.listarHorarios());
 									this.tela = tela.telaConsulta;
 								}
 								else if (arg == 0){

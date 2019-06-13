@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import conexao.Conexao;
+import model.Horario;
 import model.Instituicao;
 import model.Onibus;
 import model.Ponto;
 import model.Rota;
+import model.Turno;
 
 public class RotaDAO {
 	private Connection conexao;
@@ -19,14 +21,14 @@ public class RotaDAO {
 		this.conexao = new Conexao().getConexao();
 	}
 	
-	public boolean inserirRota(Rota rota, int id_onibus){
+	public boolean inserirRota(Rota rota, Onibus onibus){
         try {
             String sql = "INSERT INTO rota (inicio, fim, percurso, id_onibus) VALUES (?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, rota.getInicio());
             this.stmt.setString(2, rota.getFim());
             this.stmt.setString(3, rota.getPercurso());
-            this.stmt.setInt(4, id_onibus);
+            this.stmt.setInt(4, onibus.getId());
 
             this.stmt.execute();
             this. stmt.close();
@@ -173,7 +175,7 @@ public class RotaDAO {
         }
 	}
 	
-	public Rota consultarIdentificador(Onibus onibus, int identificador, int comparador){
+	public Rota consultarIdentificador(Onibus onibus, Rota rotaSel, int comparador){
 		try {
 			String sql = "";
 			switch(comparador) {
@@ -187,7 +189,7 @@ public class RotaDAO {
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, onibus.getId());
-			this.stmt.setInt(2, identificador);
+			this.stmt.setInt(2, rotaSel.getIdentificador());
             ResultSet rs = stmt.executeQuery();
             boolean aux = true;
             Rota rota = new Rota();
@@ -219,6 +221,10 @@ public class RotaDAO {
 
 	public ArrayList<Rota> consultarFim(Rota rota, int comparador){
 		return this.consultarRota("fim", rota.getFim(), comparador);
+	}
+	
+	public ArrayList<Rota> consultarPercurso(Rota rota, int comparador){
+		return this.consultarRota("percurso", rota.getPercurso(), comparador);
 	}
 	
 	public Rota consultarId(int id, int comparador){
@@ -320,11 +326,52 @@ public class RotaDAO {
         }
     }
 	
+	public Rota consultarIdHorario(Horario horario, int comparador){
+        try {         
+            String sql = "SELECT * FROM horario WHERE id_horario = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, horario.getId());
+            ResultSet rs = this.stmt.executeQuery();
+            Rota rota = new Rota();
+            while(rs.next()){
+                rota = this.consultarId(rs.getInt("id_rota"), comparador);
+            }
+            this.stmt.close();
+            return rota;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
 	public ArrayList<Rota> consultarIdPonto(Ponto ponto, int comparador){
         try {         
             String sql = "SELECT * FROM rota_has_ponto WHERE id_ponto = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, ponto.getId());
+            ResultSet rs = this.stmt.executeQuery();
+            ArrayList<Rota> rotas = new ArrayList<Rota>();
+            Rota rota = new Rota();
+            boolean aux1 = true;
+            while(rs.next()) {
+                aux1 = false;
+                rota = this.consultarId(rs.getInt("id_rota"), comparador);
+                rotas.add(rota);
+            }
+            if(aux1) {
+                rotas.add(rota);
+            }
+            this.stmt.close();
+            return rotas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
+	public ArrayList<Rota> consultarIdTurno(Turno turno, int comparador){
+        try {         
+            String sql = "SELECT * FROM rota INNER JOIN horario INNER JOIN turno ON id_rota = rota.id AND id_turno = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, turno.getId());
             ResultSet rs = this.stmt.executeQuery();
             ArrayList<Rota> rotas = new ArrayList<Rota>();
             Rota rota = new Rota();
@@ -452,6 +499,20 @@ public class RotaDAO {
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, rota.getId());
             this.stmt.setInt(2, instituicao.getId());
+            this.stmt.execute();
+            this.stmt.close();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
+	public boolean excluirHorario(Rota rota, Horario horario){
+        try {
+        	String sql = "DELETE FROM horario WHERE id_rota = ? AND id = ?";
+            this.stmt = this.conexao.prepareStatement(sql);
+            this.stmt.setInt(1, rota.getId());
+            this.stmt.setInt(2, horario.getId());
             this.stmt.execute();
             this.stmt.close();
             return true;

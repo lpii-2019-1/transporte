@@ -164,7 +164,7 @@ public class ControlUsuario {
 		ArrayList<ArrayList<Ponto>> pontosTodasRotas = new ArrayList<ArrayList<Ponto>> ();
 		ArrayList<Ponto> pontosCadaRota = new ArrayList<Ponto>();
 		for(int i = 0; i < this.rotasTurno.size(); i++) {
-			for(int j = 0; j < this.rotasTurno.get(i).getPontos().size(); i++) {
+			for(int j = 0; j < this.rotasTurno.get(i).getPontos().size(); j++) {
 				pontosCadaRota.add(this.rotasTurno.get(i).getPontos().get(j));
 			}
 			pontosTodasRotas.add(pontosCadaRota);
