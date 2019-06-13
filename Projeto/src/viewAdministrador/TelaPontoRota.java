@@ -6,9 +6,9 @@ import model.Ponto;
 import view.TelaFimOperacao;
 
 public class TelaPontoRota{
-	public String manterPonto = "\n1 - Consultar \n2 - Inserir \n3 - Editar \n4 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
-	public String opcEdicao = "\n1 - Ordem \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
-	public String opcConsulta = "\n1 - Ordem \n2 - Endereco \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String manterPonto = "\nOpcoes: \n\n1 - Consultar \n2 - Inserir \n3 - Editar \n4 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcEdicao = "\nOpcoes: \n\n1 - Ordem \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcConsulta = "\nOpcoes: \n\n1 - Ordem \n2 - Endereco \n0 - Voltar \n\nDigite o numero correspondente: ";
 	public String cadastro = "\nDigite o valores do ponto (Ex.: 2, Esquina): ";
 	public String entrada = "\nDigite o endereco da ponto (Ex.: Esquina): ";
 	public String telaConsulta;

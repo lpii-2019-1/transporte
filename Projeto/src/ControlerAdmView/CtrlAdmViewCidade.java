@@ -31,10 +31,6 @@ public class CtrlAdmViewCidade{
 						this.acesso2 = 0;
 						this.tela = new TelaInicial().telaIni;
 						break;
-					case 1:
-						this.acesso2 = 0;
-						this.tela = new TelaManter().telaIni;
-						break;
 					default:
 						this.tela = new TelaArgInvalido().telaIni;
 						this.acesso2 = -1;
@@ -46,7 +42,7 @@ public class CtrlAdmViewCidade{
 					//Retorna para tela inicial de Manter Cidade
 					case 0:
 						this.acesso2 = 0;
-						this.tela = new TelaManter().telaIni;
+						this.tela = new TelaInicial().telaIni;
 						break;
 					//Vai para tela de selecionar dados para consulta
 					case 1:
@@ -76,7 +72,7 @@ public class CtrlAdmViewCidade{
 						this.tela = tela.telaConsulta;
 						break;
 					default:
-						this.tela = new TelaArgInvalido().telaIni;
+						this.tela = new TelaArgInvalido().telaIniAdm;
 						this.acesso2 = -1;
 						break;
 				}
@@ -89,8 +85,6 @@ public class CtrlAdmViewCidade{
 							case 0:
 								this.acesso3 = 0;
 								this.acesso2 = 0;
-								
-								
 								this.tela = new TelaInicial().telaIni;
 								break;
 							case 1:
@@ -99,7 +93,7 @@ public class CtrlAdmViewCidade{
 								this.tela = new TelaManter().telaIni;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso3 = -1;
 								break;
 						}
@@ -108,34 +102,57 @@ public class CtrlAdmViewCidade{
 						switch(arg){
 							case 0:
 								this.acesso2 = 0;
-								this.tela = new TelaManter().telaIni;
+								this.tela = new TelaInicial().telaIni;
 								break;
 							//Consulta por nome
 							case 1:
-								TelaCidade tela = new TelaCidade();
-								tela.setTelaConsulta(controler.consultarNome(entrada));
-								this.tela = tela.telaConsulta;
+								this.tela = new TelaCidade().entrada;
+								this.acesso3 = 1;
 								break;
 							//Consulta por uf
 							case 2:
-								TelaCidade tela1 = new TelaCidade();
-								tela1.setTelaConsulta(controler.consultarUf(entrada));
-								this.tela = tela1.telaConsulta;
+								this.tela = new TelaCidade().entrada;
+								this.acesso3 = 2;
 								break;
 							//Consulta por instituicao
 							case 3:
-								TelaCidade tela2 = new TelaCidade();
-								ArrayList<Cidade> c = new ArrayList<Cidade>();
-								c.add(controler.consultarPorInstituicao(entrada));
-								tela2.setTelaConsulta(c);
-								this.tela = tela2.telaConsulta;
+								this.tela = new TelaCidade().entrada;
+								this.acesso3 = 3;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso3 = -1;
 								break;
 						}
 						break;
+					case 1:
+						TelaCidade tela = new TelaCidade();
+						tela.setTelaConsulta(controler.consultarNome(entrada));
+						this.tela = tela.telaConsulta;
+						break;
+					case 2:
+						TelaCidade tela1 = new TelaCidade();
+						tela1.setTelaConsulta(controler.consultarUf(entrada));
+						this.tela = tela1.telaConsulta;
+						break;
+					case 3:
+						TelaCidade tela2 = new TelaCidade();
+						ArrayList<Cidade> c = new ArrayList<Cidade>();
+						c.add(controler.consultarPorInstituicao(entrada));
+						tela2.setTelaConsulta(c);
+						this.tela = tela2.telaConsulta;
+						break;
+					case 4:
+						if(arg == 0){
+							this.tela = new TelaManter().telaIni;
+							this.acesso3 = 0;
+							this.acesso2 = 0;
+						}
+						else{
+							this.tela = new TelaFimOperacao().telaIniAdm;
+						}
+						break;
+
 				}
 				break;
 			//Vai para tela entrada de dados a serem inseridos
@@ -146,8 +163,6 @@ public class CtrlAdmViewCidade{
 							case 0:
 								this.acesso3 = 0;
 								this.acesso2 = 0;
-								
-								
 								this.tela = new TelaInicial().telaIni;
 								break;
 							case 1:
@@ -155,27 +170,28 @@ public class CtrlAdmViewCidade{
 								this.tela = new TelaCidade().cadastro;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso3 = -1;
 								break;
 						}
 						break;
 					case 0:
-						switch(arg){
-							//Cadastrar cidade
-							case 1:
-								String regex = "(( , )|( ,)|(, )|(,))";
-								ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
-								if(controler.inserirCidade(entradas)){
-									this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().telaIni;
-								}
-								else{
-									this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().erro;
-								}
-							default:
-								this.tela = new TelaArgInvalido().telaIni;
-								this.acesso3 = -1;
-								break;
+						String regex = "(( , )|( ,)|(, )|(,))";
+						ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
+						if(controler.inserirCidade(entradas)){
+							this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().telaIniAdm;
+							this.acesso3 = 0;
+						}
+						else{
+							this.tela = new TelaFimOperacao().sucesso + new TelaFimOperacao().erro;
+							this.acesso3 = 0;
+						}
+						break;
+					case 1:
+						if(arg == 0){
+							this.tela = new TelaManter().telaIni;
+							this.acesso3 = 0;
+							this.acesso2 = 0;
 						}
 						break;
 				}
@@ -196,7 +212,7 @@ public class CtrlAdmViewCidade{
 								this.tela = new TelaCidade().opcEdicao;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso3 = -1;
 								break;
 						}
@@ -217,7 +233,7 @@ public class CtrlAdmViewCidade{
 								this.tela = new TelaCidade().entrada;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso3 = -1;
 								break;
 						}
@@ -237,7 +253,7 @@ public class CtrlAdmViewCidade{
 										this.tela = new TelaManter().telaEdicao;
 										break;
 									default:
-										this.tela = new TelaArgInvalido().telaIni;
+										this.tela = new TelaArgInvalido().telaIniAdm;
 										this.acesso4 = -1;
 										break;
 								}
@@ -251,7 +267,7 @@ public class CtrlAdmViewCidade{
 								break;
 							case 1:
 								controler.editarNomeCidade(entrada);
-								this.tela = new TelaFimOperacao().telaIni;
+								this.tela = new TelaFimOperacao().telaIniAdm;
 								acesso4 = 2;
 								break;
 							case 2:
@@ -268,7 +284,7 @@ public class CtrlAdmViewCidade{
 								}
 								break;
 							default:
-								this.tela =  new TelaArgInvalido().telaIni;
+								this.tela =  new TelaArgInvalido().telaIniAdm;
 								this.acesso4 = -1;
 								break;
 						}
@@ -290,7 +306,7 @@ public class CtrlAdmViewCidade{
 										this.tela = new TelaManter().telaEdicao;
 										break;
 									default:
-										this.tela = new TelaArgInvalido().telaIni;
+										this.tela = new TelaArgInvalido().telaIniAdm;
 										this.acesso4 = -1;
 										break;
 								}
@@ -304,7 +320,7 @@ public class CtrlAdmViewCidade{
 								break;
 							case 1:
 								controler.editarUfCidade(entrada);
-								this.tela = new TelaFimOperacao().telaIni;
+								this.tela = new TelaFimOperacao().telaIniAdm;
 								this.acesso4 = 2;
 								break;
 							case 2:
@@ -312,8 +328,6 @@ public class CtrlAdmViewCidade{
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;
-									
-									
 									this.tela = new TelaInicial().telaIni;
 								}
 								else if(arg == 1){
@@ -323,7 +337,7 @@ public class CtrlAdmViewCidade{
 								}
 								break;
 							default:
-								this.tela =  new TelaArgInvalido().telaIni;
+								this.tela =  new TelaArgInvalido().telaIniAdm;
 								this.acesso4 = -1;
 								break;
 						}
@@ -345,7 +359,7 @@ public class CtrlAdmViewCidade{
 										this.tela = new TelaManter().telaEdicao;
 										break;
 									default:
-										this.tela = new TelaArgInvalido().telaIni;
+										this.tela = new TelaArgInvalido().telaIniAdm;
 										this.acesso4 = -1;
 										break;
 								}
@@ -359,7 +373,7 @@ public class CtrlAdmViewCidade{
 								break;
 							case 1:
 								controler.editarValidacaoCidade(entrada); //Metodo edita validacao da Cidade selecionada no controlador --M.W. deve setar, entrada corespone a string usada de parametro
-								this.tela = new TelaFimOperacao().telaIni;
+								this.tela = new TelaFimOperacao().telaIniAdm;
 								acesso4 = 2;
 								break;
 							case 2:
@@ -378,13 +392,10 @@ public class CtrlAdmViewCidade{
 								}
 								break;
 							default:
-								this.tela =  new TelaArgInvalido().telaIni;
+								this.tela =  new TelaArgInvalido().telaIniAdm;
 								this.acesso4 = -1;
 								break;
 						}
-						break;
-					default:
-
 						break;
 				}
 				break;

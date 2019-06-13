@@ -19,7 +19,7 @@ public class ControlAdmCidade {
 	
 	/*Metodos de Consulta*/
 	public Cidade consultarCidadeNomeUf(ArrayList<String> valores) {
-		this.cidadeSelecionada = new Cidade(valores.get(0), valores.get(2));
+		this.cidadeSelecionada = new Cidade(valores.get(0), valores.get(1));
 		CidadeDAO cDAO = new CidadeDAO();
 		this.cidadeSelecionada = cDAO.consultarNomeUf(this.cidadeSelecionada, 2);
 		return this.cidadeSelecionada;

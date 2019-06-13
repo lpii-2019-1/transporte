@@ -9,9 +9,9 @@ import model.Onibus;
 import model.Rota;
 
 public class TelaOnibus{
-	public String manterOnibus = "\n1 - Consutar \n2 - Cadastrar \n3 - Editar \n4 - Manter Rotas\n4 - Excluir \n5 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
-	public String opcEdicao = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n6 - Validacao  \n0 - Voltar \n\nDigite o numero correspondentes: ";
-	public String opcConsulta = "\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n0 - Voltar \n\nDigite o numero correspondentes: ";
+	public String manterOnibus = "\nOpcoes: \n\n1 - Consutar \n2 - Cadastrar \n3 - Editar \n4 - Manter Rotas\n4 - Excluir \n5 - Listar \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcEdicao = "\nOpcoes: \n\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n6 - Validacao  \n0 - Voltar \n\nDigite o numero correspondentes: ";
+	public String opcConsulta = "\nOpcoes: \n\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n0 - Voltar \n\nDigite o numero correspondentes: ";
 	public String cadastro = "\nDigite o valores do onibus (Ex.: abc-1234, Cinza, Joao, 300.00, Disponivel): ";
 	public String entrada = "\nDigite o placa da onibus (Ex.: abc-1234): ";
 	public String telaConsulta;

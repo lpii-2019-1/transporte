@@ -6,10 +6,10 @@ import view.TelaFimOperacao;
 import model.Instituicao;
 
 public class TelaInstituicao{
-	public String manterInstituicao = "\n1 - Consultar \n2 - Inserir \n3 - Excluir \n4 - Listar";
-	public String opcEdicao = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n4 - Cidade \n5 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
-	public String opcConsulta = "\n1 - Nome \n2 - Endereco \n3 - Telefone \n0 - Voltar \n\nDigite o endereco instituicao: ";
-	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Ceres, Disponivel): ";
+	public String manterInstituicao = "\nOpcoes: \n\n1 - Consultar \n2 - Inserir \n3 - Excluir \n4 - Listar";
+	public String opcEdicao = "\nOpcoes: \n\n1 - Nome \n2 - Endereco \n3 - Telefone \n4 - Cidade \n5 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcConsulta = "\nOpcoes: \n\n1 - Nome \n2 - Endereco \n3 - Telefone \n0 - Voltar \n\nDigite o endereco instituicao: ";
+	public String cadastro = "\nDigite o valores do instituicao (Ex.: IF Goiano, Meio do mato, 3353-1111, Ceres, GO, Disponivel): ";
 	public String entrada = "\nDigite o endereco da instituicao (Ex.: Meio do mato): ";
 	public String telaConsulta;
 
@@ -26,7 +26,7 @@ public class TelaInstituicao{
 			this.telaConsulta += "\nDigite 0 para voltar: ";
 		}
 		else{
-			this.telaConsulta += "\nNao foi encontrada nenhumainstituicao " + new TelaFimOperacao().telaIniAdm;
+			this.telaConsulta = "\nNao foi encontrada nenhuma instituicao! " + new TelaFimOperacao().telaIniAdm;
 		}
 	}
 }

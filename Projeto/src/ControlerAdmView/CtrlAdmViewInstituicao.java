@@ -61,7 +61,7 @@ public class CtrlAdmViewInstituicao{
 						this.tela = tela.telaConsulta;
 						break;
 					default:
-						this.tela = new TelaArgInvalido().telaIni;
+						this.tela = new TelaArgInvalido().telaIniAdm;
 						this.acesso2 = 0;
 						break;
 				}
@@ -121,13 +121,13 @@ public class CtrlAdmViewInstituicao{
 						}
 						else{
 							this.tela = new TelaFimOperacao().erro;
-							this.acesso2 = 0;
 						}
 					}
 					else if (arg == 0){
 						this.tela = new TelaManter().telaIni;
 						this.acesso2 = 0;
 					}
+					break;
 				case 3:
 					switch(this.acesso3){
 						case 0:

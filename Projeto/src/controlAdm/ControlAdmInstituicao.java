@@ -46,14 +46,15 @@ public class ControlAdmInstituicao {
 	}
 	
 	public Instituicao consultarEndereco(String endereco) {
-		InstituicaoDAO  iDAO =new InstituicaoDAO();
-		this.instituicaoSelecionada.setEndereco(endereco);
-		this.instituicaoSelecionada = iDAO.consultarEndereco(this.instituicaoSelecionada, 2);
+		InstituicaoDAO iDAO = new InstituicaoDAO();
+		Instituicao instituicao = new Instituicao();
+		instituicao.setEndereco(endereco);
+		this.instituicaoSelecionada = iDAO.consultarEndereco(instituicao, 2);
 		return this.instituicaoSelecionada;
 	}
 	
 	public ArrayList<Instituicao> consultarTelefone(String telefone) {
-		InstituicaoDAO  iDAO =new InstituicaoDAO();
+		InstituicaoDAO iDAO = new InstituicaoDAO();
 		this.instituicaoSelecionada.setTelefone(telefone);
 		this.instituicoes = iDAO.consultarTelefone(this.instituicaoSelecionada, 2);
 		return this.instituicoes;
@@ -68,34 +69,29 @@ public class ControlAdmInstituicao {
 	}
 	
 	 public boolean inserirInstituicao(ArrayList<String> valores) {// Se a Instituicao n existir no banco o método insere e retorna true//Se ela existir, não insere e retorna false
-		this.instituicaoSelecionada = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
 		ControlAdmCidade ctrlCidade = new ControlAdmCidade();
 		
 		ArrayList<String> dadosCidade = new ArrayList<String> ();
 		dadosCidade.add(valores.get(3));
 		dadosCidade.add(valores.get(4));
 		
+
+		Instituicao auxInstituicao = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
 		this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(dadosCidade);
 		if(this.cidadeSelecionada.getId() != 0) {
-
-			InstituicaoDAO  iDAO =new InstituicaoDAO();
-			Instituicao auxInstituicao = new Instituicao();
-			auxInstituicao = consultarEndereco(this.instituicaoSelecionada.getEndereco());
-			if(auxInstituicao.getId() == 0) {
-				iDAO.inserirInstituicao(this.instituicaoSelecionada);
+			InstituicaoDAO iDAO = new InstituicaoDAO();
+			if(this.consultarEndereco(auxInstituicao.getEndereco()).getId() == 0) {
+				iDAO.inserirInstituicao(auxInstituicao, this.cidadeSelecionada);
 				if(valores.size() == 5) {
 					if(valores.get(4) == "Disponivel") {
-						this.instituicaoSelecionada = consultarEndereco(this.instituicaoSelecionada.getEndereco());
-						this.instituicaoSelecionada.setValidacao(1);
+						auxInstituicao.setValidacao(1);
 						iDAO.editarValidacao(this.instituicaoSelecionada);
 					}
 				}
-				
 				return true;
 			}else {
 				return false;
 			}
-		
 		}else {
 			return false;
 		}

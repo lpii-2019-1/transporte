@@ -6,7 +6,7 @@ import model.Ponto;
 import view.TelaFimOperacao;
 
 public class TelaPonto{
-	public String opcEdicao = "\n1 - Endereco \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
+	public String opcEdicao = "\nOpcoes: \n\n1 - Endereco \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
 	public String cadastro = "\nDigite o valores do ponto (Ex.: Esquina, Disponivel): ";
 	public String entrada = "\nDigite o endereco da ponto (Ex.: Esquina): ";
 	public String telaConsulta;

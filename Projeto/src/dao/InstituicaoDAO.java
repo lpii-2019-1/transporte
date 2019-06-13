@@ -18,13 +18,14 @@ public class InstituicaoDAO {
         this.conexao = new Conexao().getConexao();
     }
 
-    public boolean inserirInstituicao(Instituicao instituicao){
+    public boolean inserirInstituicao(Instituicao instituicao, Cidade cidade){
         try {
-            String sql = "INSERT INTO instituicao (nome, telefone, endereco) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO instituicao (nome, telefone, endereco, id_cidade) VALUES (?, ?, ?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, instituicao.getNome());
             this.stmt.setString(2, instituicao.getTelefone());
             this.stmt.setString(3, instituicao.getEndereco());
+            this.stmt.setInt(4, cidade.getId());
             this.stmt.execute();
             this. stmt.close();
             return true;

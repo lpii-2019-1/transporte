@@ -19,7 +19,6 @@ public class ControlerAdministradorView{
             String s[] = entrada.split("[0-9]");
 			if(s.length == 0){
 				arg = Integer.parseInt(entrada);
-                System.out.println(arg);
 			}
 		}
 		switch(this.acesso1){
