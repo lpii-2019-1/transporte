@@ -94,13 +94,9 @@ public class ControlAdmCidade {
 	
 	/*Metodo de iniserir*/
 	public boolean inserirCidade(ArrayList<String> valores) { //nome, uf e talvez Disponibilidade
-		String nome  = valores.get(0);
-		String uf = valores.get(1);
+		Cidade c = new Cidade(valores.get(0), valores.get(1));
 		CidadeDAO cDAO = new CidadeDAO();
-		
-		Cidade c = new Cidade(nome, uf);
-		c = cDAO.consultarNomeUf(c, 2);
-		if(c.getId() ==0) {
+		if(cDAO.consultarNomeUf(c, 2).getId() == 0) {
 			cDAO.inserirCidade(c);					
 			if(valores.size() == 3) {
 				if(valores.get(2) == "Disponivel") {
@@ -119,6 +115,12 @@ public class ControlAdmCidade {
 	
 	public boolean excluirCidade() {
 		CidadeDAO cDAO = new CidadeDAO();
+		InstituicaoDAO iDAO = new InstituicaoDAO();
+		if(iDAO.consultarIdCidade(this.cidadeSelecionada, 2).get(0).getId() != 0){
+			for(Instituicao i : iDAO.consultarIdCidade(this.cidadeSelecionada, 2)) {
+				iDAO.excluirInstituicao(i);
+			}
+		}
 		if(cDAO.excluirCidade(this.cidadeSelecionada)) {
 			return true;
 		}else {

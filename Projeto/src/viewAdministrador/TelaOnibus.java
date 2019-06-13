@@ -14,6 +14,7 @@ public class TelaOnibus{
 	public String opcConsulta = "\nOpcoes: \n\n1 - Placa \n2 - Cor \n3 - Motorista \n4 - Mensalidade \n5 - Telefone \n0 - Voltar \n\nDigite o numero correspondentes: ";
 	public String cadastro = "\nDigite o valores do onibus (Ex.: abc-1234, Cinza, Joao, 300.00, Disponivel): ";
 	public String entrada = "\nDigite o placa da onibus (Ex.: abc-1234): ";
+	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Onibus> onibuss){

@@ -11,6 +11,7 @@ public class TelaCidade{
 	public String opcConsulta = "\nOpcoes: \n\n1 - Nome \n2 - UF \n3 - Instituicao \n0 - Sair \n\nDigite o numero correspondente: ";
 	public String cadastro = "\nDigite o valores da Cidade (Ex.: Ceres, GO, Disponivel): ";
 	public String entrada = "\nDigite o nome e uf da cidade (Ex.: Ceres, GO): ";
+	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Cidade> cidades){
@@ -20,16 +21,22 @@ public class TelaCidade{
 				this.telaConsulta += "\n    Nome: " + c.getNome();
 				this.telaConsulta += "\n    UF: " + c.getUf();
 				this.telaConsulta += "\n    Instituicoes: ";
-				for (Instituicao i : c.getInstituicoes()) {
-					this.telaConsulta += "\n        Nome: " + i.getNome();
-					this.telaConsulta += "\n        Endereco: " + i.getEndereco();
-					this.telaConsulta += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+				if(c.getInstituicoes().get(0).getId() != 0){
+					for (Instituicao i : c.getInstituicoes()) {
+						this.telaConsulta += "\n        Nome: " + i.getNome();
+						this.telaConsulta += "\n        Endereco: " + i.getEndereco();
+						this.telaConsulta += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+						this.telaConsulta += "\n";
+					}
+				}
+				else{
+					this.telaConsulta += "\n        Nao ha instituicoes!";
 					this.telaConsulta += "\n";
 				}
 				this.telaConsulta += "\n    Disponibilidade: " + (c.getValidacao() == 1? "Disponivel": "Indisponivel");
 				this.telaConsulta += "\n";
 			}
-			this.telaConsulta += new TelaFimOperacao().telaIni;
+			this.telaConsulta += new TelaFimOperacao().telaIniAdm;
 		}
 		else {
 			this.telaConsulta = "\nNao foi encontrada nenhuma cidade! " + new TelaFimOperacao().telaIniAdm;

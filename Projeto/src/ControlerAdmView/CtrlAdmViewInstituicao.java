@@ -77,15 +77,15 @@ public class CtrlAdmViewInstituicao{
 									break;
 								case 1:
 									this.acesso3 = 1;
-									this.tela = new TelaInstituicao().entrada;
+									this.tela = new TelaInstituicao().consulta;
 									break;
 								case 2:
 									this.acesso3 = 2;
-									this.tela = new TelaInstituicao().entrada;
+									this.tela = new TelaInstituicao().consulta;
 									break;
 								case 3:
 									this.acesso3 = 3;
-									this.tela = new TelaInstituicao().entrada;
+									this.tela = new TelaInstituicao().consulta;
 									break;
 								default:
 									this.tela = new TelaArgInvalido().telaIni;
@@ -97,6 +97,7 @@ public class CtrlAdmViewInstituicao{
 							TelaInstituicao tela1 = new TelaInstituicao();
 							tela1.setTelaConsulta(controler.consultarNome(entrada));
 							this.tela =  tela1.telaConsulta;
+							this.acesso3 = 4;
 							break;
 						case 2:
 							TelaInstituicao tela2 = new TelaInstituicao();
@@ -104,11 +105,18 @@ public class CtrlAdmViewInstituicao{
 							i.add(controler.consultarEndereco(entrada));
 							tela2.setTelaConsulta(i);
 							this.tela =  tela2.telaConsulta;
+							this.acesso3 = 4;
 							break;
 						case 3:
 							TelaInstituicao tela3 = new TelaInstituicao();
 							tela3.setTelaConsulta(controler.consultarTelefone(entrada));
 							this.tela =  tela3.telaConsulta;
+							this.acesso3 = 4;
+							break;
+						case 4:
+							this.tela =  new TelaManter().telaIni;
+							this.acesso3 = 0;
+							this.acesso2 = 0;
 							break;
 					}
 					break;
@@ -123,7 +131,7 @@ public class CtrlAdmViewInstituicao{
 							this.tela = new TelaFimOperacao().erro;
 						}
 					}
-					else if (arg == 0){
+					else{
 						this.tela = new TelaManter().telaIni;
 						this.acesso2 = 0;
 					}
@@ -245,7 +253,7 @@ public class CtrlAdmViewInstituicao{
 				case 4:
 					if(arg != 0){
 						if(controler.excluirInstituicao(entrada)){
-							this.tela = new TelaFimOperacao().sucesso;
+							this.tela = new TelaFimOperacao().sucessoExcluir;
 						}
 						else{
 							this.tela = new TelaFimOperacao().erroExcluir;

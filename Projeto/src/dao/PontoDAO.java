@@ -69,7 +69,7 @@ public class PontoDAO {
 				sql = "SELECT * FROM ponto WHERE endereco = ? AND validacao = 1";
     			break;
 			case 2:
-				sql = "SELECT * FROM ponto WHERE endereco = ? ORDER BY ordem";
+				sql = "SELECT * FROM ponto WHERE endereco = ?";
 				break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
@@ -159,7 +159,9 @@ public class PontoDAO {
             ArrayList<Ponto> pontos = new ArrayList<Ponto>(); 
             Ponto ponto = new Ponto();
             while(rs.next()) {
+                aux = false;
             	ponto = new Ponto(rs.getInt("id"),  rs.getString("endereco"), rs.getInt("validacao"));
+                pontos.add(ponto);
             }
             if(aux) {
             	pontos.add(ponto);
@@ -173,7 +175,7 @@ public class PontoDAO {
 	
 	public boolean excluirPonto(Ponto ponto){
         try {
-            String sql = "DELETE ponto WHERE id = ?";
+            String sql = "DELETE FROM ponto WHERE id = ?";
         	this.stmt = this.conexao.prepareStatement(sql);
         	this.stmt.setInt(1, ponto.getId());
         	this.stmt.execute();

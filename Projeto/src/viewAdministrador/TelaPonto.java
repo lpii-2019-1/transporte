@@ -9,6 +9,7 @@ public class TelaPonto{
 	public String opcEdicao = "\nOpcoes: \n\n1 - Endereco \n2 - Validacao \n0 - Voltar \n\nDigite o numero correspondente: ";
 	public String cadastro = "\nDigite o valores do ponto (Ex.: Esquina, Disponivel): ";
 	public String entrada = "\nDigite o endereco da ponto (Ex.: Esquina): ";
+	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Ponto> pontos){

@@ -13,11 +13,13 @@ public class Ponto{
     public Ponto(int id, String endereco, int validacao){
         this.id = id;
         this.endereco = endereco;
+        this.validacao = validacao;
     }
     
     public Ponto(int id, String endereco, int ordem,  int validacao){
         this.id = id;
         this.endereco = endereco;
+        this.validacao = validacao;
     }
     
     public Ponto(String endereco){

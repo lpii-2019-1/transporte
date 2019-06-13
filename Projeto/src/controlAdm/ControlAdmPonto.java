@@ -44,9 +44,10 @@ public class ControlAdmPonto {
 	}
 
 	public Ponto consultarEndereco(String valor) {
-		this.pontoSelecionado = new Ponto();
+		Ponto ponto = new Ponto();
+		ponto.setEndereco(valor);
 		PontoDAO poDAO = new PontoDAO();
-		this.pontoSelecionado = poDAO.consultarEndereco(this.pontoSelecionado, 2);
+		this.pontoSelecionado = poDAO.consultarEndereco(ponto, 2);
 		return this.pontoSelecionado;
 	}
 
@@ -69,12 +70,13 @@ public class ControlAdmPonto {
 	
 	public ArrayList<Ponto> listarPontos() {
 		PontoDAO poDAO = new PontoDAO();
-		this.pontos = new ArrayList<Ponto>();
 		this.pontos = poDAO.listarPontos(2);
 		return this.pontos;
 	}
 
-	public boolean excluirPonto(int x) {
+	public boolean excluirPonto(String endereco) {
+		Ponto p = new Ponto();
+		p.setEndereco(endereco);
 		PontoDAO poDAO = new PontoDAO();
 		if (poDAO.excluirPonto(this.pontoSelecionado)) {
 			return true;

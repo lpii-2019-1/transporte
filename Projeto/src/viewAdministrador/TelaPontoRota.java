@@ -11,6 +11,7 @@ public class TelaPontoRota{
 	public String opcConsulta = "\nOpcoes: \n\n1 - Ordem \n2 - Endereco \n0 - Voltar \n\nDigite o numero correspondente: ";
 	public String cadastro = "\nDigite o valores do ponto (Ex.: 2, Esquina): ";
 	public String entrada = "\nDigite o endereco da ponto (Ex.: Esquina): ";
+	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
 
 	public void setTelaConsulta(ArrayList<Ponto> pontos){

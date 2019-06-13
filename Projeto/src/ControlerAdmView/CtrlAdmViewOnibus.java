@@ -77,23 +77,23 @@ public class CtrlAdmViewOnibus{
 								this.tela = new TelaOnibus().manterOnibus;
 								break;
 							case 1:
-								this.tela = new TelaOnibus().entrada;
+								this.tela = new TelaOnibus().consulta;
 								this.acesso3 = 1;
 								break;
 							case 2:
-								this.tela = new TelaOnibus().entrada;
+								this.tela = new TelaOnibus().consulta;
 								this.acesso3 = 2;
 								break;
 							case 3:
-								this.tela = new TelaOnibus().entrada;
+								this.tela = new TelaOnibus().consulta;
 								this.acesso3 = 3;
 								break;
 							case 4:
-								this.tela = new TelaOnibus().entrada;
+								this.tela = new TelaOnibus().consulta;
 								this.acesso3 = 4;
 								break;
 							case 5:
-								this.tela = new TelaOnibus().entrada;
+								this.tela = new TelaOnibus().consulta;
 								this.acesso3 = 5;
 								break;
 							default:
@@ -108,26 +108,35 @@ public class CtrlAdmViewOnibus{
 						o.add(controler.consultarPlaca(entrada));
 						tela1.setTelaConsulta(o);
 						this.tela = tela1.telaConsulta;
+						this.acesso3 = 6;
 						break;
 					case 2:
 						TelaOnibus tela2 = new TelaOnibus();
 						tela2.setTelaConsulta(controler.consultarCor(entrada));
 						this.tela = tela2.telaConsulta;
+						this.acesso3 = 6;
 						break;
 					case 3:
 						TelaOnibus tela3 = new TelaOnibus();
 						tela3.setTelaConsulta(controler.consultarMotorista(entrada));
 						this.tela = tela3.telaConsulta;
+						this.acesso3 = 6;
 						break;
 					case 4:
 						TelaOnibus tela4 = new TelaOnibus();
 						tela4.setTelaConsulta(controler.consultarTelefone(entrada));
 						this.tela = tela4.telaConsulta;
+						this.acesso3 = 6;
 						break;
 					case 5:
 						TelaOnibus tela5 = new TelaOnibus();
 						tela5.setTelaConsulta(controler.consultarMensalidade(entrada));
 						this.tela = tela5.telaConsulta;
+						this.acesso3 = 6;
+						break;
+					case 6:
+						this.tela = new TelaOnibus().manterOnibus;
+						this.acesso3 = 6;
 						break;
 				}
 				break;
@@ -480,31 +489,31 @@ public class CtrlAdmViewOnibus{
 										this.acesso2 = 0;
 										break;
 									case 1:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 2;
 										break;
 									case 2:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 2;
 										break;
 									case 3:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 3;
 										break;
 									case 4:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 4;
 										break;
 									case 5:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 5;
 										break;
 									case 6:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 6;
 										break;
 									case 7:
-										this.tela = new TelaRota().entrada;
+										this.tela = new TelaRota().consulta;
 										this.acesso4 = 7;
 									default:
 										this.tela = new TelaArgInvalido().telaIni;
@@ -824,11 +833,11 @@ public class CtrlAdmViewOnibus{
 												break;
 											case 1:
 												this.acesso5 = 1;
-												this.tela = new TelaPontoRota().entrada;
+												this.tela = new TelaPontoRota().consulta;
 												break;
 											case 2:
 												this.acesso5 = 1;
-												this.tela = new TelaPontoRota().entrada;
+												this.tela = new TelaPontoRota().consulta;
 												break;
 										}
 										break;
@@ -1027,15 +1036,15 @@ public class CtrlAdmViewOnibus{
 												this.acesso2 = 0;
 												break;
 											case 1:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaInstituicao().consulta;
 												this.acesso5 = 1;
 												break;
 											case 2:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaInstituicao().consulta;
 												this.acesso5 = 2;
 												break;
 											case 3:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaInstituicao().consulta;
 												this.acesso5 = 3;
 												break;
 											default:
@@ -1200,15 +1209,15 @@ public class CtrlAdmViewOnibus{
 												this.acesso2 = 0;
 												break;
 											case 1:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaHorario().consulta;
 												this.acesso5 = 1;
 												break;
 											case 2:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaHorario().consulta;
 												this.acesso5 = 2;
 												break;
 											case 3:
-												this.tela = new TelaManter().telaEdicao;
+												this.tela = new TelaHorario().consulta;
 												this.acesso5 = 3;
 												break;
 											default:

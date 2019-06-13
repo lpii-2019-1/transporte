@@ -9,27 +9,7 @@ import java.util.ArrayList;
 import dao.InstituicaoDAO;
 
 public class ControlAdmInstituicao {
-	
-	/*
-	 * PROVAVELMENTE VAI TER QUE CRIAR UM MÉTODO PARA PESQUISAR CIDADE POR INSTITUICAO NO CidadeDAO
-	 * ESSE MÉTODO SERÁ PARA MOSTRAR PARA O ADM DE QUAL CIDADE A INSTITUICAO PESQUISADA É;
-	 * E VAI SER USADO PARA EDITAR DE QUAL CIDADE ESSA INSTITUICAO É;
-	 * PARA ISSO É PRECISO FAZER UM METODO QUE FAÇA A SEGUNTE CONSULTA NO BANCO
-	 * M.D DECIDA AÍ SE VAI USAR
-	 * 
-	 * SELECT c.nome, c.uf FROM cidade c 
-		INNER JOIN instituicao i
-		ON c.id = i.id_cidade
-		WHERE i.nome = 'UEG';
-		que seria o sql a baixo
-	 *  
-	 *  */
-	// String sql ="SELECT c.nome, c.uf FROM cidade c INNER JOIN instituicao i ON c.id = i.id_cidade WHERE i.nome = ?" ;
-
-			
-	
 	private Cidade cidadeSelecionada;
-	
 
 	private Instituicao instituicaoSelecionada;
 	private ArrayList<Instituicao> instituicoes;
@@ -69,34 +49,37 @@ public class ControlAdmInstituicao {
 	}
 	
 	 public boolean inserirInstituicao(ArrayList<String> valores) {// Se a Instituicao n existir no banco o método insere e retorna true//Se ela existir, não insere e retorna false
-		ControlAdmCidade ctrlCidade = new ControlAdmCidade();
-		
-		ArrayList<String> dadosCidade = new ArrayList<String> ();
-		dadosCidade.add(valores.get(3));
-		dadosCidade.add(valores.get(4));
-		
-
-		Instituicao auxInstituicao = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
-		this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(dadosCidade);
-		if(this.cidadeSelecionada.getId() != 0) {
-			InstituicaoDAO iDAO = new InstituicaoDAO();
-			if(this.consultarEndereco(auxInstituicao.getEndereco()).getId() == 0) {
-				iDAO.inserirInstituicao(auxInstituicao, this.cidadeSelecionada);
-				if(valores.size() == 5) {
-					if(valores.get(4) == "Disponivel") {
-						auxInstituicao.setValidacao(1);
-						iDAO.editarValidacao(this.instituicaoSelecionada);
+		if(valores.size() > 4) {
+		 	ControlAdmCidade ctrlCidade = new ControlAdmCidade();
+			
+			ArrayList<String> dadosCidade = new ArrayList<String> ();
+			dadosCidade.add(valores.get(3));
+			dadosCidade.add(valores.get(4));
+			
+	
+			Instituicao auxInstituicao = new Instituicao(valores.get(0), valores.get(1), valores.get(2));
+			this.cidadeSelecionada = ctrlCidade.consultarCidadeNomeUf(dadosCidade);
+			if(this.cidadeSelecionada.getId() != 0) {
+				InstituicaoDAO iDAO = new InstituicaoDAO();
+				if(this.consultarEndereco(auxInstituicao.getEndereco()).getId() == 0) {
+					iDAO.inserirInstituicao(auxInstituicao, this.cidadeSelecionada);
+					if(valores.size() == 5) {
+						if(valores.get(4) == "Disponivel") {
+							auxInstituicao.setValidacao(1);
+							iDAO.editarValidacao(this.instituicaoSelecionada);
+						}
 					}
+					return true;
+				}else {
+					return false;
 				}
-				return true;
 			}else {
 				return false;
 			}
-		}else {
-			return false;
 		}
-		
-		 
+		 else {
+			 return false;
+		 }
 	 }
 	 public boolean editarNome(String nome) {
 		 this.instituicaoSelecionada.setNome(nome);

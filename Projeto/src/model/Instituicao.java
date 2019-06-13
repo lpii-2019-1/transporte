@@ -7,13 +7,13 @@ public class Instituicao{
     private String endereco;
     private int validacao = 0;
 
-    public Instituicao(int id, String nome, String telefone, String endereco){;
+    public Instituicao(int id, String nome, String endereco, String telefone){;
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
     }
-    public Instituicao(int id, String nome, String telefone, String endereco, int validacao){;
+    public Instituicao(int id, String nome, String endereco, String telefone, int validacao){;
     this.id = id;
     this.nome = nome;
     this.telefone = telefone;
@@ -21,7 +21,7 @@ public class Instituicao{
     this.validacao = validacao;
 }
 
-    public Instituicao(String nome, String telefone, String endereco){;
+    public Instituicao(String nome, String endereco, String telefone){;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;

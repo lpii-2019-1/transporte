@@ -49,6 +49,7 @@ public class CtrlAdmViewPonto{
 						TelaPonto tela = new TelaPonto();
 						tela.setTelaConsulta(controler.listarPontos());
 						this.tela = tela.telaConsulta;
+						this.acesso2 = 5;
 						break;
 					default:
 						this.tela = new TelaArgInvalido().telaIni;
@@ -57,11 +58,16 @@ public class CtrlAdmViewPonto{
 				}
 				break;
 			case 1:
-				TelaPonto tela1 = new TelaPonto();
-				ArrayList<Ponto> p = new ArrayList<Ponto>();
-				p.add(controler.consultarEndereco(entrada));
-				tela1.setTelaConsulta(p);
-				this.tela =  tela1.telaConsulta;
+				if(arg != 0){
+					TelaPonto tela1 = new TelaPonto();
+					ArrayList<Ponto> p = new ArrayList<Ponto>();
+					p.add(controler.consultarEndereco(entrada));
+					tela1.setTelaConsulta(p);
+					this.tela =  tela1.telaConsulta;
+				}else{
+					this.tela = new TelaManter().telaIni;
+					this.acesso2 = 0;
+				}
 				break;
 			case 2:
 				if(arg != 0){
@@ -87,11 +93,11 @@ public class CtrlAdmViewPonto{
 								break;
 							case 1:
 								this.acesso3 = 1;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaPonto().entrada;
 								break;
 							case 2:
 								this.acesso3 = 2;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaPonto().entrada;
 								break;
 							default:
 								this.tela = new TelaArgInvalido().telaIni;
@@ -100,45 +106,93 @@ public class CtrlAdmViewPonto{
 						}
 						break;
 					case 1:
-						if(arg != 0){
-							if(controler.editarEndereco(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
-							}
-							else{
-								this.tela = new TelaFimOperacao().erro;	
-							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
+						switch(this.acesso4){
+							case 0:
+								if(arg != 0){
+									if(controler.consultarEndereco(entrada).getId() != 0){
+										this.tela = new TelaManter().telaEdicao;
+										this.acesso4 = 1;
+									}
+									else{
+										this.tela = new TelaFimOperacao().erro;	
+									}
+								}
+								else{
+									this.tela = new TelaManter().telaIni;
+									this.acesso4 = 0;
+									this.acesso3 = 0;
+									this.acesso2 = 0;
+								}
+								break;
+							case 1:
+								if(arg != 0){
+									if(controler.editarEndereco(entrada)){
+										this.tela = new TelaFimOperacao().sucesso;
+									}
+									else{
+										this.tela = new TelaFimOperacao().erro;	
+									}
+								}
+								else{
+									this.tela = new TelaManter().telaIni;
+									this.acesso4 = 0;
+									this.acesso3 = 0;
+									this.acesso2 = 0;
+								}
+								break;
 						}
 						break;
 					case 2:
-						if(arg != 0){
-							if(controler.editarValidacao(entrada)){
-								this.tela = new TelaFimOperacao().sucesso;
-							}
-							else{
-								this.tela = new TelaFimOperacao().erro;	
-							}
-						}
-						else{
-							this.tela = new TelaManter().telaIni;
-							this.acesso2 = 0;
-							this.acesso3 = 0;
+						switch(this.acesso4){
+							case 0:
+								if(arg != 0){
+									if(controler.consultarEndereco(entrada).getId() != 0){
+										this.tela = new TelaManter().telaEdicao;
+										this.acesso4 = 1;
+									}
+									else{
+										this.tela = new TelaFimOperacao().erro;	
+									}
+								}
+								else{
+									this.tela = new TelaManter().telaIni;
+									this.acesso4 = 0;
+									this.acesso3 = 0;
+									this.acesso2 = 0;
+								}
+								break;
+							case 1:
+								if(arg != 0){
+									if(controler.editarValidacao(entrada)){
+										this.tela = new TelaFimOperacao().sucesso;
+									}
+									else{
+										this.tela = new TelaFimOperacao().erro;	
+									}
+								}
+								else{
+									this.tela = new TelaManter().telaIni;
+									this.acesso4 = 0;
+									this.acesso3 = 0;
+									this.acesso2 = 0;
+								}
+								break;
 						}
 						break;
 				}
 				break;
 			case 4:
 				if(arg != 0){
-					if(controler.excluirPonto(controler.consultarEndereco(entrada).getId())){
-						this.tela = new TelaFimOperacao().sucesso;
+					if(controler.consultarEndereco(entrada).getId() != 0){
+						if(controler.excluirPonto()){
+							this.tela = new TelaFimOperacao().sucesso;
+						}
+						else{
+							this.tela = new TelaFimOperacao().erroExcluir;
+						}
 					}
 					else{
 						this.tela = new TelaFimOperacao().erroExcluir;
-						this.acesso2 = 0;
 					}
 				}
 				else if (arg == 0){

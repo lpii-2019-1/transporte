@@ -20,7 +20,7 @@ public class CidadeDAO {
 
 	public boolean inserirCidade(Cidade cidade){
         try {
-        	String sql = "INSERT INTO cidade (nome,  uf) VALUES (?, ?, ?)";
+        	String sql = "INSERT INTO cidade (nome,  uf) VALUES (?, ?)";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setString(1, cidade.getNome());
             this.stmt.setString(2, cidade.getUf());
@@ -188,7 +188,7 @@ public class CidadeDAO {
 				sql = "SELECT * FROM cidade WHERE validacao = 1";
     			break;
 			case 2:
-				sql = "SELECT * FROM cidade WHERE";
+				sql = "SELECT * FROM cidade";
 				break;
         	}
             this.stmt = this.conexao.prepareStatement(sql);
@@ -213,7 +213,7 @@ public class CidadeDAO {
 
 	public boolean excluirCidade(Cidade cidade){
         try {
-            String sql = "DELETE cidade WHERE id = ?";
+            String sql = "DELETE FROM cidade WHERE id = ?";
             this.stmt = this.conexao.prepareStatement(sql);
             this.stmt.setInt(1, cidade.getId());
             this.stmt.execute();

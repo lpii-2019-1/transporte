@@ -16,6 +16,9 @@ public class IndexUser {
 			if(!ctrU.exit) {
 				ctrU.entrada(input.nextLine());
 			}
+			if(ctrU.exit){
+				System.out.println(ctrU.tela);
+			}
 		}while(!ctrU.exit);
 	}
 }

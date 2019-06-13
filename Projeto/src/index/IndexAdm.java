@@ -16,6 +16,9 @@ public class IndexAdm {
 			if(!ctrA.exit) {
 				ctrA.entrada(input.nextLine());
 			}
+			if(ctrA.exit){
+				System.out.println(ctrA.tela);
+			}
 		}while(!ctrA.exit);
 	}
 }

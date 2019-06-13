@@ -12,8 +12,8 @@ public class Cidade{
     private int validacao = 0;
 
     public Cidade(String nome, String uf){
-        this.setNome(nome);
-        this.setUf(uf);
+        this.nome = nome;
+        this.uf = uf;
     }
     public Cidade(int id, String nome, String uf){
         this.setId(id);
