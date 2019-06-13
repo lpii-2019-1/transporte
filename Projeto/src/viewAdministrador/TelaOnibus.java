@@ -20,25 +20,37 @@ public class TelaOnibus{
 	public void setTelaConsulta(ArrayList<Onibus> onibuss){
 		if(onibuss.get(0).getId() != 0){
 			this.telaConsulta = "\nOnibus: ";
-			for (Onibus o : onibuss) {
+			for(Onibus o : onibuss) {
 				this.telaConsulta += "\n    Placa: " + o.getPlaca();
 				this.telaConsulta += "\n    Cor: " + o.getCor();
 				this.telaConsulta += "\n    Motorista: " + o.getMotorista();
 				this.telaConsulta += "\n    Telefone: " + o.getTelefone();
 				this.telaConsulta += "\n    Mensalidade: " + o.getMensalidade();
 				this.telaConsulta += "\n    Rotas: ";
-				for (Rota r : o.getRotas()) {
-					this.telaConsulta += "\n        Inicio: " + r.getInicio();
-					this.telaConsulta += "\n        Fim: " + r.getFim();
-					this.telaConsulta += "\n        Turnos: ";
-					for (Horario h : r.getHorarios()) {
-						this.telaConsulta += "\n            Turno: " + h.getTurno().getTurno();
-						this.telaConsulta += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-						this.telaConsulta += "\n            Haririo de regresso: " + h.getHrRegresso();
-						this.telaConsulta += "\n            Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+				if(o.getRotas().get(0).getId() != 0){
+					for(Rota r : o.getRotas()) {
+						this.telaConsulta += "\n        Inicio: " + r.getInicio();
+						this.telaConsulta += "\n        Fim: " + r.getFim();
+						this.telaConsulta += "\n        Turnos: ";
+						if(r.getHorarios().get(0).getId() != 0){
+							for (Horario h : r.getHorarios()) {
+								this.telaConsulta += "\n            Turno: " + h.getTurno().getTurno();
+								this.telaConsulta += "\n            Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+								this.telaConsulta += "\n            Haririo de regresso: " + h.getHrRegresso();
+								this.telaConsulta += "\n            Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+								this.telaConsulta += "\n";
+							}
+						}
+						else {
+							this.telaConsulta += "\n        Nao ha horarios!";
+							this.telaConsulta += "\n";
+						}	
+						this.telaConsulta += "\n        Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
 						this.telaConsulta += "\n";
 					}
-					this.telaConsulta += "\n        Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");
+				}
+				else {
+					this.telaConsulta += "\n        Nao ha rotas!";
 					this.telaConsulta += "\n";
 				}
 				this.telaConsulta += "\n    Disponibilidade: " + (o.getValidacao() == 1? "Disponivel": "Indisponivel");

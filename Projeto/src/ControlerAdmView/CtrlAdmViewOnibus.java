@@ -55,9 +55,8 @@ public class CtrlAdmViewOnibus{
 						this.acesso2 = 4;
 						break;
 					case 6:
-						ArrayList<Onibus> consulta = controler.listarTodosOnibus();
 						TelaOnibus tela = new TelaOnibus();
-						tela.setTelaConsulta(consulta);
+						tela.setTelaConsulta(controler.listarTodosOnibus());
 						this.tela = tela.telaConsulta;
 						this.acesso2 = 5;
 						break;
@@ -441,17 +440,14 @@ public class CtrlAdmViewOnibus{
 							case 4:
 								this.acesso3 = 6;
 								this.tela = new TelaRota().entrada;
-								this.tela = new TelaPontoRota().manterPonto;
 								break;
 							case 5:
 								this.acesso3 = 7;
 								this.tela = new TelaRota().entrada;
-								this.tela = new TelaInstituicao().manterInstituicao;
 								break;
 							case 6:
 								this.acesso3 = 8;
 								this.tela = new TelaRota().entrada;
-								this.tela = new TelaManter().telaIni;
 								break;
 							case 7:
 								this.acesso3 = 4;

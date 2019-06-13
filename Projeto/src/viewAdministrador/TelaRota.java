@@ -16,6 +16,7 @@ public class TelaRota{
 	public String entrada = "\nDigite o identificador da rota: ";
 	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
+	
 	public void setTelaConsulta(ArrayList<Rota> rotas){
 		if(rotas.get(0).getId() != 0){
 			this.telaConsulta = "\nRotas:";
@@ -23,26 +24,44 @@ public class TelaRota{
 				this.telaConsulta += "\n    Inicio:" + r.getInicio();
 				this.telaConsulta += "\n    Fim:" + r.getFim();
 				this.telaConsulta += "\n    Instituicoes:";
-				for(Instituicao i : r.getInstituicoes()){
-					this.telaConsulta += "\n        Nome:" + i.getNome();
-					this.telaConsulta += "\n        Endereco: " + i.getEndereco();
-					this.telaConsulta += "\n        Telefone: " + i.getTelefone();
-					this.telaConsulta += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+				if(r.getInstituicoes().get(0).getId() != 0) {
+					for(Instituicao i : r.getInstituicoes()){
+						this.telaConsulta += "\n        Nome:" + i.getNome();
+						this.telaConsulta += "\n        Endereco: " + i.getEndereco();
+						this.telaConsulta += "\n        Telefone: " + i.getTelefone();
+						this.telaConsulta += "\n        Disponibilidade: " + (i.getValidacao() == 1? "Disponivel": "Indisponivel");
+						this.telaConsulta += "\n";
+					}
+				}
+				else {
+					this.telaConsulta += "\n        Nao ha instituicoes!";
 					this.telaConsulta += "\n";
 				}
 				this.telaConsulta += "\n    Pontos:";
-				for(Ponto p : r.getPontos()){
-					this.telaConsulta += "\n        Ordem:" + p.getOrdem(); 
-					this.telaConsulta += "\n        Endereco:" + p.getEndereco();
-					this.telaConsulta += "\n        Disponibilidade: " + (p.getValidacao() == 1? "Disponivel": "Indisponivel");
+				if(r.getPontos().get(0).getId() != 0) {
+					for(Ponto p : r.getPontos()){
+						this.telaConsulta += "\n        Ordem:" + p.getOrdem(); 
+						this.telaConsulta += "\n        Endereco:" + p.getEndereco();
+						this.telaConsulta += "\n        Disponibilidade: " + (p.getValidacao() == 1? "Disponivel": "Indisponivel");
+						this.telaConsulta += "\n";
+					}
+				}
+				else {
+					this.telaConsulta += "\n        Nao ha pontos!";
 					this.telaConsulta += "\n";
 				}
 				this.telaConsulta += "\n    Horarios:";
-				for(Horario h : r.getHorarios()){
-					this.telaConsulta += "\n        Turno: " + h.getTurno().getTurno();
-					this.telaConsulta += "\n        Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
-					this.telaConsulta += "\n        Haririo de regresso: " + h.getHrRegresso();
-					this.telaConsulta += "\n        Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+				if(r.getHorarios().get(0).getId() != 0) {
+					for(Horario h : r.getHorarios()){
+						this.telaConsulta += "\n        Turno: " + h.getTurno().getTurno();
+						this.telaConsulta += "\n        Haririo de partida: " + h.getHrSaidaPrimeiroPonto();
+						this.telaConsulta += "\n        Haririo de regresso: " + h.getHrRegresso();
+						this.telaConsulta += "\n        Disponibilidade: " + (h.getValidacao() == 1? "Disponivel": "Indisponivel");
+						this.telaConsulta += "\n";
+					}
+				}
+				else {
+					this.telaConsulta += "\n        Nao ha horarios!";
 					this.telaConsulta += "\n";
 				}
 				this.telaConsulta += "\n    Disponibilidade: " + (r.getValidacao() == 1? "Disponivel": "Indisponivel");

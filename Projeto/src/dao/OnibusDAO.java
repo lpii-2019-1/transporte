@@ -199,10 +199,13 @@ public class OnibusDAO {
 	        boolean aux = true;
 	        ArrayList<Onibus> onibuss = new ArrayList<Onibus>();
 	        Onibus onibus = new Onibus();
+	        RotaDAO rDAO = new RotaDAO();
+	        ArrayList<Rota> rotas = new ArrayList<Rota>();
 	        while(rs.next()) {
 	        	aux = false;
-	        	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("Motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
-	        	onibuss.add(onibus);
+	        	rotas = rDAO.consultarIdOnibus(rs.getInt("id"), comparador);
+            	onibus = new Onibus(rs.getInt("id"),  rs.getString("placa"), rs.getString("cor"), rs.getString("motorista"), rs.getDouble("mensalidade"), rs.getString("telefone"), rs.getInt("validacao"));
+            	onibus.setRotas(rotas);
 	        }
 	        if(aux) {
 	        	onibuss.add(onibus);

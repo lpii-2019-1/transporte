@@ -284,15 +284,9 @@ public class RotaDAO {
             ArrayList<Rota> rotas = new ArrayList<Rota>();
             Rota rota = new Rota();
             RotaDAO rDAO = new RotaDAO();
-            InstituicaoDAO iDAO = new InstituicaoDAO();
-            PontoDAO pDAO = new PontoDAO();
-            HorarioDAO hDAO = new HorarioDAO();
             while(rs.next()) {
             	aux = false;
             	rota = rDAO.consultarId(rs.getInt("id"), comparador);
-            	rota.setInstituicoes(iDAO.consultarIdRota(rota ,comparador));
-                rota.setPontos(pDAO.consultarIdRota(rota ,comparador));
-                rota.setHorarios(hDAO.consultarIdRota(rota, comparador));
             	rotas.add(rota);
             }
             if(aux) {
