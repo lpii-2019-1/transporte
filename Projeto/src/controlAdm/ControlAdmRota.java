@@ -191,13 +191,14 @@ public class ControlAdmRota {
 	}
 	/*--------------------------------------------------------------------------------------------------*/
 	@SuppressWarnings("unused")  // Não sei o motivo dessa linha, mas comenta ea aí pra ver o que acontece com os contadores dos FORs
+	
 	public boolean editarValidacao(String validacao) {
 		RotaDAO rDAO = new RotaDAO();
 		boolean test1 = false, test2 = false, test3 = false;
 		int validade = 0;
-		if( validacao == "Disponivel"){
+		if(validacao.equalsIgnoreCase("Disponivel")){
 			validade = 1;
-		}else {
+		}else if(validacao.equalsIgnoreCase("Indisponivel")){
 			validade = 0;
 		}
 		if(validade == 1) {

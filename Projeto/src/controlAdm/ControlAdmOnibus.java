@@ -156,10 +156,10 @@ public class ControlAdmOnibus {
 		OnibusDAO oDAO = new OnibusDAO();
 		int validade = 0;
 		boolean test = false;
-		if(validacao == "Disponivel") {
+		if(validacao.equalsIgnoreCase("Disponivel")){
 			validade = 1;
-		}else {
-			validade  = 0;
+		}else if(validacao.equalsIgnoreCase("Indisponivel")){
+			validade = 0;
 		}
 		if(validade == 1) {
 			for(int i = 0; i < this.onibusSelecionado.getRotas().size(); i++) {
