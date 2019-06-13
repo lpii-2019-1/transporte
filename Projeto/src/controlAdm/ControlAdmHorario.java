@@ -32,7 +32,6 @@ public class ControlAdmHorario {
 			
 			SimpleDateFormat sdf =  new SimpleDateFormat("HH:mm");
 			
-			
 			if(this.horarioSelecionado.getHrRegressoDate().getTime() < sdf.parse("12:00").getTime()) {
 				turno = 1;
 			}else if(this.horarioSelecionado.getHrRegressoDate().getTime() < sdf.parse("18:00").getTime()){
@@ -44,11 +43,22 @@ public class ControlAdmHorario {
 			hDAO.inserirHorario(id_rota, this.horarioSelecionado, turno);
 		}catch(Exception e) {
             throw new RuntimeException(e);
-
+            	
 		}
 		
 	}
 	
+	public void editarHrRegresso(String horario) {
+		HorarioDAO hDAO = new HorarioDAO();
+		
+		this.horarioSelecionado.setHrRegresso(horario);
+		hDAO.editarHrRegresso(this.horarioSelecionado);
+	}
+	public void editarHrSaidaPrimeiroPont(String horario) {
+		HorarioDAO hDAO = new HorarioDAO();
+		this.horarioSelecionado.setHrSaidaPrimeiroPonto(horario);
+		hDAO.editarHrSaidaPrimeiroPonto(this.horarioSelecionado);
+	}
 	
 	public Horario getHorarioSelecionado() {
 		return horarioSelecionado;
