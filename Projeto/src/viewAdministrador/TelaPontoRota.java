@@ -26,7 +26,7 @@ public class TelaPontoRota{
 			this.telaConsulta += "\nDigite 0 para voltar: ";
 		}
 		else{
-			this.telaConsulta = "\nNao foi encontrado nenhum pontos! " + new TelaFimOperacao().telaIniAdm;
+			this.telaConsulta = "\nNao foi encontrado nenhuma pontos! " + new TelaFimOperacao().telaIniAdm;
 		}
 	}
 }

@@ -61,7 +61,7 @@ public class ControlerAdministradorView{
 						break;
 					case 3:
 						//Vai para tela Manter Onibus
-						this.tela = new TelaManter().telaIni;
+						this.tela = new TelaOnibus().manterOnibus;
 						this.acesso1 = 3;
 						break;
 					case 4:

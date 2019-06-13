@@ -185,7 +185,9 @@ public class RotaDAO {
 			case 1:
 				sql = "SELECT * FROM rota WHERE id_onibus = ? AND identificador = ? AND validacao = 1";
     			break;
-			
+			case 2:
+				sql = "SELECT * FROM rota WHERE id_onibus = ? AND identificador = ?";
+    			break;
         	}
 			this.stmt = this.conexao.prepareStatement(sql);
 			this.stmt.setInt(1, onibus.getId());

@@ -30,7 +30,6 @@ public class CtrlAdmViewOnibus{
 		switch(this.acesso2){
 			case 0:
 				switch(arg){
-					
 					case 0:
 						this.acesso2 = 0;
 						this.tela = new TelaInicial().telaIni;
@@ -136,7 +135,8 @@ public class CtrlAdmViewOnibus{
 						break;
 					case 6:
 						this.tela = new TelaOnibus().manterOnibus;
-						this.acesso3 = 6;
+						this.acesso3 = 0;
+						this.acesso2 = 0;
 						break;
 				}
 				break;
@@ -149,7 +149,6 @@ public class CtrlAdmViewOnibus{
 					}
 					else{
 						this.tela = new TelaFimOperacao().erro;
-						this.acesso2 = 0;
 					}
 				}
 				else if (arg == 0){
@@ -166,27 +165,28 @@ public class CtrlAdmViewOnibus{
 								break;
 							case 1:
 								this.acesso3 = 1;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaOnibus().entrada;
 								break;
 							case 2:
 								this.acesso3 = 2;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaOnibus().entrada;
 								break;
 							case 3:
 								this.acesso3 = 3;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaOnibus().entrada;
 								break;
 							case 4:
 								this.acesso3 = 4;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaOnibus().entrada;
 								break;
 							case 5:
 								this.acesso3 = 5;
-								this.tela = new TelaManter().telaEdicao;
+								this.tela = new TelaOnibus().entrada;
 								break;
 							default:
-								this.tela = new TelaArgInvalido().telaIni;
+								this.tela = new TelaArgInvalido().telaIniAdm;
 								this.acesso2 = 0;
+								this.acesso3 = 0;
 								break;
 						}
 						break;
@@ -388,7 +388,7 @@ public class CtrlAdmViewOnibus{
 									}
 								}
 								else{
-									this.tela = new TelaManter().telaIni;
+									this.tela = new TelaOnibus().manterOnibus;
 									this.acesso2 = 0;
 									this.acesso3 = 0;
 								}
@@ -1277,7 +1277,6 @@ public class CtrlAdmViewOnibus{
 								}
 								break;
 							case 2:							
-
 								if(arg != 0){
 									String regex = "(( , )|( ,)|(, )|(,))";
 									ArrayList<String> entradas = new ArrayList<String>(Arrays.asList(entrada.split(regex)));
@@ -1285,7 +1284,7 @@ public class CtrlAdmViewOnibus{
 										this.tela = new TelaFimOperacao().sucesso;
 									}
 									else{
-										this.tela = new TelaFimOperacao().sucesso;
+										this.tela = new TelaFimOperacao().erro;
 									}
 								}
 								else{
@@ -1322,10 +1321,10 @@ public class CtrlAdmViewOnibus{
 										}
 										break;
 									case 1:
-										switch(this.acesso5){
+										switch(this.acesso6){
 											case 0:
 												this.tela = new TelaManter().telaEdicao;
-												this.acesso5 = 1;
+												this.acesso6 = 1;
 												break;
 											case 1:
 												if(arg != 0){
@@ -1338,6 +1337,7 @@ public class CtrlAdmViewOnibus{
 												}
 												else{
 													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso6 = 0;
 													this.acesso5 = 0;
 													this.acesso4 = 0;
 													this.acesso3 = 0;
@@ -1347,10 +1347,10 @@ public class CtrlAdmViewOnibus{
 										}
 										break;
 									case 2:
-										switch(this.acesso5){
+										switch(this.acesso6){
 											case 0:
 												this.tela = new TelaManter().telaEdicao;
-												this.acesso5 = 1;
+												this.acesso6 = 1;
 												break;
 											case 1:
 												if(arg != 0){
@@ -1363,6 +1363,7 @@ public class CtrlAdmViewOnibus{
 												}
 												else{
 													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso6 = 0;
 													this.acesso5 = 0;
 													this.acesso4 = 0;
 													this.acesso3 = 0;
@@ -1372,10 +1373,10 @@ public class CtrlAdmViewOnibus{
 										}
 										break;
 									case 3:
-										switch(this.acesso5){
+										switch(this.acesso6){
 											case 0:
 												this.tela = new TelaManter().telaEdicao;
-												this.acesso5 = 1;
+												this.acesso6 = 1;
 												break;
 											case 1:
 												if(arg != 0){
@@ -1388,6 +1389,7 @@ public class CtrlAdmViewOnibus{
 												}
 												else{
 													this.tela = new TelaOnibus().manterOnibus;
+													this.acesso6 = 0;
 													this.acesso5 = 0;
 													this.acesso4 = 0;
 													this.acesso3 = 0;
@@ -1430,7 +1432,6 @@ public class CtrlAdmViewOnibus{
 								}
 								else if (arg == 0){
 									this.tela = new TelaOnibus().manterOnibus;
-									this.acesso5 = 0;
 									this.acesso4 = 0;
 									this.acesso3 = 0;
 									this.acesso2 = 0;

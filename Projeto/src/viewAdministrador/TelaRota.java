@@ -51,7 +51,7 @@ public class TelaRota{
 			this.telaConsulta += "\nDigite 0 para voltar: ";
 		}
 		else {
-			this.telaConsulta = "\nNao foi encontrada nenhuma cidade! " + new TelaFimOperacao().telaIniAdm;
+			this.telaConsulta = "\nNao foi encontrada nenhuma rota! " + new TelaFimOperacao().telaIniAdm;
 		}
 	}
 }
