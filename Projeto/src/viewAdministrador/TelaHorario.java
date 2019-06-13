@@ -7,7 +7,7 @@ import view.TelaFimOperacao;
 public class TelaHorario{
 	public String opcEdicao = "\nOpcoes: \n\nOpcoes: \n\n1 - Turno \n2 - Horario de Saida \n3 - Horario de Regresso \n4 - Validacao \n0 - Sair";
 	public String opcConsulta = "\nOpcoes: \n\n1 - Horario de Saida \n2 - Horario de Regresso \n3 - Turno \n0 - Sair";
-	public String cadastro = "\nDigite o valores do Horario (Ex.: 14:00, 17:00, Matutino, Disponivel): ";
+	public String cadastro = "\nDigite o valores do Horario (Ex.: 14:00, 17:00): ";
 	public String entrada = "\nDigite o numero da rota (Ex.: 2, Matutino): ";
 	public String consulta = "\nDigite o valor da consulta: ";
 	public String telaConsulta;
